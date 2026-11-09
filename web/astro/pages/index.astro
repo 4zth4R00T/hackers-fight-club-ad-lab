@@ -1,0 +1,143 @@
+---
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import { MARCA_NOMBRE } from '../../src/marca.js';
+import { config } from '../../src/config.js';
+import { textos } from '../../src/i18n.js';
+import { leerBase, leerCatalogo, leerDias } from '../../src/datos.js';
+
+const usuario = Astro.locals.usuario ?? null;
+const idioma = Astro.locals.idioma ?? config.idioma;
+const t = textos(idioma);
+const [db, retos, diasCurso] = await Promise.all([leerBase(), leerCatalogo(idioma), leerDias(idioma)]);
+
+const obligatorios = retos.filter((r) => !r.opcional);
+const maxPuntos = retos.reduce((s, r) => s + r.puntos, 0);
+const dias = diasCurso.length ? diasCurso.map((d) => d.dia) : [1, 2, 3, 4, 5, 6, 7];
+const totalPorDia = new Map<number, number>();
+for (const r of obligatorios) totalPorDia.set(r.dia, (totalPorDia.get(r.dia) ?? 0) + 1);
+
+const fichas = Object.values(db.Alumnos)
+  .sort((a, b) => (Number(b.Puntos) - Number(a.Puntos)) || String(a.Sam).localeCompare(String(b.Sam)))
+  .map((f, i) => {
+    const resueltos = new Set(Object.keys(f.Resueltos ?? {}));
+    return {
+      ...f,
+      pos: i + 1,
+      copias: (f.Copias ?? []).length,
+      pct: Math.min(100, Math.round((Number(f.Puntos) / Math.max(1, maxPuntos)) * 100)),
+      porDia: dias.map((d) => {
+        const tot = totalPorDia.get(d) ?? 0;
+        const ok = obligatorios.filter((r) => r.dia === d && resueltos.has(r.id)).length;
+        return { d, ok, tot };
+      }),
+    };
+  });
+
+const eventos = (db.Eventos ?? []).slice(0, 20).map((e) => {
+  let hora = '';
+  try { hora = new Date(e.Momento).toTimeString().slice(0, 5); } catch { hora = ''; }
+  return { ...e, hora, alerta: e.Tipo === 'COPIA' || e.Tipo === 'ALERTA' };
+});
+
+let actualizado = '...';
+try { if (db.Actualizado) actualizado = new Date(db.Actualizado).toLocaleString(t.locale); } catch { actualizado = '...'; }
+---
+<Base titulo={t.tabla.titulo} activo="tabla" refrescoSeg={30}>
+
+  <header class="mb-12 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10">
+    <Logo tam={148} />
+    <div class="min-w-0">
+      <p class="ceja">{config.laboratorio !== MARCA_NOMBRE ? config.laboratorio : t.marca.lema}<span class="cursor"></span></p>
+      <p class="marca-texto text-3xl sm:text-4xl xl:text-5xl mt-4 leading-[1.15]">{MARCA_NOMBRE}</p>
+      <h1 class="font-mono uppercase text-tenue text-xs mt-5" style="letter-spacing:0.28em">{t.tabla.titulo}</h1>
+      <p class="text-mudo text-xs mt-2">{t.tabla.sub(config.organizacion, config.dominio, actualizado)}</p>
+      <p class="text-xs mt-3 flex flex-wrap gap-x-5 gap-y-1">
+        <a href="/retos" class="enlace">{t.tabla.enlaceRetos(retos.length)}</a>
+        {usuario?.esInstructor && (
+          <>
+            <a href="/monitor" class="enlace">{t.tabla.monitor}</a>
+            <a href="/asistencia" class="enlace">{t.tabla.lista}</a>
+          </>
+        )}
+      </p>
+    </div>
+  </header>
+
+  <div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
+    <div class="min-w-0 space-y-6">
+      <section class="panel p-4 sm:p-6">
+        <h2 class="titulo-panel mb-5"><span class="nfo">[ 0x01 ]</span>{t.tabla.participantes(fichas.length)}</h2>
+        <div class="tabla-scroll">
+          <table class="w-full text-dato min-w-[680px]">
+            <thead>
+              <tr class="text-mudo text-[0.6875rem] uppercase tracking-[0.16em] border-b border-borde/30">
+                <th class="px-2 pb-3 text-left font-normal">#</th>
+                <th class="px-2 pb-3 text-left font-normal">{t.tabla.colAlumno}</th>
+                <th class="px-2 pb-3 text-left font-normal">{t.tabla.colPuntos}</th>
+                <th class="px-2 pb-3 text-center font-normal">{t.tabla.colRetos}</th>
+                {dias.map((d) => <th class="px-1.5 pb-3 text-center font-normal">{t.tabla.colDia(d)}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {fichas.length === 0 && (
+                <tr><td colspan={4 + dias.length} class="py-10 text-center text-mudo italic">{t.tabla.vacio}</td></tr>
+              )}
+              {fichas.map((f) => (
+                <tr class:list={['border-b border-borde/15', usuario && usuario.sam === f.Sam ? 'bg-realce/60' : '']}>
+                  <td class:list={['px-2 py-3 tabular-nums text-xs',
+                    f.pos === 1 ? 'text-neon' : f.pos === 2 ? 'text-tinta' : f.pos === 3 ? 'text-cian' : 'text-mudo']}>{String(f.pos).padStart(2, '0')}</td>
+                  <td class="px-2 py-3">
+                    <div class="text-tinta font-normal">{f.Sam}</div>
+                    <div class="text-mudo text-xs hidden sm:block">{f.Nombre}</div>
+                    {f.copias > 0 && <span class="etiqueta bg-rosa/15 text-rosa mt-1">{t.tabla.copias(f.copias)}</span>}
+                  </td>
+                  <td class="px-2 py-3 whitespace-nowrap">
+                    <span class="text-neon text-base">{f.Puntos}</span><span class="text-mudo text-xs"> / {maxPuntos}</span>
+                    <div class="h-px bg-borde/40 mt-2 w-24 overflow-hidden">
+                      <div class="h-full bg-neon" style={`width:${f.pct}%`}></div>
+                    </div>
+                  </td>
+                  <td class="px-2 py-3 text-center text-tenue tabular-nums">{f.Resueltas ?? 0}</td>
+                  {f.porDia.map((c) => (
+                    <td class="px-1.5 py-2">
+                      {c.tot === 0 ? null : (
+                        <div class:list={['rounded-sm text-center text-[0.6875rem] py-1 border',
+                          c.ok === c.tot ? 'bg-neon/90 text-noche border-neon font-medium'
+                          : c.ok > 0 ? 'bg-realce text-tinta border-borde/50' : 'bg-hondo/70 text-mudo border-borde/20']}
+                          title={t.tabla.celda(c.d, c.ok, c.tot)}>{c.ok}/{c.tot}</div>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <aside class="min-w-0 space-y-6">
+      <section class="panel p-5 sm:p-6">
+        <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x02 ]</span>{t.tabla.actividad}</h2>
+        <ul class="max-h-[30rem] overflow-y-auto pr-1">
+          {eventos.length === 0 && <li class="py-2 text-mudo italic text-dato">{t.tabla.sinActividad}</li>}
+          {eventos.map((e) => (
+            <li class:list={['py-2 border-b border-borde/15 last:border-0 text-dato leading-relaxed', e.alerta ? 'text-rosa' : 'text-tenue']}>
+              <span class="text-mudo mr-2 tabular-nums">{e.hora}</span>
+              <b>{e.Alumno}</b> {e.Texto}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="panel p-5 sm:p-6">
+        <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x03 ]</span>{t.puntuacion.titulo}</h2>
+        <ul class="text-dato text-tenue leading-relaxed space-y-3">
+          {t.puntuacion.items.map((i) => <li class="vineta">{i}</li>)}
+          <li class="vineta vineta-rosa text-rosa">{t.puntuacion.castigo}</li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+</Base>

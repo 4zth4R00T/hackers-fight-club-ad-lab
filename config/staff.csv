@@ -1,0 +1,15 @@
+nombre,apellidos,departamento,puesto,title,должность
+Elena,Robles Quintero,1,Directora General,Chief Executive Officer,Генеральный директор
+Martin,Sauceda Vera,1,Director de Operaciones,Chief Operating Officer,Операционный директор
+Ivan,Quiroga Leal,2,Administrador de Sistemas,Systems Administrator,Системный администратор
+Nadia,Ferrer Ochoa,2,Ingeniera de Redes,Network Engineer,Сетевой инженер
+Omar,Villasenor Paz,2,Analista de Seguridad,Security Analyst,Аналитик по безопасности
+Paula,Ibarra Solis,3,Gerente de Ventas,Sales Manager,Руководитель отдела продаж
+Tomas,Lugo Arce,3,Ejecutivo de Cuenta,Account Executive,Менеджер по работе с клиентами
+Rocio,Mejia Duarte,4,Gerente de Recursos Humanos,Human Resources Manager,Руководитель отдела кадров
+Hugo,Cardenas Rivas,4,Reclutador,Recruiter,Рекрутер
+Lorena,Acosta Belmonte,5,Contadora General,Chief Accountant,Главный бухгалтер
+Bruno,Esparza Nieto,5,Auxiliar Contable,Accounting Clerk,Бухгалтер
+Iris,Montoya Salgado,6,Lider de Mesa de Ayuda,Help Desk Lead,Руководитель службы поддержки
+Felix,Ordaz Ponce,6,Tecnico de Soporte,Support Technician,Специалист поддержки
+Alma,Trevino Cuellar,6,Tecnica de Soporte,Support Technician,Специалист поддержки

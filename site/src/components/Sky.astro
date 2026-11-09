@@ -1,0 +1,141 @@
+---
+interface Props { labels?: string[] }
+const { labels = [] } = Astro.props;
+---
+<canvas class="net" data-net data-labels={JSON.stringify(labels)} aria-hidden="true"></canvas>
+
+<script>
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-net]');
+  const ctx = canvas?.getContext('2d');
+  if (canvas && ctx) {
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const labels: string[] = JSON.parse(canvas.dataset.labels || '[]');
+    const GAP = 150;
+    type N = { bx: number; by: number; x: number; y: number; ax: number; ay: number; sp: number; ph: number; label: string; ping: number };
+    type Pulse = { a: number; b: number; start: number; dur: number };
+    let w = 0, h = 0, dpr = 1, vw = 0, vh = 0, nodes: N[] = [], edges: [number, number][] = [], pulses: Pulse[] = [];
+    let raf = 0, last = 0, next = 600, running = false, sy = 0, sTarget = 0;
+
+    const build = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      vw = window.innerWidth; vh = window.innerHeight;
+      w = canvas.width = Math.round(vw * dpr);
+      h = canvas.height = Math.round(vh * dpr);
+      const target = Math.round((vw * vh) / (vw < 700 ? 52000 : 42000));
+      const gap = (vw < 700 ? 110 : GAP) * dpr;
+      nodes = [];
+      for (let tries = 0; nodes.length < target && tries < target * 40; tries++) {
+        const x = (24 + Math.random() * (vw - 48)) * dpr, y = (24 + Math.random() * (vh - 48)) * dpr;
+        if (nodes.every((m) => Math.hypot(m.bx - x, m.by - y) >= gap)) {
+          nodes.push({ bx: x, by: y, x, y, ax: (4 + Math.random() * 7) * dpr, ay: (4 + Math.random() * 7) * dpr, sp: 0.00025 + Math.random() * 0.00035, ph: Math.random() * Math.PI * 2, label: '', ping: 0 });
+        }
+      }
+      const side = (n: N) => n.bx < vw * 0.13 * dpr || n.bx > vw * 0.87 * dpr;
+      const pick = nodes.filter(side).sort(() => Math.random() - 0.5);
+      if (vw >= 700) labels.forEach((l, i) => { if (pick[i]) pick[i].label = l; });
+      const seen = new Set<string>();
+      edges = [];
+      nodes.forEach((n, i) => {
+        nodes
+          .map((m, j) => ({ j, d: Math.hypot(m.bx - n.bx, m.by - n.by) }))
+          .filter((o) => o.j !== i && o.d <= gap * 2.1)
+          .sort((a, b) => a.d - b.d)
+          .slice(0, 2)
+          .forEach((o) => {
+            const key = i < o.j ? `${i}:${o.j}` : `${o.j}:${i}`;
+            if (!seen.has(key)) { seen.add(key); edges.push([i, o.j]); }
+          });
+      });
+      pulses = [];
+    };
+
+    const place = (t: number) => {
+      const drift = sy * 0.06 * dpr;
+      for (const n of nodes) {
+        n.x = n.bx + Math.sin(t * n.sp + n.ph) * n.ax;
+        let y = n.by + Math.cos(t * n.sp * 0.8 + n.ph) * n.ay - drift;
+        y = ((y % h) + h) % h;
+        n.y = y;
+      }
+    };
+
+    const draw = (t: number) => {
+      ctx.clearRect(0, 0, w, h);
+      place(t);
+      ctx.lineWidth = 1 * dpr;
+      ctx.strokeStyle = 'rgba(71,131,107,0.26)';
+      ctx.beginPath();
+      for (const [a, b] of edges) {
+        const A = nodes[a], B = nodes[b];
+        if (Math.abs(A.y - B.y) > h * 0.5) continue;
+        ctx.moveTo(A.x, A.y); ctx.lineTo(B.x, B.y);
+      }
+      ctx.stroke();
+      ctx.font = `500 ${10 * dpr}px "IBM Plex Mono", monospace`;
+      ctx.textBaseline = 'middle';
+      for (const n of nodes) {
+        ctx.fillStyle = n.label ? 'rgba(138,167,158,0.75)' : 'rgba(71,131,107,0.7)';
+        const s = (n.label ? 4 : 3) * dpr;
+        ctx.fillRect(n.x - s / 2, n.y - s / 2, s, s);
+        if (n.label) {
+          ctx.fillStyle = 'rgba(122,154,144,0.45)';
+          ctx.fillText(n.label, n.x + 8 * dpr, n.y - 8 * dpr);
+        }
+      }
+      if (!still && t > next && edges.length && pulses.length < 6) {
+        const [a, b] = edges[Math.floor(Math.random() * edges.length)];
+        const fwd = Math.random() < 0.5;
+        pulses.push({ a: fwd ? a : b, b: fwd ? b : a, start: t, dur: 1100 + Math.random() * 600 });
+        next = t + 450 + Math.random() * 900;
+      }
+      pulses = pulses.filter((p) => {
+        const k = (t - p.start) / p.dur;
+        if (k >= 1) { nodes[p.b].ping = 1; return false; }
+        const A = nodes[p.a], B = nodes[p.b];
+        if (Math.abs(A.y - B.y) > h * 0.5) return false;
+        const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        const x = A.x + (B.x - A.x) * e, y = A.y + (B.y - A.y) * e;
+        const e0 = Math.max(0, e - 0.3);
+        const x0 = A.x + (B.x - A.x) * e0, y0 = A.y + (B.y - A.y) * e0;
+        const g = ctx.createLinearGradient(x0, y0, x, y);
+        g.addColorStop(0, 'rgba(63,181,115,0)');
+        g.addColorStop(1, 'rgba(63,181,115,0.6)');
+        ctx.strokeStyle = g; ctx.lineWidth = 1.5 * dpr;
+        ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x, y); ctx.stroke();
+        ctx.fillStyle = 'rgba(201,214,210,0.75)';
+        ctx.fillRect(x - 1.5 * dpr, y - 1.5 * dpr, 3 * dpr, 3 * dpr);
+        return true;
+      });
+      for (const n of nodes) {
+        if (n.ping <= 0.02) continue;
+        const r = (4 + (1 - n.ping) * 18) * dpr;
+        ctx.strokeStyle = `rgba(63,181,115,${(n.ping * 0.4).toFixed(3)})`;
+        ctx.lineWidth = 1 * dpr;
+        ctx.strokeRect(n.x - r, n.y - r, r * 2, r * 2);
+        ctx.fillStyle = `rgba(63,181,115,${(0.3 + n.ping * 0.45).toFixed(3)})`;
+        ctx.fillRect(n.x - 2.5 * dpr, n.y - 2.5 * dpr, 5 * dpr, 5 * dpr);
+        n.ping *= 0.93;
+      }
+    };
+
+    const loop = (t: number) => {
+      raf = requestAnimationFrame(loop);
+      if (t - last < 33) return;
+      last = t;
+      sy += (sTarget - sy) * 0.12;
+      draw(t);
+    };
+    const start = () => { if (running || still) return; running = true; raf = requestAnimationFrame(loop); };
+    const stop = () => { running = false; cancelAnimationFrame(raf); };
+
+    build();
+    sTarget = sy = window.scrollY;
+    draw(performance.now());
+    requestAnimationFrame(() => canvas.classList.add('is-on'));
+    let rt = 0;
+    window.addEventListener('resize', () => { clearTimeout(rt); rt = window.setTimeout(() => { build(); draw(performance.now()); }, 160); });
+    window.addEventListener('scroll', () => { sTarget = window.scrollY; }, { passive: true });
+    document.addEventListener('visibilitychange', () => { document.hidden ? stop() : start(); });
+    start();
+  }
+</script>

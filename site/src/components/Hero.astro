@@ -1,0 +1,40 @@
+---
+import { REPO } from '../copy';
+import type { Ui } from '../ui';
+interface Props { u: Ui; base: string; lede: string }
+const { u, base, lede } = Astro.props;
+const hud = [
+  { k: u.hud.target, v: 'DC01' },
+  { k: u.hud.domain, v: 'fightclub.lab' },
+  { k: u.hud.platform, v: 'Windows Server 2025' },
+  { k: u.hud.course, v: u.hud.courseValue },
+];
+---
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero-inner">
+    <div class="hero-mark" aria-hidden="true">
+      <div class="hero-logo px">
+        <img src={`${base}img/hfc-logo.png`} alt="" width="200" height="200" />
+      </div>
+    </div>
+    <div class="status" style="--h:0">
+      <span class="live">{u.hud.live}</span>
+      <span>{u.hud.build}</span>
+      <span>{u.hud.cutoff}</span>
+    </div>
+    <h1 id="hero-title" class="wordmark" style="--h:1">
+      <span data-text={u.hero.title1}>{u.hero.title1}</span> <span data-text={u.hero.title2}>{u.hero.title2}</span>
+    </h1>
+    <p class="hero-sub" style="--h:2">{u.eyebrow.hero}</p>
+    <p class="tagline" style="--h:3">{u.hero.tagline}</p>
+    <p class="lede" style="--h:4">{lede}</p>
+    <div class="actions" style="--h:5">
+      <a class="btn btn-primary" href="#build">{u.hero.start}</a>
+      <a class="btn btn-ghost" href={REPO} rel="noopener">{u.hero.code}</a>
+    </div>
+    <dl class="hud px" style="--h:6">
+      {hud.map((x) => <div><dt>{x.k}</dt><dd>{x.v}</dd></div>)}
+    </dl>
+  </div>
+  <a class="scroll-cue" href="#why">{u.hero.scroll}</a>
+</section>

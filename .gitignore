@@ -1,0 +1,16 @@
+*.iso
+*.credentials.txt
+config/alumnos.csv
+config/students.csv
+config/admins.csv
+config/administrators.csv
+data/
+logs/
+node_modules/
+web/dist/
+web/dist-astro/
+web/.astro/
+web/certs/
+*.pfx
+*.key
+*.pem

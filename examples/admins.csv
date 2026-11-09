@@ -1,0 +1,4 @@
+nombre,apellidos,usuario,correo,contrasena,rol
+Instructora,Ejemplo,adm.instructora,,,instructor
+Soporte,Ejemplo,adm.soporte,,,instructor
+Dominio,Ejemplo,adm.dominio,,,admin

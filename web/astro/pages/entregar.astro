@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import { config, expandir } from '../../src/config.js';
+import { textos } from '../../src/i18n.js';
+import { leerProgreso } from '../../src/datos.js';
+
+const usuario = Astro.locals.usuario;
+if (!usuario) return Astro.redirect('/entrar');
+const idioma = Astro.locals.idioma ?? config.idioma;
+const t = textos(idioma);
+const csrf = Astro.locals.csrf ?? '';
+const pref = config.prefijoBandera;
+
+const r = Astro.url.searchParams.get('r');
+const txt = r ? (t.entregar.resultados[r] ?? null) : null;
+const ok = r === 'ok';
+
+const prog = usuario.esAlumno
+  ? (await leerProgreso(usuario.slot, usuario.sam)) as {
+      Puntos: number; PuntosPosibles: number; Resueltos: number; Total: number; Posicion: string;
+    } | null
+  : null;
+const pct = prog ? Math.min(100, Math.round((Number(prog.Puntos) / Math.max(1, Number(prog.PuntosPosibles))) * 100)) : 0;
+const patron = `${pref.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\{.{1,120}\\}`;
+---
+<Base titulo={t.entregar.titulo} activo="entregar">
+  <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+    <div>
+      <p class="ceja">{config.laboratorio} · {t.nav.entregar}<span class="cursor"></span></p>
+      <h1 class="titulo-serif text-4xl mt-4 mb-3">{t.entregar.titulo}</h1>
+      <p class="text-tenue text-dato mb-8">{t.entregar.sub}</p>
+      {txt && <div class:list={['panel', ok ? 'aviso-ok' : 'aviso-mal']}>{txt}</div>}
+      <form method="post" action="/entregar" class="panel p-6 sm:p-7 space-y-5">
+        <input type="hidden" name="_csrf" value={csrf} />
+        <div>
+          <label for="b" class="block titulo-panel mb-2">{t.entregar.bandera}</label>
+          <input id="b" name="bandera" class="campo" required placeholder={`${pref}{...}`} autocomplete="off"
+                 autocapitalize="none" spellcheck="false" pattern={patron} title={t.entregar.formato(pref)} />
+        </div>
+        <div>
+          <label for="c" class="block titulo-panel mb-2">{t.entregar.como} <span class="text-mudo normal-case tracking-normal">({t.entregar.comoNota})</span></label>
+          <textarea id="c" name="comentario" rows="3" class="campo resize-y" placeholder={t.entregar.comoEjemplo.replace('{', `${pref}{`)}></textarea>
+        </div>
+        <button class="boton w-full sm:w-auto">{t.entregar.boton}</button>
+      </form>
+    </div>
+
+    <aside class="space-y-6">
+      {prog && (
+        <div class="panel p-6">
+          <h2 class="titulo-panel mb-5"><span class="nfo">[ 0x01 ]</span>{t.entregar.progreso}</h2>
+          <div class="font-serif text-5xl text-neon font-light">{prog.Puntos}<span class="text-tenue text-xl font-mono"> / {prog.PuntosPosibles}</span></div>
+          <div class="h-px bg-borde/40 mt-4 overflow-hidden"><div class="h-full bg-neon" style={`width:${pct}%`}></div></div>
+          <dl class="mt-5 space-y-2 text-dato">
+            <div class="flex justify-between"><dt class="text-tenue">{t.entregar.retos}</dt><dd>{t.entregar.de(Number(prog.Resueltos), Number(prog.Total))}</dd></div>
+            <div class="flex justify-between"><dt class="text-tenue">{t.entregar.posicion}</dt><dd>{prog.Posicion}</dd></div>
+          </dl>
+        </div>
+      )}
+      <div class="panel p-6 text-dato text-tenue leading-relaxed">
+        <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x02 ]</span>{t.entregar.recuerda}</h2>
+        <p class="mb-3">{t.entregar.recuerda1}</p>
+        <p>{expandir(t.entregar.recuerda2)}</p>
+      </div>
+    </aside>
+  </div>
+</Base>

@@ -1,0 +1,121 @@
+---
+import Base from '../layouts/Base.astro';
+import { config } from '../../src/config.js';
+import { textos } from '../../src/i18n.js';
+import { leerPadron, leerAsistencia, leerBase, leerDias, MARCAS, type Marca } from '../../src/datos.js';
+
+const usuario = Astro.locals.usuario;
+if (!usuario?.esInstructor) return Astro.redirect('/entrar?e=solo-profes');
+const idioma = Astro.locals.idioma ?? config.idioma;
+const t = textos(idioma);
+const csrf = Astro.locals.csrf ?? '';
+
+const dias = await leerDias(idioma);
+const [padron, asistencia, db] = await Promise.all([leerPadron(), leerAsistencia(dias.length || 7), leerBase()]);
+
+const pedida = Astro.url.searchParams.get('clase');
+const conRegistro = new Set(Object.keys(asistencia.Registro));
+const claseActual = (pedida && /^clase[1-9][0-9]?$/.test(pedida) ? pedida : null)
+  ?? asistencia.Sesiones.find((s) => !conRegistro.has(s.Id))?.Id
+  ?? asistencia.Sesiones[0]?.Id
+  ?? 'clase1';
+const marcasClase = asistencia.Registro[claseActual] ?? {};
+const guardado = Astro.url.searchParams.get('r') === 'ok';
+
+const activos = new Set<string>();
+for (const f of Object.values(db.Alumnos)) if ((f.Resueltas ?? 0) > 0) activos.add(f.Sam);
+
+const filas = padron.map((p) => ({ ...p, marca: (marcasClase[p.Slot] ?? '') as Marca | '', activo: activos.has(p.Usuario) }));
+const presenciales = filas.filter((f) => f.Modalidad !== 'Virtual');
+const virtuales = filas.filter((f) => f.Modalidad === 'Virtual');
+
+function resumen(id: string) {
+  const v = Object.values(asistencia.Registro[id] ?? {});
+  return { anotados: v.length, faltas: v.filter((m) => m === 'ausente').length };
+}
+function tituloClase(s: { Id: string; Titulo: string }, i: number): string {
+  return s.Titulo || t.asistencia.clase(i + 1);
+}
+const bloques = [
+  { id: 'presencial', titulo: t.asistencia.presenciales, gente: presenciales, nota: t.asistencia.notaPres },
+  { id: 'linea', titulo: t.asistencia.enLinea, gente: virtuales, nota: t.asistencia.notaLinea },
+].filter((b) => b.gente.length > 0);
+---
+<Base titulo={t.asistencia.titulo} activo="asistencia">
+  <header class="mb-10">
+    <p class="ceja">{config.laboratorio} · {t.asistencia.seccion}<span class="cursor"></span></p>
+    <h1 class="titulo-serif text-4xl sm:text-5xl mt-4">{t.asistencia.titulo}</h1>
+    <p class="text-mudo text-xs mt-3">
+      {t.asistencia.sub(padron.length, presenciales.length, virtuales.length)}
+      {asistencia.Actualizado && <> · {t.asistencia.ultima(new Date(asistencia.Actualizado).toLocaleString(t.locale))}</>}
+    </p>
+  </header>
+
+  {guardado && <div class="panel aviso-ok">{t.asistencia.guardada}</div>}
+
+  <nav class="flex flex-wrap gap-2 mb-8">
+    {asistencia.Sesiones.map((s, i) => {
+      const r = resumen(s.Id);
+      return (
+        <a href={`/asistencia?clase=${s.Id}`}
+           class:list={['px-3 py-2 rounded-sm text-dato whitespace-nowrap transition-colors border',
+             s.Id === claseActual ? 'bg-realce text-tinta border-neon/50' : 'text-tenue border-borde/25 hover:text-tinta hover:bg-panel']}>
+          {tituloClase(s, i)}
+          {r.anotados > 0
+            ? <span class="text-mudo text-xs ml-2">{t.asistencia.anotados(r.anotados)}{r.faltas > 0 && <span class="text-rosa"> · {t.asistencia.faltas(r.faltas)}</span>}</span>
+            : <span class="text-mudo text-xs ml-2">{t.asistencia.sinPasar}</span>}
+        </a>
+      );
+    })}
+  </nav>
+
+  <form method="post" action="/asistencia">
+    <input type="hidden" name="_csrf" value={csrf} />
+    <input type="hidden" name="clase" value={claseActual} />
+    <div class="space-y-6">
+      {bloques.map((b) => (
+        <section class="panel p-4 sm:p-6">
+          <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+            <h2 class="titulo-panel flex-1">{b.titulo} · {b.gente.length}</h2>
+            <div class="flex gap-3 text-xs">
+              <button type="button" data-todos={b.id} data-marca="presente" class="text-neon/80 hover:text-neon transition-colors">{t.asistencia.todosPres}</button>
+              <span class="text-mudo">·</span>
+              <button type="button" data-todos={b.id} data-marca="remoto" class="text-cian/80 hover:text-cian transition-colors">{t.asistencia.todosRem}</button>
+            </div>
+          </div>
+          <p class="text-mudo text-xs mb-4">{b.nota}</p>
+          <ul class="space-y-1">
+            {b.gente.map((f) => (
+              <li class="flex flex-wrap items-center gap-x-3 gap-y-2 py-2 border-b border-borde/15 last:border-0" data-grupo={b.id}>
+                <div class="min-w-0 flex-1">
+                  <div class="text-tinta text-dato truncate">{f.Nombre}</div>
+                  <div class="text-mudo text-xs truncate">
+                    <code class="text-cian/90">{f.Usuario}</code><span class="mx-1.5">·</span>{f.Correo}
+                    {f.Modalidad === 'Hibrido' && <span class="etiqueta bg-ambar/10 text-ambar ml-2">{t.asistencia.hibrido}</span>}
+                    {f.Activa === false && <span class="etiqueta bg-rosa/10 text-rosa ml-2">{t.asistencia.baja}</span>}
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-1 shrink-0">
+                  {MARCAS.map((m) => (
+                    <label class="cursor-pointer">
+                      <input type="radio" name={`m_${f.Slot}`} value={m.id} checked={f.marca === m.id} class="peer sr-only" />
+                      <span class:list={['block px-2.5 py-1.5 rounded-sm text-xs border border-transparent text-mudo hover:text-tinta hover:bg-panel transition-colors', m.clase]}>{t.asistencia.marcas[m.id]}</span>
+                    </label>
+                  ))}
+                  <label class="cursor-pointer">
+                    <input type="radio" name={`m_${f.Slot}`} value="" checked={!f.marca} class="peer sr-only" />
+                    <span class="block px-2.5 py-1.5 rounded-sm text-xs border border-transparent text-mudo hover:text-tinta hover:bg-panel transition-colors peer-checked:bg-hondo peer-checked:text-tenue">·</span>
+                  </label>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+    <div class="sticky bottom-0 bg-noche/95 border-t border-borde/30 mt-6 py-4 flex flex-wrap items-center gap-4">
+      <button class="boton">{t.asistencia.guardar}</button>
+      <span class="text-mudo text-xs">{t.asistencia.soloEsta}</span>
+    </div>
+  </form>
+</Base>

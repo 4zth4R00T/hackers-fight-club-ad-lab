@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import { config } from '../../src/config.js';
+import { textos } from '../../src/i18n.js';
+
+const idioma = Astro.locals.idioma ?? config.idioma;
+const t = textos(idioma);
+const error = Astro.url.searchParams.get('e');
+const aviso = error ? (t.entrar.errores[error] ?? t.entrar.errores['malas']) : null;
+const esInfo = error === 'solo-profes';
+---
+<Base titulo={t.entrar.titulo}>
+  <div class="max-w-md mx-auto mt-6 sm:mt-16">
+    <p class="ceja">{config.laboratorio} · {config.dominioNetBIOS}<span class="cursor"></span></p>
+    <h1 class="titulo-serif text-4xl mt-4 mb-3">{t.entrar.titulo}</h1>
+    <p class="text-tenue text-dato mb-8">{t.entrar.sub}</p>
+    {aviso && <div class:list={['panel', esInfo ? 'aviso-info' : 'aviso-error']}>{aviso}</div>}
+    <form method="post" action="/entrar" class="panel p-6 sm:p-7 space-y-5">
+      <div>
+        <label for="u" class="block titulo-panel mb-2">{t.entrar.usuario}</label>
+        <input id="u" name="usuario" class="campo" autocomplete="username" autocapitalize="none"
+               spellcheck="false" required placeholder={t.entrar.ejemplo} />
+      </div>
+      <div>
+        <label for="p" class="block titulo-panel mb-2">{t.entrar.clave}</label>
+        <input id="p" name="clave" type="password" class="campo" autocomplete="current-password" required />
+      </div>
+      <button class="boton w-full">{t.entrar.boton}</button>
+    </form>
+    <p class="text-mudo text-xs mt-6 leading-relaxed">{t.entrar.nota}</p>
+  </div>
+</Base>

@@ -1,0 +1,166 @@
+---
+import Base from '../layouts/Base.astro';
+import { config } from '../../src/config.js';
+import { textos } from '../../src/i18n.js';
+import { leerRuta, leerCatalogo, leerDias, texto } from '../../src/datos.js';
+
+const idioma = Astro.locals.idioma ?? config.idioma;
+const t = textos(idioma);
+const [ruta, retos, diasCurso] = await Promise.all([leerRuta(), leerCatalogo(idioma), leerDias(idioma)]);
+const ahora = new Date();
+
+const total = retos.reduce((s, r) => s + r.puntos, 0);
+const wu = retos.filter((r) => /WU$/i.test(r.id)).reduce((s, r) => s + r.puntos, 0);
+const numerosDias = [...new Set([...diasCurso.map((d) => d.dia), ...retos.map((r) => r.dia)])].sort((a, b) => a - b);
+const extra: Record<string, string> = {
+  '{D}': String(numerosDias.length), '{N}': String(retos.length), '{TOTAL}': String(total), '{WU}': String(wu),
+};
+const x = (v: unknown): string => {
+  let s = texto(v, idioma);
+  for (const [k, val] of Object.entries(extra)) s = s.split(k).join(val);
+  return s;
+};
+const fmt = (d: Date) => d.toLocaleString(t.locale, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+const dias = numerosDias.map((n) => {
+  const info = diasCurso.find((d) => d.dia === n);
+  const r = (ruta.Days ?? []).find((d) => Number(d.Day) === n);
+  const vocab = r?.Vocab && typeof r.Vocab === 'object'
+    ? ((r.Vocab as Record<string, unknown>)[idioma] ?? (r.Vocab as Record<string, unknown>)['en'] ?? (r.Vocab as Record<string, unknown>)['es'] ?? []) as string[]
+    : [];
+  const lista = retos.filter((c) => c.dia === n).map((c) => ({
+    ...c,
+    consejo: r?.Tips?.[c.id] ? x(r.Tips[c.id]) : c.pistaPublica,
+  }));
+  return {
+    n,
+    titulo: info?.titulo || t.retos.dia(n),
+    apertura: info?.apertura ?? null,
+    lede: x(r?.Lede),
+    empezar: x(r?.Start),
+    falla: x(r?.Pitfall),
+    vocab: (Array.isArray(vocab) ? vocab : []).map((v) => x(String(v))),
+    lista,
+    pts: lista.reduce((s, c) => s + c.puntos, 0),
+  };
+});
+
+const tonos: Record<string, string> = { jade: 'text-neon', ambar: 'text-ambar', rosa: 'text-rosa' };
+const antes = ruta.Before ?? {};
+const wus = ruta.Writeups ?? {};
+---
+<Base titulo={t.ruta.titulo} activo="ruta">
+  <header class="mb-10 max-w-4xl">
+    <p class="ceja">{config.laboratorio} · {t.ruta.seccion}<span class="cursor"></span></p>
+    <h1 class="titulo-serif text-4xl sm:text-5xl mt-4 mb-4">{t.ruta.titulo}</h1>
+    {ruta.Intro && <p class="text-tenue text-dato leading-relaxed">{x(ruta.Intro)}</p>}
+  </header>
+
+  {ruta.Before && (
+    <section class="panel p-5 sm:p-7 mb-8">
+      <h2 class="titulo-panel mb-5"><span class="nfo">[ 0x00 ]</span>{t.ruta.antes}</h2>
+      {antes.Text && <p class="text-tenue text-dato leading-relaxed mb-6 max-w-3xl">{x(antes.Text)}</p>}
+      {(antes.Cards ?? []).length > 0 && (
+        <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4 mb-7">
+          {(antes.Cards ?? []).map((c) => (
+            <div class="bg-hondo/70 border border-borde/30 rounded-sm p-4">
+              <code class="text-cian/90 text-dato block mb-2 break-all">{x(c.Command ?? '')}</code>
+              <p class="text-mudo text-xs leading-relaxed">{x(c.Text)}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      <dl class="text-dato divide-y divide-borde/20 border-y border-borde/20">
+        {(antes.Rules ?? []).map((r) => (
+          <div class="py-3 sm:flex sm:gap-6">
+            <dt class:list={['uppercase text-xs sm:w-36 shrink-0 pt-0.5', tonos[r.Tone ?? 'jade'] ?? 'text-neon']} style="letter-spacing:0.18em">{x(r.Term)}</dt>
+            <dd class="text-tenue leading-relaxed">{x(r.Text)}</dd>
+          </div>
+        ))}
+      </dl>
+      {antes.Stuck && <p class="mt-6 text-dato text-tenue bg-jade-hondo/10 border-l border-neon/60 px-4 py-3 leading-relaxed">{x(antes.Stuck)}</p>}
+    </section>
+  )}
+
+  <div class="space-y-6">
+    {dias.map((d) => {
+      const cerrado = d.apertura ? ahora < d.apertura : false;
+      return (
+        <section class="panel overflow-hidden">
+          <div class="flex flex-wrap items-baseline gap-x-5 gap-y-2 px-5 sm:px-7 py-5 border-b border-borde/25 bg-hondo/40">
+            <span class="font-serif font-light text-4xl text-mudo leading-none tabular-nums">{String(d.n).padStart(2, '0')}</span>
+            <h2 class="font-serif text-2xl text-tinta" style="letter-spacing:0.04em">{d.titulo}</h2>
+            <div class="ml-auto flex items-center gap-2">
+              {cerrado && d.apertura
+                ? <span class="etiqueta bg-ambar/10 text-ambar">{t.ruta.cerrado(fmt(d.apertura))}</span>
+                : <span class="etiqueta bg-neon/10 text-neon">{t.ruta.abierto}</span>}
+              <span class="etiqueta bg-realce text-tenue tabular-nums">{t.retos.pts(d.pts)}</span>
+            </div>
+          </div>
+          <div class="px-5 sm:px-7 py-6">
+            {d.lede && <p class="text-tenue text-dato leading-relaxed mb-6 max-w-3xl">{d.lede}</p>}
+            {(d.empezar || d.falla) && (
+              <div class="grid gap-4 lg:grid-cols-2 mb-6">
+                {d.empezar && (
+                  <div class="border-l border-neon/60 bg-neon/[0.03] px-4 py-3">
+                    <h3 class="titulo-panel text-neon mb-2">{t.ruta.empezar}</h3>
+                    <p class="text-tenue text-dato leading-relaxed">{d.empezar}</p>
+                  </div>
+                )}
+                {d.falla && (
+                  <div class="border-l border-ambar/60 bg-ambar/[0.03] px-4 py-3">
+                    <h3 class="titulo-panel text-ambar mb-2">{t.ruta.falla}</h3>
+                    <p class="text-tenue text-dato leading-relaxed">{d.falla}</p>
+                  </div>
+                )}
+              </div>
+            )}
+            {d.vocab.length > 0 && (
+              <div class="flex flex-wrap gap-1.5 mb-6">
+                {d.vocab.map((v) => <code class="text-cian/90 bg-hondo/80 border border-borde/30 rounded-sm px-2 py-1 text-xs">{v}</code>)}
+              </div>
+            )}
+            <div class="overflow-x-auto">
+              <table class="w-full text-dato">
+                <thead>
+                  <tr class="text-mudo text-[0.6875rem] uppercase tracking-[0.16em]">
+                    <th class="text-left font-normal pb-2 pr-4 border-b border-borde/25">{t.ruta.colReto}</th>
+                    <th class="text-left font-normal pb-2 pr-4 border-b border-borde/25">{t.ruta.colTitulo}</th>
+                    <th class="text-left font-normal pb-2 pr-4 border-b border-borde/25">{t.ruta.colConsejo}</th>
+                    <th class="text-right font-normal pb-2 border-b border-borde/25">{t.ruta.colPts}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {d.lista.map((c) => (
+                    <tr class="align-top border-b border-borde/15 last:border-0">
+                      <td class="py-3 pr-4 whitespace-nowrap"><code class="text-cian/90 text-xs">{c.id}</code>{c.opcional && <span class="text-mudo text-xs ml-1">{t.ruta.opc}</span>}</td>
+                      <td class="py-3 pr-4 text-tinta">{c.titulo}</td>
+                      <td class="py-3 pr-4 text-tenue leading-relaxed min-w-[22rem]">{c.consejo}</td>
+                      <td class="py-3 text-right text-jade-claro tabular-nums whitespace-nowrap">{c.puntos}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      );
+    })}
+  </div>
+
+  {ruta.Writeups && (
+    <section class="panel p-5 sm:p-7 mt-6">
+      <h2 class="titulo-panel mb-5"><span class="nfo">[ 0xFF ]</span>{x(wus.Title)}</h2>
+      {wus.Text && <p class="text-tenue text-dato leading-relaxed mb-6 max-w-3xl">{x(wus.Text)}</p>}
+      <ol class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 text-dato">
+        {(wus.Steps ?? []).map((p) => (
+          <li class="bg-hondo/70 border border-borde/30 rounded-sm p-4">
+            <span class="text-neon/80 text-xs uppercase" style="letter-spacing:0.2em">{x(p.Label)}</span>
+            <p class="text-tenue mt-2 leading-relaxed">{x(p.Text)}</p>
+          </li>
+        ))}
+      </ol>
+      {wus.Tip && <p class="mt-6 text-dato text-tenue bg-jade-hondo/10 border-l border-neon/60 px-4 py-3 leading-relaxed">{x(wus.Tip)}</p>}
+    </section>
+  )}
+</Base>

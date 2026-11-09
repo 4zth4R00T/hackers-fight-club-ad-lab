@@ -1,0 +1,16 @@
+{
+  "name": "hackers-fight-club-site",
+  "private": true,
+  "type": "module",
+  "author": "Aztharot (https://github.com/4zth4R00T)",
+  "license": "MIT",
+  "packageManager": "pnpm@12.18.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "7.4.7"
+  }
+}

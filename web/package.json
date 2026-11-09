@@ -1,0 +1,32 @@
+{
+  "name": "lab-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Active Directory lab scoreboard, flag submission and instructor monitor. Developed by Aztharot.",
+  "author": "Aztharot (https://github.com/4zth4R00T)",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@astrojs/node": "^11.1.5",
+    "astro": "^7.3.1",
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "ldapts": "^7.3.1"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.8",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.5",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3"
+  }
+}

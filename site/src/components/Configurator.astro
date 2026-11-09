@@ -1,0 +1,97 @@
+---
+import type { Ui } from '../ui';
+interface Props { u: Ui }
+const { u } = Astro.props;
+const b = u.build;
+const groups = [
+  { key: 'region', label: b.region, options: [['es-MX', 'es-MX'], ['es-ES', 'es-ES'], ['en-US', 'en-US'], ['ru-RU', 'ru-RU']] },
+  { key: 'host', label: b.host, options: [['linux', b.hostLinux], ['windows', b.hostWindows]] },
+  { key: 'mode', label: b.mode, options: [['VMnet', 'VMnet'], ['LAN', 'LAN'], ['Tailscale', 'Tailscale'], ['VPN', 'VPN']] },
+  { key: 'auto', label: b.auto, options: [['yes', b.yes], ['no', b.no]] },
+];
+const strings = {
+  config: b.lineConfig, iso: b.lineIso, auto: b.lineAuto, manual: b.lineManual, mode: b.lineMode,
+  notes: b.notes, modeNotes: b.modeNotes, copied: b.copied, copyAll: b.copyAll,
+};
+---
+<div class="builder" data-builder data-strings={JSON.stringify(strings)}>
+  <form class="builder-controls" aria-label={b.title} onsubmit="return false">
+    {groups.map((g) => (
+      <fieldset class="seg">
+        <legend>{g.label}</legend>
+        <div class="seg-opts">
+          {g.options.map(([v, l], i) => (
+            <label class="seg-opt">
+              <input type="radio" name={g.key} value={v} checked={g.key === 'region' ? v === b.first : i === 0} />
+              <span>{l}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    ))}
+  </form>
+  <div class="term" role="region" aria-label={b.terminal}>
+    <div class="term-bar">
+      <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="term-title">{b.terminal}</span>
+      <button class="term-copy" type="button" data-term-copy>{b.copyAll}</button>
+    </div>
+    <pre class="term-body" data-term aria-live="polite"></pre>
+    <p class="term-note" data-term-note></p>
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-builder]');
+  if (root) {
+    const s = JSON.parse(root.dataset.strings || '{}');
+    const out = root.querySelector<HTMLElement>('[data-term]');
+    const note = root.querySelector<HTMLElement>('[data-term-note]');
+    const copyBtn = root.querySelector<HTMLButtonElement>('[data-term-copy]');
+    const val = (k: string) => (root.querySelector<HTMLInputElement>(`input[name="${k}"]:checked`)?.value ?? '');
+    let plain = '';
+
+    const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const render = () => {
+      const region = val('region'), host = val('host'), mode = val('mode'), auto = val('auto') === 'yes';
+      const iso = host === 'linux'
+        ? `./unattend/new-answer-iso.sh -p ${region}${auto ? ' -a' : ''} -o lab-answers.iso`
+        : `.\\unattend\\New-AnswerIso.ps1 -Region ${region}${auto ? ' -AutoStart' : ''} -OutFile .\\lab-answers.iso`;
+      const blocks: [string, string, string][] = [];
+      blocks.push([s.config, '', `NetworkMode = '${mode}'`]);
+      blocks.push([s.iso, host === 'linux' ? '$' : 'PS>', iso]);
+      if (auto) blocks.push([s.auto, '', '']);
+      else {
+        blocks.push([s.manual, 'PS>', 'Set-ExecutionPolicy -Scope Process Bypass -Force']);
+        blocks.push(['', 'PS>', 'cd C:\\Lab\\setup']);
+        blocks.push(['', 'PS>', '.\\Install-Lab.ps1 -Start']);
+      }
+      if (mode === 'Tailscale') blocks.push([s.mode, 'PS>', '.\\Set-NetworkMode.ps1 -Mode Tailscale -ConnectTailscale']);
+      let html = '';
+      const lines: string[] = [];
+      for (const [label, prompt, cmd] of blocks) {
+        if (label) html += `<span class="t-c">${esc(label)}</span>\n`;
+        if (cmd) {
+          html += `${prompt ? `<span class="t-p">${esc(prompt)} </span>` : ''}<span class="t-k">${esc(cmd)}</span>\n`;
+          lines.push(cmd);
+        }
+      }
+      plain = lines.join('\n');
+      if (out) {
+        out.classList.remove('is-swap');
+        void out.offsetWidth;
+        out.innerHTML = html.trimEnd();
+        out.classList.add('is-swap');
+      }
+      if (note) note.textContent = `${s.notes[region] ?? ''} ${s.modeNotes[mode] ?? ''}`.trim();
+    };
+    root.addEventListener('change', render);
+    copyBtn?.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(plain); } catch { }
+      copyBtn.textContent = s.copied;
+      copyBtn.classList.add('is-done');
+      window.setTimeout(() => { copyBtn.textContent = s.copyAll; copyBtn.classList.remove('is-done'); }, 1600);
+    });
+    render();
+  }
+</script>

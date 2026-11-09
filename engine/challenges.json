@@ -1,0 +1,1871 @@
+{
+  "Version": 1,
+  "Cutoff": "2026-11-09",
+  "Scoring": {
+    "FirstBlood": 5,
+    "DayComplete": 25,
+    "CopyPenalty": 10
+  },
+  "Days": [
+    {
+      "Day": 1,
+      "Title": {
+        "es": "Conocer Windows",
+        "en": "Getting to know Windows",
+        "ru": "Знакомство с Windows"
+      }
+    },
+    {
+      "Day": 2,
+      "Title": {
+        "es": "La consola",
+        "en": "The command prompt",
+        "ru": "Командная строка"
+      }
+    },
+    {
+      "Day": 3,
+      "Title": {
+        "es": "Windows por dentro",
+        "en": "Windows under the hood",
+        "ru": "Windows изнутри"
+      }
+    },
+    {
+      "Day": 4,
+      "Title": {
+        "es": "Automatizar con PowerShell",
+        "en": "Automating with PowerShell",
+        "ru": "Автоматизация на PowerShell"
+      }
+    },
+    {
+      "Day": 5,
+      "Title": {
+        "es": "La red y el hilo completo",
+        "en": "The network and the full thread",
+        "ru": "Сеть и вся цепочка"
+      }
+    },
+    {
+      "Day": 6,
+      "Title": {
+        "es": "Active Directory",
+        "en": "Active Directory",
+        "ru": "Active Directory"
+      }
+    },
+    {
+      "Day": 7,
+      "Title": {
+        "es": "Administrar y defender",
+        "en": "Administer and defend",
+        "ru": "Администрирование и защита"
+      }
+    }
+  ],
+  "Challenges": [
+    {
+      "Id": "D1-MAPA",
+      "Day": 1,
+      "Points": 20,
+      "Optional": false,
+      "Kind": "deliverable",
+      "Slug": "",
+      "Check": {
+        "es": "dia1-mapa",
+        "en": "day1-map",
+        "ru": "day1-map"
+      },
+      "Requires": "",
+      "Title": {
+        "es": "Tu mapa de Windows",
+        "en": "Your map of Windows",
+        "ru": "Ваша карта Windows"
+      },
+      "Where": {
+        "es": "{DELIVER_DIR}\\dia1-mapa.* en tu unidad H:",
+        "en": "{DELIVER_DIR}\\day1-map.* on your H: drive",
+        "ru": "{DELIVER_DIR}\\day1-map.* на вашем диске H:"
+      },
+      "Hint": {
+        "es": "Un diagrama o un texto que conecte los cuatro territorios: qué es Windows, el entorno, los archivos y las consolas.",
+        "en": "A diagram or text that ties together the four territories: what Windows is, the desktop environment, files and consoles.",
+        "ru": "Схема или текст, которые связывают четыре области: что такое Windows, рабочая среда, файлы и консоли."
+      },
+      "PublicHint": {
+        "es": "Cuatro territorios vistos en clase. Muéstralos conectados, no en una lista.",
+        "en": "Four territories covered in class. Show them connected, not as a list.",
+        "ru": "Четыре области, пройденные на занятии. Покажите их связанными между собой, а не списком."
+      },
+      "Hints": {
+        "1": {
+          "es": "Cuatro territorios vistos en clase. Piensa en cómo se tocan entre ellos, no en cómo se enumeran.",
+          "en": "Four territories covered in class. Think about how they touch each other, not how to list them.",
+          "ru": "Четыре области, пройденные на занятии. Подумайте, как они соприкасаются друг с другом, а не как их перечислить."
+        },
+        "2": {
+          "es": "Un mapa mental se juzga por sus conexiones: cada rama debe explicar por qué cuelga de dónde cuelga.",
+          "en": "A mind map is judged by its connections: every branch should explain why it hangs where it does.",
+          "ru": "Ментальную карту оценивают по связям: каждая ветвь должна объяснять, почему она растёт именно оттуда."
+        },
+        "3": {
+          "es": "Estructura mínima: sistema, interfaz, archivos y línea de comandos, y de cada uno al menos dos hijos propios. Una rama sin hijos todavía no es una rama.",
+          "en": "Minimum structure: system, interface, files and command line, with at least two children of their own each. A branch without children is not a branch yet.",
+          "ru": "Минимальная структура: система, интерфейс, файлы и командная строка, и у каждого элемента не меньше двух собственных дочерних узлов. Ветвь без дочерних узлов ещё не ветвь."
+        }
+      }
+    },
+    {
+      "Id": "D2-01",
+      "Day": 2,
+      "Points": 10,
+      "Optional": false,
+      "Kind": "personal",
+      "Slug": "env_ch1v4t4",
+      "Check": "",
+      "Requires": "",
+      "Title": {
+        "es": "La variable que hablaba de más",
+        "en": "The variable that said too much",
+        "ru": "Переменная, которая сказала лишнее"
+      },
+      "Where": {
+        "es": "Variable de entorno del usuario ({HINT_VAR})",
+        "en": "User environment variable ({HINT_VAR})",
+        "ru": "Переменная среды пользователя ({HINT_VAR})"
+      },
+      "Hint": {
+        "es": "set lista todas las variables. Una de ellas no debería estar ahí.",
+        "en": "set lists every variable. One of them should not be there.",
+        "ru": "set выводит все переменные. Одной из них там быть не должно."
+      },
+      "PublicHint": {
+        "es": "Tu sesión arrastra más contexto del que crees. Algo de ese contexto no lo puso Windows.",
+        "en": "Your session carries more context than you think. Some of it was not put there by Windows.",
+        "ru": "Ваш сеанс несёт больше контекста, чем вы думаете. Часть этого контекста добавила не Windows."
+      },
+      "Hints": {
+        "1": {
+          "es": "Tu sesión arrastra más contexto del que crees. Algo de ese contexto no lo puso Windows.",
+          "en": "Your session carries more context than you think. Some of it was not put there by Windows.",
+          "ru": "Ваш сеанс несёт больше контекста, чем вы думаете. Часть этого контекста добавила не Windows."
+        },
+        "2": {
+          "es": "Las variables de entorno se pueden listar todas de una vez, y el resultado se puede filtrar por texto.",
+          "en": "Environment variables can be listed all at once, and the output can be filtered by text.",
+          "ru": "Переменные среды можно вывести все сразу, а результат отфильтровать по тексту."
+        },
+        "3": {
+          "es": "set | findstr /i \"____\"   En el hueco va el prefijo del laboratorio.",
+          "en": "set | findstr /i \"____\"   The blank is the lab prefix.",
+          "ru": "set | findstr /i \"____\"   В пропуск подставьте префикс лаборатории."
+        }
+      }
+    },
+    {
+      "Id": "D2-02",
+      "Day": 2,
+      "Points": 10,
+      "Optional": false,
+      "Kind": "personal",
+      "Slug": "d1r_sl4sh_4",
+      "Check": "",
+      "Requires": "",
+      "Title": {
+        "es": "Lo que Windows prefiere no mostrar",
+        "en": "What Windows would rather not show",
+        "ru": "То, что Windows предпочитает не показывать"
+      },
+      "Where": {
+        "es": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY2}\\.{K_ARCHIVE} (carpeta oculta)",
+        "en": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY2}\\.{K_ARCHIVE} (hidden folder)",
+        "ru": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY2}\\.{K_ARCHIVE} (скрытая папка)"
+      },
+      "Hint": {
+        "es": "dir /a muestra lo oculto. Con /s, además, baja por las subcarpetas.",
+        "en": "dir /a shows hidden items. Adding /s also walks the subfolders.",
+        "ru": "dir /a показывает скрытое. С /s он ещё и проходит по вложенным папкам."
+      },
+      "PublicHint": {
+        "es": "Lo que no aparece a simple vista sigue estando ahí.",
+        "en": "What you cannot see at first glance is still there.",
+        "ru": "То, чего не видно с первого взгляда, всё равно на месте."
+      },
+      "Hints": {
+        "1": {
+          "es": "Lo que no aparece a simple vista sigue estando ahí.",
+          "en": "What you cannot see at first glance is still there.",
+          "ru": "То, чего не видно с первого взгляда, всё равно на месте."
+        },
+        "2": {
+          "es": "El listado de directorio tiene un modificador que muestra lo que oculta por defecto.",
+          "en": "The directory listing has a switch that reveals what it hides by default.",
+          "ru": "У вывода списка каталога есть ключ, который показывает то, что по умолчанию скрыто."
+        },
+        "3": {
+          "es": "dir /_   Es una sola letra. Compara la salida con la de dir sin modificadores y fíjate en lo que aparece de más.",
+          "en": "dir /_   It is a single letter. Compare the output with plain dir and look at what shows up in addition.",
+          "ru": "dir /_   Это одна буква. Сравните вывод с обычным dir и посмотрите, что добавилось."
+        }
+      }
+    },
+    {
+      "Id": "D2-03",
+      "Day": 2,
+      "Points": 10,
+      "Optional": false,
+      "Kind": "personal",
+      "Slug": "f1ndstr_g0ld",
+      "Check": "",
+      "Requires": "",
+      "Title": {
+        "es": "Una aguja en 300 pajares",
+        "en": "A needle in 300 haystacks",
+        "ru": "Иголка в 300 стогах сена"
+      },
+      "Where": {
+        "es": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY2}\\{K_ARCHIVE} (300 archivos señuelo)",
+        "en": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY2}\\{K_ARCHIVE} (300 decoy files)",
+        "ru": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY2}\\{K_ARCHIVE} (300 ложных файлов)"
+      },
+      "Hint": {
+        "es": "findstr /s /i \"{FLAG}{\" *.* busca dentro de los archivos, no en sus nombres.",
+        "en": "findstr /s /i \"{FLAG}{\" *.* searches inside the files, not in their names.",
+        "ru": "findstr /s /i \"{FLAG}{\" *.* ищет внутри файлов, а не в их именах."
+      },
+      "PublicHint": {
+        "es": "El nombre del archivo no te va a servir: lo que buscas está dentro de alguno.",
+        "en": "The file name will not help you: what you are looking for is inside one of them.",
+        "ru": "Имя файла вам не поможет: то, что вы ищете, находится внутри одного из них."
+      },
+      "Hints": {
+        "1": {
+          "es": "El nombre del archivo no te va a servir: lo que buscas está dentro de alguno. Y son 300.",
+          "en": "The file name will not help you: what you want is inside one of them. And there are 300.",
+          "ru": "Имя файла вам не поможет: то, что вам нужно, находится внутри одного из них. И их 300."
+        },
+        "2": {
+          "es": "Existe un buscador de texto de toda la vida que recorre subdirectorios si se lo pides.",
+          "en": "There is a classic text search tool that walks subdirectories when you ask it to.",
+          "ru": "Есть классическая утилита поиска текста, которая проходит по вложенным каталогам, если её об этом попросить."
+        },
+        "3": {
+          "es": "findstr /_ /_ \"____\" *.txt   Un modificador recorre subcarpetas y el otro ignora mayúsculas.",
+          "en": "findstr /_ /_ \"____\" *.txt   One switch walks subfolders and the other ignores case.",
+          "ru": "findstr /_ /_ \"____\" *.txt   Один ключ проходит по вложенным папкам, другой отключает учёт регистра."
+        }
+      }
+    },
+    {
+      "Id": "D2-04",
+      "Day": 2,
+      "Points": 10,
+      "Optional": false,
+      "Kind": "personal",
+      "Slug": "p4th_h1j4ck",
+      "Check": "",
+      "Requires": "",
+      "Title": {
+        "es": "El camino que siempre funciona",
+        "en": "The path that always works",
+        "ru": "Путь, который всегда срабатывает"
+      },
+      "Where": {
+        "es": "Una carpeta agregada al PATH del usuario",
+        "en": "A folder added to the user PATH",
+        "ru": "Папка, добавленная в PATH пользователя"
+      },
+      "Hint": {
+        "es": "echo %PATH% y cuenta las carpetas. Una es nueva. where te dice dónde vive un comando.",
+        "en": "echo %PATH% and count the folders. One is new. where tells you where a command lives.",
+        "ru": "echo %PATH% и посчитайте папки. Одна из них новая. where показывает, где находится команда."
+      },
+      "PublicHint": {
+        "es": "Cuando escribes un comando, Windows lo busca recorriendo una lista de lugares. Esa lista creció.",
+        "en": "When you type a command, Windows looks for it through a list of places. That list has grown.",
+        "ru": "Когда вы вводите команду, Windows ищет её, проходя по списку мест. Этот список вырос."
+      },
+      "Hints": {
+        "1": {
+          "es": "Cuando escribes un comando, Windows lo busca recorriendo una lista de lugares. Esa lista creció.",
+          "en": "When you type a command, Windows looks for it through a list of places. That list has grown.",
+          "ru": "Когда вы вводите команду, Windows ищет её, проходя по списку мест. Этот список вырос."
+        },
+        "2": {
+          "es": "Esa lista es una variable de entorno concreta. Léela completa y busca la entrada que no encaja.",
+          "en": "That list is a specific environment variable. Read all of it and find the entry that does not belong.",
+          "ru": "Этот список хранится в определённой переменной среды. Прочитайте её целиком и найдите запись, которая выбивается."
+        },
+        "3": {
+          "es": "echo %____%   y revisa la última ruta. Apunta a una carpeta dentro de tu propio {K_DAY2}.",
+          "en": "echo %____%   and check the last path. It points to a folder inside your own {K_DAY2}.",
+          "ru": "echo %____%   и посмотрите на последний путь. Он указывает на папку внутри вашей папки {K_DAY2}."
+        }
+      }
+    },
+    {
+      "Id": "D2-05",
+      "Day": 2,
+      "Points": 10,
+      "Optional": false,
+      "Kind": "personal",
+      "Slug": "n3t_us3r_c0m",
+      "Check": "",
+      "Requires": "DirectoryNotes",
+      "Title": {
+        "es": "La ficha que nadie lee",
+        "en": "The record nobody reads",
+        "ru": "Карточка, которую никто не читает"
+      },
+      "Where": {
+        "es": "Campo Comentario (description) de TU cuenta de dominio",
+        "en": "Comment field (description) of YOUR domain account",
+        "ru": "Поле Комментарий (description) ВАШЕЙ учётной записи домена"
+      },
+      "Hint": {
+        "es": "net user lista cuentas. net user <tu usuario> /domain muestra la ficha completa de la tuya.",
+        "en": "net user lists accounts. net user <your user> /domain shows your full record.",
+        "ru": "net user выводит учётные записи. net user <ваше имя пользователя> /domain показывает полную карточку вашей."
+      },
+      "PublicHint": {
+        "es": "Tu propia cuenta de dominio tiene más campos de los que muestra la consola por defecto.",
+        "en": "Your own domain account has more fields than the console shows by default.",
+        "ru": "У вашей учётной записи домена больше полей, чем консоль показывает по умолчанию."
+      },
+      "Hints": {
+        "1": {
+          "es": "Tu propia cuenta de dominio tiene más campos de los que muestra la consola por defecto.",
+          "en": "Your own domain account has more fields than the console shows by default.",
+          "ru": "У вашей учётной записи домена больше полей, чем консоль показывает по умолчанию."
+        },
+        "2": {
+          "es": "El comando clásico de cuentas consulta por defecto la base LOCAL. Tu cuenta no es local.",
+          "en": "The classic account command queries the LOCAL database by default. Your account is not local.",
+          "ru": "Классическая команда для учётных записей по умолчанию обращается к ЛОКАЛЬНОЙ базе. Ваша учётная запись не локальная."
+        },
+        "3": {
+          "es": "net user %username% /______   El modificador que lo manda a preguntar al dominio. Cuando salga, lee el campo Comentario.",
+          "en": "net user %username% /______   The switch that sends the question to the domain. When it answers, read the Comment field.",
+          "ru": "net user %username% /______   Ключ, который отправляет запрос в домен. Когда придёт ответ, прочитайте поле Комментарий."
+        }
+      }
+    },
+    {
+      "Id": "D2-OPT1",
+      "Day": 2,
+      "Points": 15,
+      "Optional": true,
+      "Kind": "personal",
+      "Slug": "schtasks_h1d3",
+      "Check": "",
+      "Requires": "",
+      "Title": {
+        "es": "Opcional: la tarea que se programó sola",
+        "en": "Optional: the task that scheduled itself",
+        "ru": "Дополнительно: задача, которая запланировалась сама"
+      },
+      "Where": {
+        "es": "Descripción de una tarea programada de tu usuario ({TASK_NAME})",
+        "en": "Description of a scheduled task in your user context ({TASK_NAME})",
+        "ru": "Описание запланированной задачи в контексте вашего пользователя ({TASK_NAME})"
+      },
+      "Hint": {
+        "es": "schtasks /query /fo LIST /v lo cuenta todo de cada tarea. Una descripción no encaja.",
+        "en": "schtasks /query /fo LIST /v tells everything about each task. One description does not fit.",
+        "ru": "schtasks /query /fo LIST /v рассказывает о каждой задаче всё. Одно описание выбивается."
+      },
+      "PublicHint": {
+        "es": "El equipo hace cosas por su cuenta, a sus horas. Una de ellas lleva una nota de más.",
+        "en": "The computer does things on its own, on its own schedule. One of them carries an extra note.",
+        "ru": "Компьютер кое-что делает сам, по своему расписанию. У одной из этих задач есть лишняя заметка."
+      },
+      "Hints": {
+        "1": {
+          "es": "El equipo hace cosas por su cuenta, a sus horas. Una de ellas lleva una nota de más.",
+          "en": "The computer does things on its own, on its own schedule. One of them carries an extra note.",
+          "ru": "Компьютер кое-что делает сам, по своему расписанию. У одной из этих задач есть лишняя заметка."
+        },
+        "2": {
+          "es": "Hay un comando para consultar tareas programadas. Por defecto resume; hay que pedirle el detalle.",
+          "en": "There is a command to query scheduled tasks. By default it summarizes; you have to ask for detail.",
+          "ru": "Для запроса запланированных задач есть команда. По умолчанию она выдаёт сводку; подробности нужно запросить."
+        },
+        "3": {
+          "es": "schtasks /query /fo LIST /_ | findstr /i \"____\"   El modificador lo vuelve detallado. El campo que te interesa es el comentario.",
+          "en": "schtasks /query /fo LIST /_ | findstr /i \"____\"   The switch makes it verbose. The field you care about is the comment.",
+          "ru": "schtasks /query /fo LIST /_ | findstr /i \"____\"   Ключ включает подробный вывод. Вам нужно поле комментария."
+        }
+      }
+    },
+    {
+      "Id": "D2-WU",
+      "Day": 2,
+      "Points": 20,
+      "Optional": false,
+      "Kind": "deliverable",
+      "Slug": "",
+      "Check": {
+        "es": "dia2-writeup",
+        "en": "day2-writeup",
+        "ru": "day2-writeup"
+      },
+      "Requires": "",
+      "Title": {
+        "es": "Writeup de la caza de banderas",
+        "en": "Flag hunt writeup",
+        "ru": "Отчёт об охоте за флагами"
+      },
+      "Where": {
+        "es": "{DELIVER_DIR}\\dia2-writeup.*",
+        "en": "{DELIVER_DIR}\\day2-writeup.*",
+        "ru": "{DELIVER_DIR}\\day2-writeup.*"
+      },
+      "Hint": {
+        "es": "Objetivo, procedimiento con cada comando, hallazgos con su ruta y aprendizaje.",
+        "en": "Goal, procedure with every command, findings with their paths, and what you learned.",
+        "ru": "Цель, ход работы с каждой командой, находки с их путями и выводы."
+      },
+      "PublicHint": {
+        "es": "Objetivo, procedimiento, hallazgos y lo que aprendiste.",
+        "en": "Goal, procedure, findings and what you learned.",
+        "ru": "Цель, ход работы, находки и что вы узнали."
+      },
+      "Hints": {
+        "1": {
+          "es": "Objetivo, procedimiento, hallazgos y lo que aprendiste. Hay plantilla en {SHARE_PUBLIC}\\{TEMPLATES_DIR}.",
+          "en": "Goal, procedure, findings and what you learned. There is a template in {SHARE_PUBLIC}\\{TEMPLATES_DIR}.",
+          "ru": "Цель, ход работы, находки и что вы узнали. Шаблон лежит в {SHARE_PUBLIC}\\{TEMPLATES_DIR}."
+        },
+        "2": {
+          "es": "El criterio es que otra persona pueda REPETIR tus pasos leyendo tu texto.",
+          "en": "The bar is that someone else can REPEAT your steps by reading your text.",
+          "ru": "Критерий такой: другой человек должен суметь ПОВТОРИТЬ ваши шаги, читая ваш текст."
+        },
+        "3": {
+          "es": "Copia la plantilla y complétala. Los comandos van transcritos en un bloque de código, no descritos de memoria: decir que filtraste con findstr no sirve, la línea completa sí.",
+          "en": "Copy the template and fill it in. Commands go verbatim in a code block, not described from memory: saying you filtered with findstr is not enough, the full line is.",
+          "ru": "Скопируйте шаблон и заполните его. Команды приводятся дословно в блоке кода, а не пересказываются по памяти: фраза «отфильтровал через findstr» не годится, нужна полная строка."
+        }
+      }
+    },
+    {
+      "Id": "D3-01",
+      "Day": 3,
+      "Points": 15,
+      "Optional": false,
+      "Kind": "personal",
+      "Slug": "r3g_hkcu_k3y",
+      "Check": "",
+      "Requires": "",
+      "Title": {
+        "es": "El registro también guarda secretos",
+        "en": "The registry keeps secrets too",
+        "ru": "Реестр тоже хранит секреты"
+      },
+      "Where": {
+        "es": "HKCU\\{REG_ROOT}\\{K_DAY3}",
+        "en": "HKCU\\{REG_ROOT}\\{K_DAY3}",
+        "ru": "HKCU\\{REG_ROOT}\\{K_DAY3}"
+      },
+      "Hint": {
+        "es": "reg query HKCU\\Software /s recorre toda la rama. En PowerShell el registro es una unidad más.",
+        "en": "reg query HKCU\\Software /s walks the whole branch. In PowerShell the registry is just another drive.",
+        "ru": "reg query HKCU\\Software /s проходит всю ветвь. В PowerShell реестр устроен как ещё один диск."
+      },
+      "PublicHint": {
+        "es": "Windows guarda su configuración en un árbol. Hay una rama que lleva el nombre del laboratorio.",
+        "en": "Windows stores its configuration in a tree. One branch carries the name of the lab.",
+        "ru": "Windows хранит настройки в дереве. Одна из ветвей носит имя лаборатории."
+      },
+      "Hints": {
+        "1": {
+          "es": "Windows guarda su configuración en un árbol. Hay una rama que lleva el nombre del laboratorio.",
+          "en": "Windows stores its configuration in a tree. One branch carries the name of the lab.",
+          "ru": "Windows хранит настройки в дереве. Одна из ветвей носит имя лаборатории."
+        },
+        "2": {
+          "es": "El comando de consulta del registro sabe BUSCAR, no solo listar. Y por defecto no baja a las subclaves.",
+          "en": "The registry query command can SEARCH, not just list. And by default it does not descend into subkeys.",
+          "ru": "Команда запроса к реестру умеет ИСКАТЬ, а не только выводить список. И по умолчанию она не спускается в подразделы."
+        },
+        "3": {
+          "es": "reg query HKCU /f \"{FLAG}{\" /_ /_   Faltan el modificador recursivo y el que ignora mayúsculas. Sin el recursivo devuelve cero resultados, y esa es la trampa.",
+          "en": "reg query HKCU /f \"{FLAG}{\" /_ /_   Missing are the recursive switch and the case insensitive one. Without recursion it returns nothing, and that is the trap.",
+          "ru": "reg query HKCU /f \"{FLAG}{\" /_ /_   Не хватает ключа рекурсии и ключа, отключающего учёт регистра. Без рекурсии результат будет пустым, и в этом ловушка."
+        }
+      }
+    },
+    {
+      "Id": "D3-02",
+      "Day": 3,
+      "Points": 15,
+      "Optional": false,
+      "Kind": "personal",
+      "Slug": "ads_str34m",
+      "Check": "",
+      "Requires": "",
+      "Title": {
+        "es": "Un archivo dentro de otro archivo",
+        "en": "A file inside another file",
+        "ru": "Файл внутри другого файла"
+      },
+      "Where": {
+        "es": "Flujo de datos alterno (ADS) en %USERPROFILE%\\{KIT_DIR}\\{K_DAY3}\\{K_NOTES}",
+        "en": "Alternate data stream (ADS) in %USERPROFILE%\\{KIT_DIR}\\{K_DAY3}\\{K_NOTES}",
+        "ru": "Альтернативный поток данных (ADS) в %USERPROFILE%\\{KIT_DIR}\\{K_DAY3}\\{K_NOTES}"
+      },
+      "Hint": {
+        "es": "dir /r revela los flujos alternos. Se leen con more < archivo:flujo.",
+        "en": "dir /r reveals alternate streams. You read them with more < file:stream.",
+        "ru": "dir /r показывает альтернативные потоки. Читаются они так: more < файл:поток."
+      },
+      "PublicHint": {
+        "es": "Un archivo NTFS puede contener más de un contenido a la vez.",
+        "en": "An NTFS file can hold more than one content at the same time.",
+        "ru": "Файл NTFS может хранить больше одного содержимого одновременно."
+      },
+      "Hints": {
+        "1": {
+          "es": "Un archivo NTFS puede contener más de un contenido a la vez.",
+          "en": "An NTFS file can hold more than one content at the same time.",
+          "ru": "Файл NTFS может хранить больше одного содержимого одновременно."
+        },
+        "2": {
+          "es": "El listado de directorio puede mostrar esos contenidos extra. Para leerlos type no sirve: hay que redirigir la entrada de otro programa.",
+          "en": "The directory listing can show those extra contents. type cannot read them: you have to redirect the input of another program.",
+          "ru": "Вывод списка каталога умеет показывать это дополнительное содержимое. type его не прочтёт: нужно перенаправить ввод другой программы."
+        },
+        "3": {
+          "es": "Para verlos: dir /a /_   Para leer uno: more < {K_NOTES}:______   Cuidado: encontrarás DOS flujos y solo uno es el reto.",
+          "en": "To see them: dir /a /_   To read one: more < {K_NOTES}:______   Careful: you will find TWO streams and only one is the challenge.",
+          "ru": "Чтобы увидеть их: dir /a /_   Чтобы прочитать один: more < {K_NOTES}:______   Осторожно: вы найдёте ДВА потока, и только один из них относится к заданию."
+        }
+      }
+    },
+    {
+      "Id": "D3-03",
+      "Day": 3,
+      "Points": 15,
+      "Optional": false,
+      "Kind": "personal",
+      "Slug": "junct10n_l1nk",
+      "Check": "",
+      "Requires": "",
+      "Title": {
+        "es": "El atajo que apunta a otra parte",
+        "en": "The shortcut that points elsewhere",
+        "ru": "Ярлык, который ведёт в другое место"
+      },
+      "Where": {
+        "es": "Cadena de enlaces en %USERPROFILE%\\{KIT_DIR}\\{K_DAY3}",
+        "en": "Chain of links in %USERPROFILE%\\{KIT_DIR}\\{K_DAY3}",
+        "ru": "Цепочка ссылок в %USERPROFILE%\\{KIT_DIR}\\{K_DAY3}"
+      },
+      "Hint": {
+        "es": "dir muestra <JUNCTION> y <SYMLINKD>. Sigue la cadena hasta el final.",
+        "en": "dir shows <JUNCTION> and <SYMLINKD>. Follow the chain to the end.",
+        "ru": "dir показывает <JUNCTION> и <SYMLINKD>. Пройдите по цепочке до конца."
+      },
+      "PublicHint": {
+        "es": "No todas las carpetas están donde parece. Sigue la pista hasta el final.",
+        "en": "Not every folder is where it seems. Follow the trail to the end.",
+        "ru": "Не все папки находятся там, где кажется. Идите по следу до конца."
+      },
+      "Hints": {
+        "1": {
+          "es": "No todas las carpetas están donde parece. Sigue la pista hasta el final.",
+          "en": "Not every folder is where it seems. Follow the trail to the end.",
+          "ru": "Не все папки находятся там, где кажется. Идите по следу до конца."
+        },
+        "2": {
+          "es": "Son enlaces de directorio. El mismo listado que usaste para los flujos alternos te muestra entre corchetes adónde apunta cada uno.",
+          "en": "They are directory links. The same listing you used for alternate streams shows in brackets where each one points.",
+          "ru": "Это ссылки на каталоги. Тот же вывод, которым вы смотрели альтернативные потоки, показывает в квадратных скобках, куда ведёт каждая из них."
+        },
+        "3": {
+          "es": "dir /a /r y lee los corchetes: {K_LINK}1, {K_LINK}2, {K_LINK}3 y {K_TARGET}. El enlace es transparente: al entrar en el primero ya estás al final de la cadena, y eso no es un error tuyo.",
+          "en": "dir /a /r and read the brackets: {K_LINK}1, {K_LINK}2, {K_LINK}3 and {K_TARGET}. Links are transparent: entering the first one already lands you at the end of the chain, and that is not your mistake.",
+          "ru": "dir /a /r и читайте квадратные скобки: {K_LINK}1, {K_LINK}2, {K_LINK}3 и {K_TARGET}. Ссылки прозрачны: войдя в первую, вы сразу оказываетесь в конце цепочки, и это не ваша ошибка."
+        }
+      }
+    },
+    {
+      "Id": "D3-OPT1",
+      "Day": 3,
+      "Points": 15,
+      "Optional": true,
+      "Kind": "personal",
+      "Slug": "s1d_1d3nt1ty",
+      "Check": "",
+      "Requires": "",
+      "Title": {
+        "es": "Opcional: tu propia identidad",
+        "en": "Optional: your own identity",
+        "ru": "Дополнительно: кто вы для Windows"
+      },
+      "Where": {
+        "es": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY3}\\{K_IDENTITY}, archivo nombrado con tu SID",
+        "en": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY3}\\{K_IDENTITY}, file named after your SID",
+        "ru": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY3}\\{K_IDENTITY}, файл с именем вашего SID"
+      },
+      "Hint": {
+        "es": "whoami /user te da tu SID. En el laboratorio hay un archivo que lo espera.",
+        "en": "whoami /user gives you your SID. There is a file in the lab waiting for it.",
+        "ru": "whoami /user показывает ваш SID. В лаборатории есть файл, который его ждёт."
+      },
+      "PublicHint": {
+        "es": "Tu identidad en Windows es un número, no un nombre. Ese número abre algo.",
+        "en": "Your identity in Windows is a number, not a name. That number opens something.",
+        "ru": "Для Windows вы число, а не имя. Это число кое-что открывает."
+      },
+      "Hints": {
+        "1": {
+          "es": "Tu identidad en Windows es un número, no un nombre. Ese número abre algo.",
+          "en": "Your identity in Windows is a number, not a name. That number opens something.",
+          "ru": "Для Windows вы число, а не имя. Это число кое-что открывает."
+        },
+        "2": {
+          "es": "Hay un comando que te dice quién eres, y un modificador que muestra el número en vez del nombre.",
+          "en": "There is a command that tells you who you are, and a switch that shows the number instead of the name.",
+          "ru": "Есть команда, которая говорит, кто вы, и ключ, который показывает число вместо имени."
+        },
+        "3": {
+          "es": "whoami /____  te da el número. En la carpeta {K_IDENTITY} hay un archivo por cada número conocido y solo uno es el tuyo.",
+          "en": "whoami /____  gives you the number. The {K_IDENTITY} folder has one file per known number and only one is yours.",
+          "ru": "whoami /____  даёт число. В папке {K_IDENTITY} по файлу на каждое известное число, и ваш только один."
+        }
+      }
+    },
+    {
+      "Id": "D3-WU",
+      "Day": 3,
+      "Points": 20,
+      "Optional": false,
+      "Kind": "deliverable",
+      "Slug": "",
+      "Check": {
+        "es": "dia3-writeup",
+        "en": "day3-writeup",
+        "ru": "day3-writeup"
+      },
+      "Requires": "",
+      "Title": {
+        "es": "Writeup: esconde y encuentra",
+        "en": "Writeup: hide and seek",
+        "ru": "Отчёт: прятки"
+      },
+      "Where": {
+        "es": "{DELIVER_DIR}\\dia3-writeup.*",
+        "en": "{DELIVER_DIR}\\day3-writeup.*",
+        "ru": "{DELIVER_DIR}\\day3-writeup.*"
+      },
+      "Hint": {
+        "es": "Dónde escondiste, cómo encontraste, el equivalente en Linux y tu aprendizaje.",
+        "en": "Where you hid things, how you found them, the Linux equivalent and what you learned.",
+        "ru": "Где вы прятали, как находили, аналог в Linux и что вы узнали."
+      },
+      "PublicHint": {
+        "es": "Dónde escondiste, cómo encontraste, el equivalente en Linux y tu aprendizaje.",
+        "en": "Where you hid things, how you found them, the Linux equivalent and what you learned.",
+        "ru": "Где вы прятали, как находили, аналог в Linux и что вы узнали."
+      },
+      "Hints": {
+        "1": {
+          "es": "Dónde escondiste, cómo encontraste, el equivalente en Linux y tu aprendizaje.",
+          "en": "Where you hid things, how you found them, the Linux equivalent and what you learned.",
+          "ru": "Где вы прятали, как находили, аналог в Linux и что вы узнали."
+        },
+        "2": {
+          "es": "La sección de Windows frente a Linux es obligatoria y es la que más gente se salta.",
+          "en": "The Windows versus Linux section is mandatory and it is the one most people skip.",
+          "ru": "Раздел о сравнении Windows и Linux обязателен, и именно его чаще всего пропускают."
+        },
+        "3": {
+          "es": "Para esa sección: el registro se corresponde con /etc y los enlaces con ln -s. Los flujos alternos son el caso interesante: piensa si ext4 tiene algo equivalente y, si no, qué se usa en su lugar.",
+          "en": "For that section: the registry maps to /etc and links map to ln -s. Alternate streams are the interesting case: think about whether ext4 has an equivalent and, if not, what is used instead.",
+          "ru": "Для этого раздела: реестру соответствует /etc, ссылкам соответствует ln -s. Интереснее всего с альтернативными потоками: подумайте, есть ли аналог в ext4, а если нет, что используют вместо него."
+        }
+      }
+    },
+    {
+      "Id": "D4-00",
+      "Day": 4,
+      "Points": 10,
+      "Optional": false,
+      "Kind": "personal",
+      "Slug": "r3g_1s_4_dr1v3",
+      "Check": "",
+      "Requires": "",
+      "Title": {
+        "es": "El registro es una unidad más",
+        "en": "The registry is just another drive",
+        "ru": "Реестр как ещё один диск"
+      },
+      "Where": {
+        "es": "HKCU:\\{REG_ROOT}",
+        "en": "HKCU:\\{REG_ROOT}",
+        "ru": "HKCU:\\{REG_ROOT}"
+      },
+      "Hint": {
+        "es": "Get-ChildItem HKCU:\\Software y Get-ItemProperty sobre la clave.",
+        "en": "Get-ChildItem HKCU:\\Software and Get-ItemProperty on the key.",
+        "ru": "Get-ChildItem HKCU:\\Software и Get-ItemProperty для раздела."
+      },
+      "PublicHint": {
+        "es": "Lo mismo que viste en el Día 3, pero ahora desde PowerShell.",
+        "en": "The same thing you saw on Day 3, now from PowerShell.",
+        "ru": "То же, что вы видели в день 3, но теперь из PowerShell."
+      },
+      "Hints": {
+        "1": {
+          "es": "Lo mismo que viste en el Día 3, pero ahora desde PowerShell.",
+          "en": "The same thing you saw on Day 3, now from PowerShell.",
+          "ru": "То же, что вы видели в день 3, но теперь из PowerShell."
+        },
+        "2": {
+          "es": "En PowerShell el registro es una unidad más: se recorre con los mismos verbos que una carpeta.",
+          "en": "In PowerShell the registry is just another drive: you walk it with the same verbs you use for folders.",
+          "ru": "В PowerShell реестр устроен как ещё один диск: его обходят теми же командлетами, что и папки."
+        },
+        "3": {
+          "es": "Get-ChildItem ____:\\{REG_ROOT} -Recurse   El nombre de la unidad de registro de tu usuario es la misma rama que usaste ayer, con dos puntos al final.",
+          "en": "Get-ChildItem ____:\\{REG_ROOT} -Recurse   The registry drive of your user is the same hive you used yesterday, followed by a colon.",
+          "ru": "Get-ChildItem ____:\\{REG_ROOT} -Recurse   Диск реестра вашего пользователя называется так же, как куст, который вы использовали вчера, только с двоеточием в конце."
+        }
+      }
+    },
+    {
+      "Id": "D4-01",
+      "Day": 4,
+      "Points": 20,
+      "Optional": false,
+      "Kind": "personal",
+      "Slug": "sel3ct_str1ng",
+      "Check": "",
+      "Requires": "",
+      "Title": {
+        "es": "Reto 1: buscar dentro de un archivo",
+        "en": "Challenge 1: search inside a file",
+        "ru": "Задание 1: поиск внутри файла"
+      },
+      "Where": {
+        "es": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY4}\\{K_CH1}\\{K_LOG} (20 000 líneas)",
+        "en": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY4}\\{K_CH1}\\{K_LOG} (20,000 lines)",
+        "ru": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY4}\\{K_CH1}\\{K_LOG} (20 000 строк)"
+      },
+      "Hint": {
+        "es": "Select-String es el grep de PowerShell. Escribe el .ps1, no lo busques a mano.",
+        "en": "Select-String is the grep of PowerShell. Write the .ps1, do not search by hand.",
+        "ru": "Select-String играет в PowerShell роль grep. Напишите .ps1, не ищите вручную."
+      },
+      "PublicHint": {
+        "es": "Veinte mil líneas. A mano no: escribe el script.",
+        "en": "Twenty thousand lines. Not by hand: write the script.",
+        "ru": "Двадцать тысяч строк. Не вручную: напишите скрипт."
+      },
+      "Hints": {
+        "1": {
+          "es": "Veinte mil líneas. A mano no: escribe el script.",
+          "en": "Twenty thousand lines. Not by hand: write the script.",
+          "ru": "Двадцать тысяч строк. Не вручную: напишите скрипт."
+        },
+        "2": {
+          "es": "Leer el archivo completo y filtrarlo por texto son dos comandos encadenados con una tubería.",
+          "en": "Reading the whole file and filtering it by text are two commands joined by a pipeline.",
+          "ru": "Прочитать весь файл и отфильтровать его по тексту можно двумя командами, соединёнными конвейером."
+        },
+        "3": {
+          "es": "Get-Content .\\{K_LOG} | Select-______ \"{FLAG}\"   Es el cmdlet de búsqueda de texto de PowerShell, el equivalente de findstr.",
+          "en": "Get-Content .\\{K_LOG} | Select-______ \"{FLAG}\"   It is the text search cmdlet of PowerShell, the equivalent of findstr.",
+          "ru": "Get-Content .\\{K_LOG} | Select-______ \"{FLAG}\"   Это командлет PowerShell для поиска текста, аналог findstr."
+        }
+      }
+    },
+    {
+      "Id": "D4-02",
+      "Day": 4,
+      "Points": 20,
+      "Optional": false,
+      "Kind": "check",
+      "Slug": "",
+      "Check": "Test-D4Structure",
+      "Requires": "",
+      "Title": {
+        "es": "Reto 2: crear la estructura",
+        "en": "Challenge 2: build the structure",
+        "ru": "Задание 2: создать структуру"
+      },
+      "Where": {
+        "es": "H:\\{WORK_DIR}\\{K_DAY4}\\{K_CH2} (tu unidad de red)",
+        "en": "H:\\{WORK_DIR}\\{K_DAY4}\\{K_CH2} (your network drive)",
+        "ru": "H:\\{WORK_DIR}\\{K_DAY4}\\{K_CH2} (ваш сетевой диск)"
+      },
+      "Hint": {
+        "es": "Varias carpetas con varios archivos cada una, con foreach y New-Item, EN TU UNIDAD H:. El corrector lo ve solo.",
+        "en": "Several folders with several files each, using foreach and New-Item, ON YOUR H: DRIVE. The grader sees it on its own.",
+        "ru": "Несколько папок с несколькими файлами в каждой, через foreach и New-Item, НА ВАШЕМ ДИСКЕ H:. Проверка увидит это сама."
+      },
+      "PublicHint": {
+        "es": "Aquí no hay bandera que buscar, hay estructura que construir en tu unidad de red. El corrector la revisa solo.",
+        "en": "There is no flag to find here, there is a structure to build on your network drive. The grader checks it on its own.",
+        "ru": "Здесь нет флага, который нужно найти: есть структура, которую нужно построить на сетевом диске. Проверка оценит её сама."
+      },
+      "Hints": {
+        "1": {
+          "es": "Aquí no hay bandera que buscar, hay estructura que construir en tu unidad de red. El corrector la revisa solo.",
+          "en": "There is no flag to find here, there is a structure to build on your network drive. The grader checks it on its own.",
+          "ru": "Здесь нет флага, который нужно найти: есть структура, которую нужно построить на сетевом диске. Проверка оценит её сама."
+        },
+        "2": {
+          "es": "Necesitas crear varias carpetas y varios archivos dentro de cada una sin hacerlo a mano: es un bucle.",
+          "en": "You need to create several folders and several files inside each one without doing it by hand: it is a loop.",
+          "ru": "Нужно создать несколько папок и по несколько файлов в каждой, не делая этого вручную: это цикл."
+        },
+        "3": {
+          "es": "Va en H:\\{WORK_DIR}\\{K_DAY4}\\{K_CH2}. El corrector pide al menos 3 carpetas con al menos 3 archivos en cada una. Con 1..3 | ForEach-Object y New-Item -ItemType Directory o File lo tienes.",
+          "en": "It goes in H:\\{WORK_DIR}\\{K_DAY4}\\{K_CH2}. The grader asks for at least 3 folders with at least 3 files in each. With 1..3 | ForEach-Object and New-Item -ItemType Directory or File you are done.",
+          "ru": "Всё это в H:\\{WORK_DIR}\\{K_DAY4}\\{K_CH2}. Проверка требует минимум 3 папки и минимум 3 файла в каждой. С 1..3 | ForEach-Object и New-Item -ItemType Directory или File всё получится."
+        }
+      }
+    },
+    {
+      "Id": "D4-03",
+      "Day": 4,
+      "Points": 20,
+      "Optional": false,
+      "Kind": "personal",
+      "Slug": "j01n_th3_p4rts",
+      "Check": "",
+      "Requires": "",
+      "Title": {
+        "es": "Reto 3: juntar los trozos",
+        "en": "Challenge 3: put the pieces together",
+        "ru": "Задание 3: собрать части"
+      },
+      "Where": {
+        "es": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY4}\\{K_CH3}\\{K_PART}_*.txt",
+        "en": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY4}\\{K_CH3}\\{K_PART}_*.txt",
+        "ru": "%USERPROFILE%\\{KIT_DIR}\\{K_DAY4}\\{K_CH3}\\{K_PART}_*.txt"
+      },
+      "Hint": {
+        "es": "Ordena por nombre antes de unir con Sort-Object. Si no, la bandera sale desordenada.",
+        "en": "Sort by name with Sort-Object before joining. Otherwise the flag comes out scrambled.",
+        "ru": "Перед склейкой отсортируйте по имени с помощью Sort-Object. Иначе флаг получится перемешанным."
+      },
+      "PublicHint": {
+        "es": "La bandera está partida en trozos. El orden importa.",
+        "en": "The flag is split into pieces. Order matters.",
+        "ru": "Флаг разбит на части. Порядок важен."
+      },
+      "Hints": {
+        "1": {
+          "es": "La bandera está partida en trozos. El orden importa.",
+          "en": "The flag is split into pieces. Order matters.",
+          "ru": "Флаг разбит на части. Порядок важен."
+        },
+        "2": {
+          "es": "Hay que recorrer los trozos ordenados e ir pegando el contenido de cada uno en una sola cadena.",
+          "en": "Walk the pieces in order and append the content of each one to a single string.",
+          "ru": "Нужно пройти по частям в правильном порядке и дописывать содержимое каждой в одну строку."
+        },
+        "3": {
+          "es": "$b = ''; Get-ChildItem {K_PART}*.txt | Sort-Object ____ | ForEach-Object { $b += Get-Content $_ }   Piensa por qué propiedad ordenarlos para que el orden sea el bueno.",
+          "en": "$b = ''; Get-ChildItem {K_PART}*.txt | Sort-Object ____ | ForEach-Object { $b += Get-Content $_ }   Think about which property gives you the right order.",
+          "ru": "$b = ''; Get-ChildItem {K_PART}*.txt | Sort-Object ____ | ForEach-Object { $b += Get-Content $_ }   Подумайте, по какому свойству сортировать, чтобы порядок был правильным."
+        }
+      }
+    },
+    {
+      "Id": "D4-OPT1",
+      "Day": 4,
+      "Points": 15,
+      "Optional": true,
+      "Kind": "check",
+      "Slug": "",
+      "Check": "Test-D4Export",
+      "Requires": "",
+      "Title": {
+        "es": "Opcional: exportar a CSV y JSON",
+        "en": "Optional: export to CSV and JSON",
+        "ru": "Дополнительно: экспорт в CSV и JSON"
+      },
+      "Where": {
+        "es": "H:\\{WORK_DIR}\\{K_DAY4}\\procesos.csv y procesos.json",
+        "en": "H:\\{WORK_DIR}\\{K_DAY4}\\processes.csv and processes.json",
+        "ru": "H:\\{WORK_DIR}\\{K_DAY4}\\processes.csv и processes.json"
+      },
+      "Hint": {
+        "es": "Export-Csv -NoTypeInformation y ConvertTo-Json sobre tus 5 procesos con más CPU, guardados en H:\\{WORK_DIR}\\{K_DAY4}.",
+        "en": "Export-Csv -NoTypeInformation and ConvertTo-Json on your 5 top CPU processes, saved in H:\\{WORK_DIR}\\{K_DAY4}.",
+        "ru": "Export-Csv -NoTypeInformation и ConvertTo-Json для пяти ваших процессов с наибольшей загрузкой ЦП, сохранённые в H:\\{WORK_DIR}\\{K_DAY4}."
+      },
+      "PublicHint": {
+        "es": "Los mismos datos en dos formatos distintos, guardados en tu unidad de red.",
+        "en": "The same data in two different formats, saved on your network drive.",
+        "ru": "Одни и те же данные в двух разных форматах, сохранённые на сетевом диске."
+      },
+      "Hints": {
+        "1": {
+          "es": "Los mismos datos en dos formatos distintos, guardados en tu unidad de red.",
+          "en": "The same data in two different formats, saved on your network drive.",
+          "ru": "Одни и те же данные в двух разных форматах, сохранённые на сетевом диске."
+        },
+        "2": {
+          "es": "PowerShell exporta a CSV y convierte a JSON con dos cmdlets hermanos. Tienen que ser LOS MISMOS datos.",
+          "en": "PowerShell exports to CSV and converts to JSON with two sibling cmdlets. It must be THE SAME data.",
+          "ru": "PowerShell экспортирует в CSV и преобразует в JSON двумя родственными командлетами. Данные должны быть ОДНИ И ТЕ ЖЕ."
+        },
+        "3": {
+          "es": "Van los dos en H:\\{WORK_DIR}\\{K_DAY4}, esa carpeta exacta. Export-Csv necesita -NoTypeInformation y ConvertTo-Json necesita -Depth si el objeto lleva listas: si ves System.Object[] en el CSV, es eso.",
+          "en": "Both go in H:\\{WORK_DIR}\\{K_DAY4}, that exact folder. Export-Csv needs -NoTypeInformation and ConvertTo-Json needs -Depth when the object holds lists: if you see System.Object[] in the CSV, that is why.",
+          "ru": "Оба файла кладутся в H:\\{WORK_DIR}\\{K_DAY4}, именно в эту папку. Export-Csv нужен -NoTypeInformation, а ConvertTo-Json нужен -Depth, если в объекте есть списки: если в CSV видно System.Object[], причина в этом."
+        }
+      }
+    },
+    {
+      "Id": "D4-WU",
+      "Day": 4,
+      "Points": 20,
+      "Optional": false,
+      "Kind": "deliverable",
+      "Slug": "",
+      "Check": {
+        "es": "dia4-writeup",
+        "en": "day4-writeup",
+        "ru": "day4-writeup"
+      },
+      "Requires": "",
+      "Title": {
+        "es": "Writeup: tu código y tu idea",
+        "en": "Writeup: your code and your idea",
+        "ru": "Отчёт: ваш код и ваша идея"
+      },
+      "Where": {
+        "es": "{DELIVER_DIR}\\dia4-writeup.*",
+        "en": "{DELIVER_DIR}\\day4-writeup.*",
+        "ru": "{DELIVER_DIR}\\day4-writeup.*"
+      },
+      "Hint": {
+        "es": "El reto elegido, el script comentado, la ejecución con la bandera y lo que mejorarías.",
+        "en": "The chosen challenge, the commented script, the run with the flag and what you would improve.",
+        "ru": "Выбранное задание, скрипт с комментариями, запуск с флагом и что бы вы улучшили."
+      },
+      "PublicHint": {
+        "es": "El reto que elegiste, tu script comentado, la ejecución y lo que mejorarías.",
+        "en": "The challenge you chose, your commented script, the run and what you would improve.",
+        "ru": "Задание, которое вы выбрали, ваш скрипт с комментариями, запуск и что бы вы улучшили."
+      },
+      "Hints": {
+        "1": {
+          "es": "El reto que elegiste, tu script comentado, la ejecución y lo que mejorarías.",
+          "en": "The challenge you chose, your commented script, the run and what you would improve.",
+          "ru": "Задание, которое вы выбрали, ваш скрипт с комментариями, запуск и что бы вы улучшили."
+        },
+        "2": {
+          "es": "El script va completo en un bloque de código, con comentarios tuyos que expliquen por qué existe cada línea.",
+          "en": "The script goes in full inside a code block, with your own comments explaining why each line exists.",
+          "ru": "Скрипт приводится полностью в блоке кода, с вашими комментариями, которые объясняют, зачем нужна каждая строка."
+        },
+        "3": {
+          "es": "Estructura: qué hace, el código comentado, una captura o el texto de la ejecución real y una sección honesta de lo que falla o harías mejor. Esa última sección es la que sube la nota.",
+          "en": "Structure: what it does, the commented code, a capture or the text of the real run, and an honest section about what fails or what you would do better. That last section is what raises the grade.",
+          "ru": "Структура: что делает скрипт, код с комментариями, снимок экрана или текст реального запуска и честный раздел о том, что не работает или что бы вы сделали лучше. Именно последний раздел повышает оценку."
+        }
+      }
+    },
+    {
+      "Id": "D5-P1",
+      "Day": 5,
+      "Points": 25,
+      "Optional": false,
+      "Kind": "shared",
+      "Slug": "dns_suff1x",
+      "Check": "",
+      "Requires": "TokenInDnsSuffix",
+      "Title": {
+        "es": "Parte 1: la bandera a plena vista",
+        "en": "Part 1: the flag in plain sight",
+        "ru": "Часть 1: флаг у всех на виду"
+      },
+      "Where": {
+        "es": "Lista de sufijos DNS de la conexión, visible solo con ipconfig /all",
+        "en": "DNS suffix search list of the connection, visible only with ipconfig /all",
+        "ru": "Список поиска DNS-суффиксов подключения, виден только через ipconfig /all"
+      },
+      "Hint": {
+        "es": "ipconfig sin modificadores no la muestra; ipconfig /all sí. Esta cadena es la contraseña de la Parte 3.",
+        "en": "Plain ipconfig does not show it; ipconfig /all does. This string is the password for Part 3.",
+        "ru": "Обычный ipconfig его не показывает, а ipconfig /all показывает. Эта строка служит паролем для части 3."
+      },
+      "PublicHint": {
+        "es": "La configuración de red que ves de un vistazo no es toda la que hay. Guarda lo que encuentres: abre la Parte 3.",
+        "en": "The network configuration you see at a glance is not all there is. Keep what you find: it opens Part 3.",
+        "ru": "С первого взгляда вы видите не всю сетевую конфигурацию. Сохраните то, что найдёте: это откроет часть 3."
+      },
+      "Hints": {
+        "1": {
+          "es": "La configuración de red que ves de un vistazo no es toda la que hay. Guarda lo que encuentres: abre la Parte 3.",
+          "en": "The network configuration you see at a glance is not all there is. Keep what you find: it opens Part 3.",
+          "ru": "С первого взгляда вы видите не всю сетевую конфигурацию. Сохраните то, что найдёте: это откроет часть 3."
+        },
+        "2": {
+          "es": "El comando de configuración de red tiene un modificador que lo muestra todo. Busca una lista de sufijos que no debería estar ahí.",
+          "en": "The network configuration command has a switch that shows everything. Look for a suffix list that should not be there.",
+          "ru": "У команды сетевой конфигурации есть ключ, который показывает всё. Найдите список суффиксов, которого там быть не должно."
+        },
+        "3": {
+          "es": "ipconfig /___   y lee la lista de sufijos de búsqueda DNS. Uno de ellos no es un dominio: es una contraseña. Anótala, la necesitas en la Parte 3.",
+          "en": "ipconfig /___   and read the DNS suffix search list. One of them is not a domain: it is a password. Write it down, you need it in Part 3.",
+          "ru": "ipconfig /___   и прочитайте список поиска DNS-суффиксов. Один из них не домен, а пароль. Запишите его, он понадобится в части 3."
+        }
+      }
+    },
+    {
+      "Id": "D5-P2",
+      "Day": 5,
+      "Points": 25,
+      "Optional": false,
+      "Kind": "shared",
+      "Slug": "dns_sw33p",
+      "Check": "",
+      "Requires": "InternalHttpIntranet",
+      "Title": {
+        "es": "Parte 2: el barrido automatizado",
+        "en": "Part 2: the automated sweep",
+        "ru": "Часть 2: автоматический обход"
+      },
+      "Where": {
+        "es": "Servidor web de uno de los nombres de {LAB_ZONE} que sí resuelven",
+        "en": "Web server behind one of the {LAB_ZONE} names that do resolve",
+        "ru": "Веб-сервер за одним из имён {LAB_ZONE}, которые действительно разрешаются"
+      },
+      "Hint": {
+        "es": "Resuelve cada nombre de la lista contra el DNS del dominio. Los pocos que responden tienen web.",
+        "en": "Resolve every name in the list against the domain DNS. The few that answer have a website.",
+        "ru": "Разрешите каждое имя из списка через DNS домена. У тех немногих, что отвечают, есть сайт."
+      },
+      "PublicHint": {
+        "es": "Una lista de direcciones y casi ninguna responde. Automatiza la pregunta.",
+        "en": "A list of addresses and almost none of them answer. Automate the question.",
+        "ru": "Список адресов, и почти ни один не отвечает. Автоматизируйте вопрос."
+      },
+      "Hints": {
+        "1": {
+          "es": "Una lista de direcciones y casi ninguna responde. Automatiza la pregunta.",
+          "en": "A list of addresses and almost none of them answer. Automate the question.",
+          "ru": "Список адресов, и почти ни один не отвечает. Автоматизируйте вопрос."
+        },
+        "2": {
+          "es": "Son nombres srvNN dentro de una zona del dominio. Preguntar por los 40 a mano es el error: es un bucle.",
+          "en": "They are srvNN names inside a domain zone. Asking about all 40 by hand is the mistake: it is a loop.",
+          "ru": "Это имена srvNN внутри зоны домена. Спрашивать про все 40 вручную и есть ошибка: это цикл."
+        },
+        "3": {
+          "es": "1..40 | ForEach-Object { Resolve-DnsName (\"srv{0:00}.____.{DOMAIN}\" -f $_) -ErrorAction SilentlyContinue }   Falta el nombre de la zona. Responden cuatro y en uno de ellos hay una página web que menciona a un usuario.",
+          "en": "1..40 | ForEach-Object { Resolve-DnsName (\"srv{0:00}.____.{DOMAIN}\" -f $_) -ErrorAction SilentlyContinue }   The zone name is missing. Four of them answer and one hosts a web page that names a user.",
+          "ru": "1..40 | ForEach-Object { Resolve-DnsName (\"srv{0:00}.____.{DOMAIN}\" -f $_) -ErrorAction SilentlyContinue }   Не хватает имени зоны. Отвечают четыре, и на одном из них есть веб-страница, где упоминается пользователь."
+        }
+      }
+    },
+    {
+      "Id": "D5-P3",
+      "Day": 5,
+      "Points": 25,
+      "Optional": false,
+      "Kind": "personal",
+      "Slug": "smb_sh4r3_w1n",
+      "Check": "",
+      "Requires": "SharedSmbAccount",
+      "Title": {
+        "es": "Parte 3: entra por SMB",
+        "en": "Part 3: get in through SMB",
+        "ru": "Часть 3: вход через SMB"
+      },
+      "Where": {
+        "es": "\\\\{DC}\\{SHARE_CONFIDENTIAL}\\{CONF_DIR}\\<tu usuario>.txt",
+        "en": "\\\\{DC}\\{SHARE_CONFIDENTIAL}\\{CONF_DIR}\\<your user>.txt",
+        "ru": "\\\\{DC}\\{SHARE_CONFIDENTIAL}\\{CONF_DIR}\\<ваше имя пользователя>.txt"
+      },
+      "Hint": {
+        "es": "net use Z: \\\\{DCFQDN}\\{SHARE_CONFIDENTIAL} /user:{NETBIOS}\\{SMB_USER} <clave de la Parte 1>. Si Windows responde con el error 1219, usa la IP del DC en lugar del nombre.",
+        "en": "net use Z: \\\\{DCFQDN}\\{SHARE_CONFIDENTIAL} /user:{NETBIOS}\\{SMB_USER} <Part 1 password>. If Windows answers with error 1219, use the DC IP instead of its name.",
+        "ru": "net use Z: \\\\{DCFQDN}\\{SHARE_CONFIDENTIAL} /user:{NETBIOS}\\{SMB_USER} <пароль из части 1>. Если Windows отвечает ошибкой 1219, используйте IP-адрес контроллера домена вместо имени."
+      },
+      "PublicHint": {
+        "es": "Un recurso compartido de la empresa, con la llave que sacaste en la Parte 1. Busca lo que lleva tu nombre.",
+        "en": "A company file share, opened with the key you got in Part 1. Look for what carries your name.",
+        "ru": "Общая папка компании, которую открывает ключ из части 1. Ищите то, что носит ваше имя."
+      },
+      "Hints": {
+        "1": {
+          "es": "Un recurso compartido de la empresa, con la llave que sacaste en la Parte 1. Busca lo que lleva tu nombre.",
+          "en": "A company file share, opened with the key you got in Part 1. Look for what carries your name.",
+          "ru": "Общая папка компании, которую открывает ключ из части 1. Ищите то, что носит ваше имя."
+        },
+        "2": {
+          "es": "Se monta una unidad de red con credenciales explícitas: el usuario salió en la Parte 2 y la contraseña en la Parte 1.",
+          "en": "You map a network drive with explicit credentials: the user came from Part 2 and the password from Part 1.",
+          "ru": "Сетевой диск подключается с явно указанными учётными данными: пользователь появился в части 2, а пароль в части 1."
+        },
+        "3": {
+          "es": "net use Z: \\\\<DC>\\____________ /user:{NETBIOS}\\________ <contraseña de la Parte 1>   Dentro hay un expediente por persona. El tuyo lleva tu nombre de usuario; los ajenos no te sirven, porque las banderas son personales.",
+          "en": "net use Z: \\\\<DC>\\____________ /user:{NETBIOS}\\________ <Part 1 password>   Inside there is one record per person. Yours carries your user name; other records are useless to you because flags are personal.",
+          "ru": "net use Z: \\\\<DC>\\____________ /user:{NETBIOS}\\________ <пароль из части 1>   Внутри по личному делу на каждого человека. Ваше носит ваше имя пользователя; чужие вам не помогут, потому что флаги личные."
+        }
+      }
+    },
+    {
+      "Id": "D5-OPT1",
+      "Day": 5,
+      "Points": 15,
+      "Optional": true,
+      "Kind": "shared",
+      "Slug": "p0rt_b4nn3r",
+      "Check": "",
+      "Requires": "UnexpectedBannerPort",
+      "Title": {
+        "es": "Opcional: el puerto que no debería estar",
+        "en": "Optional: the port that should not be there",
+        "ru": "Дополнительно: порт, которого быть не должно"
+      },
+      "Where": {
+        "es": "Servicio escuchando en el puerto {BANNER_PORT}/tcp del DC",
+        "en": "Service listening on port {BANNER_PORT}/tcp of the DC",
+        "ru": "Служба, слушающая порт {BANNER_PORT}/tcp на контроллере домена"
+      },
+      "Hint": {
+        "es": "Escanea los puertos del DC. Test-NetConnection dice si está abierto, pero para leer lo que responde hay que conectarse de verdad.",
+        "en": "Scan the DC ports. Test-NetConnection tells you whether it is open, but you have to really connect to read the answer.",
+        "ru": "Просканируйте порты контроллера домена. Test-NetConnection скажет, открыт ли порт, но чтобы прочитать ответ, нужно действительно подключиться."
+      },
+      "PublicHint": {
+        "es": "El controlador escucha donde no debería. Encontrarlo no basta: hay que hablarle.",
+        "en": "The controller listens where it should not. Finding it is not enough: you have to talk to it.",
+        "ru": "Контроллер слушает там, где не должен. Найти мало: с ним нужно поговорить."
+      },
+      "Hints": {
+        "1": {
+          "es": "El controlador escucha donde no debería. Encontrarlo no basta: hay que hablarle.",
+          "en": "The controller listens where it should not. Finding it is not enough: you have to talk to it.",
+          "ru": "Контроллер слушает там, где не должен. Найти мало: с ним нужно поговорить."
+        },
+        "2": {
+          "es": "Primero comprueba que el puerto está abierto y después abre una conexión real y lee lo que contesta el servicio.",
+          "en": "First confirm the port is open, then open a real connection and read what the service answers.",
+          "ru": "Сначала убедитесь, что порт открыт, затем установите настоящее соединение и прочитайте, что ответит служба."
+        },
+        "3": {
+          "es": "Test-NetConnection {DCFQDN} -Port ____   para confirmarlo. Es un puerto de cuatro cifras que se lee como una palabra. Para leer el banner usa telnet o un System.Net.Sockets.TcpClient.",
+          "en": "Test-NetConnection {DCFQDN} -Port ____   to confirm it. It is a four digit port that reads like a word. To read the banner use telnet or a System.Net.Sockets.TcpClient.",
+          "ru": "Test-NetConnection {DCFQDN} -Port ____   чтобы убедиться. Это четырёхзначный порт, который читается как слово. Чтобы прочитать баннер, используйте telnet или System.Net.Sockets.TcpClient."
+        }
+      }
+    },
+    {
+      "Id": "D5-OPT2",
+      "Day": 5,
+      "Points": 20,
+      "Optional": true,
+      "Kind": "personal",
+      "Slug": "c0rr30_1nt3rn0",
+      "Check": "",
+      "Requires": "PlaintextMail",
+      "Title": {
+        "es": "Opcional: el correo de la empresa",
+        "en": "Optional: the company mail",
+        "ru": "Дополнительно: почта компании"
+      },
+      "Where": {
+        "es": "Te la devuelve el servidor de correo al escribir a {VALIDATION}",
+        "en": "The mail server sends it back when you write to {VALIDATION}",
+        "ru": "Почтовый сервер присылает его в ответ, когда вы пишете на {VALIDATION}"
+      },
+      "Hint": {
+        "es": "Escribe a {VALIDATION} desde tu cuenta y revisa tu bandeja. Puedes usar Send-LabMail o hablar SMTP a mano por telnet, que enseña más.",
+        "en": "Write to {VALIDATION} from your account and check your inbox. Use Send-LabMail or speak SMTP by hand over telnet, which teaches more.",
+        "ru": "Напишите на {VALIDATION} со своей учётной записи и проверьте входящие. Можно использовать Send-LabMail или говорить по SMTP вручную через telnet, так вы узнаете больше."
+      },
+      "PublicHint": {
+        "es": "La empresa tiene correo interno. Escribe al buzón de validación y revisa tu bandeja.",
+        "en": "The company runs internal mail. Write to the validation mailbox and check your inbox.",
+        "ru": "У компании есть внутренняя почта. Напишите в ящик проверки и загляните во входящие."
+      },
+      "Hints": {
+        "1": {
+          "es": "La empresa tiene correo interno. Escribe al buzón de validación y revisa tu bandeja.",
+          "en": "The company runs internal mail. Write to the validation mailbox and check your inbox.",
+          "ru": "У компании есть внутренняя почта. Напишите в ящик проверки и загляните во входящие."
+        },
+        "2": {
+          "es": "Tienes comandos de correo en el módulo del alumno, pero también puedes hablar SMTP a mano por telnet al puerto 25. Las dos vías valen.",
+          "en": "You have mail commands in the student module, but you can also speak SMTP by hand over telnet to port 25. Both ways count.",
+          "ru": "В модуле учащегося есть почтовые команды, но можно и вручную говорить по SMTP через telnet на порт 25. Засчитываются оба способа."
+        },
+        "3": {
+          "es": "Send-LabMail -To \"__________@{DOMAIN}\" -Subject ... -Body ...   y después Get-LabMail. La respuesta automática tarda un momento.",
+          "en": "Send-LabMail -To \"__________@{DOMAIN}\" -Subject ... -Body ...   and then Get-LabMail. The automatic reply takes a moment.",
+          "ru": "Send-LabMail -To \"__________@{DOMAIN}\" -Subject ... -Body ...   а затем Get-LabMail. Автоматический ответ приходит не сразу."
+        }
+      }
+    },
+    {
+      "Id": "D5-WU",
+      "Day": 5,
+      "Points": 25,
+      "Optional": false,
+      "Kind": "deliverable",
+      "Slug": "",
+      "Check": {
+        "es": "dia5-writeup",
+        "en": "day5-writeup",
+        "ru": "day5-writeup"
+      },
+      "Requires": "",
+      "Title": {
+        "es": "Writeup: el hilo completo",
+        "en": "Writeup: the full thread",
+        "ru": "Отчёт: вся цепочка"
+      },
+      "Where": {
+        "es": "{DELIVER_DIR}\\dia5-writeup.*",
+        "en": "{DELIVER_DIR}\\day5-writeup.*",
+        "ru": "{DELIVER_DIR}\\day5-writeup.*"
+      },
+      "Hint": {
+        "es": "Las tres partes y, sobre todo, cómo cada bandera abrió la siguiente puerta.",
+        "en": "The three parts and, above all, how each flag opened the next door.",
+        "ru": "Все три части и, главное, как каждый флаг открывал следующую дверь."
+      },
+      "PublicHint": {
+        "es": "Las tres partes y, sobre todo, cómo cada bandera abrió la siguiente puerta.",
+        "en": "The three parts and, above all, how each flag opened the next door.",
+        "ru": "Все три части и, главное, как каждый флаг открывал следующую дверь."
+      },
+      "Hints": {
+        "1": {
+          "es": "Las tres partes y, sobre todo, cómo cada bandera abrió la siguiente puerta.",
+          "en": "The three parts and, above all, how each flag opened the next door.",
+          "ru": "Все три части и, главное, как каждый флаг открывал следующую дверь."
+        },
+        "2": {
+          "es": "Este writeup no se califica por los comandos sino por la CADENA: sin la Parte 1 no hay contraseña, sin la Parte 2 no hay usuario y sin las dos no hay recurso.",
+          "en": "This writeup is graded on the CHAIN, not the commands: without Part 1 there is no password, without Part 2 there is no user, and without both there is no share.",
+          "ru": "Этот отчёт оценивают не по командам, а по ЦЕПОЧКЕ: без части 1 нет пароля, без части 2 нет пользователя, а без обеих нет общей папки."
+        },
+        "3": {
+          "es": "Escríbelo como una historia en tres saltos y, en cada salto, una frase que empiece con: esto me sirvió para. Si un salto no se puede justificar así, te falta contarlo.",
+          "en": "Write it as a story in three jumps and, at each jump, a sentence that starts with: this let me. If a jump cannot be justified that way, you still need to tell it.",
+          "ru": "Напишите его как историю в три шага и на каждом шаге добавьте фразу, которая начинается словами: это помогло мне. Если шаг нельзя так обосновать, значит, вы ещё не всё рассказали."
+        }
+      }
+    },
+    {
+      "Id": "D6-R1",
+      "Day": 6,
+      "Points": 25,
+      "Optional": false,
+      "Kind": "shared",
+      "Slug": "us3rs_t4lk",
+      "Check": "",
+      "Requires": "DirectoryNotes",
+      "Title": {
+        "es": "Reto 1: los usuarios hablan",
+        "en": "Challenge 1: users talk",
+        "ru": "Задание 1: пользователи болтают"
+      },
+      "Where": {
+        "es": "Propiedad Description de una cuenta del personal de Contabilidad",
+        "en": "Description property of an Accounting staff account",
+        "ru": "Свойство Description учётной записи сотрудника Бухгалтерии"
+      },
+      "Hint": {
+        "es": "Get-ADUser -Filter * -Properties Description. Por defecto ese campo ni se muestra.",
+        "en": "Get-ADUser -Filter * -Properties Description. By default that field is not even shown.",
+        "ru": "Get-ADUser -Filter * -Properties Description. По умолчанию это поле даже не выводится."
+      },
+      "PublicHint": {
+        "es": "El directorio guarda notas sobre las personas que no salen en el listado normal.",
+        "en": "The directory keeps notes about people that never show up in the normal listing.",
+        "ru": "Каталог хранит о людях заметки, которые не видны в обычном списке."
+      },
+      "Hints": {
+        "1": {
+          "es": "El directorio guarda notas sobre las personas que no salen en el listado normal.",
+          "en": "The directory keeps notes about people that never show up in the normal listing.",
+          "ru": "Каталог хранит о людях заметки, которые не видны в обычном списке."
+        },
+        "2": {
+          "es": "El cmdlet de usuarios de AD devuelve un puñado de campos de los treinta que tiene la cuenta. Hay que pedir los demás.",
+          "en": "The AD users cmdlet returns a handful of fields out of the thirty the account has. You have to ask for the rest.",
+          "ru": "Командлет для пользователей AD возвращает горстку полей из тех тридцати, что есть у учётной записи. Остальные нужно запросить."
+        },
+        "3": {
+          "es": "Get-ADUser -Identity ________ -Properties ___________   Una persona del área contable y el campo donde se apuntan notas sobre una cuenta. Si no sabes a quién mirar, lista primero al personal.",
+          "en": "Get-ADUser -Identity ________ -Properties ___________   Someone from the accounting team and the field where notes about an account are kept. If you do not know whom to look at, list the staff first.",
+          "ru": "Get-ADUser -Identity ________ -Properties ___________   Кто-то из бухгалтерии и поле, где хранят заметки об учётной записи. Если не знаете, на кого смотреть, сначала выведите список сотрудников."
+        }
+      }
+    },
+    {
+      "Id": "D6-R2",
+      "Day": 6,
+      "Points": 25,
+      "Optional": false,
+      "Kind": "personal",
+      "Slug": "my_0wn_gr0ups",
+      "Check": "",
+      "Requires": "DirectoryNotes",
+      "Title": {
+        "es": "Reto 2: tus propios privilegios",
+        "en": "Challenge 2: your own privileges",
+        "ru": "Задание 2: ваши собственные привилегии"
+      },
+      "Where": {
+        "es": "Atributo info de TU cuenta de dominio",
+        "en": "info attribute of YOUR domain account",
+        "ru": "Атрибут info ВАШЕЙ учётной записи домена"
+      },
+      "Hint": {
+        "es": "Get-ADUser $env:USERNAME -Properties *. También whoami /groups te dice a qué perteneces.",
+        "en": "Get-ADUser $env:USERNAME -Properties *. whoami /groups also tells you what you belong to.",
+        "ru": "Get-ADUser $env:USERNAME -Properties *. Ещё whoami /groups покажет, в какие группы вы входите."
+      },
+      "PublicHint": {
+        "es": "Empieza por ti: tu propia ficha tiene más de lo que muestra.",
+        "en": "Start with yourself: your own record holds more than it shows.",
+        "ru": "Начните с себя: в вашей карточке больше, чем видно."
+      },
+      "Hints": {
+        "1": {
+          "es": "Empieza por ti: tu propia ficha tiene más de lo que muestra.",
+          "en": "Start with yourself: your own record holds more than it shows.",
+          "ru": "Начните с себя: в вашей карточке больше, чем видно."
+        },
+        "2": {
+          "es": "El mismo cmdlet del reto anterior, pero pidiendo TODOS los campos de una vez y leyendo el que casi nadie usa.",
+          "en": "The same cmdlet as before, but asking for ALL the fields at once and reading the one almost nobody uses.",
+          "ru": "Тот же командлет, что и в прошлом задании, но запросите ВСЕ поля сразу и прочитайте то, которым почти никто не пользуется."
+        },
+        "3": {
+          "es": "Get-ADUser -Identity $env:USERNAME -Properties _   El comodín que los trae todos. Luego busca el campo llamado info.",
+          "en": "Get-ADUser -Identity $env:USERNAME -Properties _   The wildcard that brings them all. Then look for the field named info.",
+          "ru": "Get-ADUser -Identity $env:USERNAME -Properties _   Подстановочный знак, который возвращает все поля. Затем найдите поле с именем info."
+        }
+      }
+    },
+    {
+      "Id": "D6-R3",
+      "Day": 6,
+      "Points": 25,
+      "Optional": false,
+      "Kind": "shared",
+      "Slug": "th3_f1fth_pc",
+      "Check": "",
+      "Requires": "DirectoryNotes",
+      "Title": {
+        "es": "Reto 3: la máquina número cinco",
+        "en": "Challenge 3: machine number five",
+        "ru": "Задание 3: машина номер пять"
+      },
+      "Where": {
+        "es": "Description del quinto equipo de la OU de estaciones",
+        "en": "Description of the fifth computer in the workstations OU",
+        "ru": "Description пятого компьютера в подразделении Рабочие станции"
+      },
+      "Hint": {
+        "es": "Get-ADComputer -Filter * -Properties *. Fíjate en la quinta estación.",
+        "en": "Get-ADComputer -Filter * -Properties *. Look at the fifth workstation.",
+        "ru": "Get-ADComputer -Filter * -Properties *. Обратите внимание на пятую рабочую станцию."
+      },
+      "PublicHint": {
+        "es": "Un inventario de equipos. Fíjate en el quinto.",
+        "en": "An inventory of computers. Look at the fifth one.",
+        "ru": "Инвентарный список компьютеров. Обратите внимание на пятый."
+      },
+      "Hints": {
+        "1": {
+          "es": "Un inventario de equipos. Fíjate en el quinto.",
+          "en": "An inventory of computers. Look at the fifth one.",
+          "ru": "Инвентарный список компьютеров. Обратите внимание на пятый."
+        },
+        "2": {
+          "es": "Las cuentas de equipo tienen su propio cmdlet y el mismo campo de notas que las de usuario.",
+          "en": "Computer accounts have their own cmdlet and the same notes field as user accounts.",
+          "ru": "У учётных записей компьютеров есть свой командлет и то же поле для заметок, что и у пользователей."
+        },
+        "3": {
+          "es": "Get-ADComputer -Identity ____ -Properties Description   El nombre termina en dos dígitos y la pista del enunciado es el número cinco.",
+          "en": "Get-ADComputer -Identity ____ -Properties Description   The name ends in two digits and the clue in the statement is the number five.",
+          "ru": "Get-ADComputer -Identity ____ -Properties Description   Имя заканчивается двумя цифрами, а подсказка в условии задания: число пять."
+        }
+      }
+    },
+    {
+      "Id": "D6-R4",
+      "Day": 6,
+      "Points": 25,
+      "Optional": false,
+      "Kind": "shared",
+      "Slug": "f4c3l3ss_gr0up",
+      "Check": "",
+      "Requires": "DirectoryNotes",
+      "Title": {
+        "es": "Reto 4: el grupo fuera de lugar",
+        "en": "Challenge 4: the group that does not belong",
+        "ru": "Задание 4: группа не на своём месте"
+      },
+      "Where": {
+        "es": "Atributo info del grupo {ODD_GROUP}",
+        "en": "info attribute of the {ODD_GROUP} group",
+        "ru": "Атрибут info группы {ODD_GROUP}"
+      },
+      "Hint": {
+        "es": "Get-ADGroup -Filter * y busca el que no encaja con una empresa. La invisibilidad es un atributo, no un poder.",
+        "en": "Get-ADGroup -Filter * and look for the one that does not fit a company. Invisibility is an attribute, not a superpower.",
+        "ru": "Get-ADGroup -Filter * и найдите ту, что не вписывается в компанию. Невидимость всего лишь атрибут, а не суперсила."
+      },
+      "PublicHint": {
+        "es": "Hay un grupo que no encaja en una empresa. La invisibilidad es un atributo, no un poder.",
+        "en": "There is a group that does not fit in a company. Invisibility is an attribute, not a superpower.",
+        "ru": "Есть группа, которая не вписывается в компанию. Невидимость всего лишь атрибут, а не суперсила."
+      },
+      "Hints": {
+        "1": {
+          "es": "Hay un grupo que no encaja en una empresa. La invisibilidad es un atributo, no un poder.",
+          "en": "There is a group that does not fit in a company. Invisibility is an attribute, not a superpower.",
+          "ru": "Есть группа, которая не вписывается в компанию. Невидимость всего лишь атрибут, а не суперсила."
+        },
+        "2": {
+          "es": "Lista todos los grupos del dominio y busca el que no tiene sentido en un organigrama. Después pídele el campo de notas.",
+          "en": "List every group in the domain and find the one that makes no sense on an org chart. Then ask it for the notes field.",
+          "ru": "Выведите все группы домена и найдите ту, что не имеет смысла в оргструктуре. Затем запросите у неё поле для заметок."
+        },
+        "3": {
+          "es": "Get-ADGroup -Filter * | Select-Object Name   para encontrarlo, y luego Get-ADGroup -Identity <ese> -Properties ____   Es el mismo campo del reto 2.",
+          "en": "Get-ADGroup -Filter * | Select-Object Name   to find it, then Get-ADGroup -Identity <that one> -Properties ____   It is the same field as in challenge 2.",
+          "ru": "Get-ADGroup -Filter * | Select-Object Name   чтобы найти её, а затем Get-ADGroup -Identity <эта группа> -Properties ____   Это то же поле, что и в задании 2."
+        }
+      }
+    },
+    {
+      "Id": "D6-OPT1",
+      "Day": 6,
+      "Points": 20,
+      "Optional": true,
+      "Kind": "shared",
+      "Slug": "spn_hunt3r",
+      "Check": "",
+      "Requires": "ServiceAccountsWithSpn",
+      "Title": {
+        "es": "Opcional: cuentas con SPN",
+        "en": "Optional: accounts with an SPN",
+        "ru": "Дополнительно: учётные записи с SPN"
+      },
+      "Where": {
+        "es": "Description de la cuenta de servicio de la intranet (svc-web)",
+        "en": "Description of the intranet service account (svc-web)",
+        "ru": "Description служебной учётной записи интранета (svc-web)"
+      },
+      "Hint": {
+        "es": "Get-ADUser -Filter {ServicePrincipalName -like \"*\"} -Properties *. Estas son las cuentas que persigue el Kerberoasting del Día 7.",
+        "en": "Get-ADUser -Filter {ServicePrincipalName -like \"*\"} -Properties *. These are the accounts Kerberoasting goes after on Day 7.",
+        "ru": "Get-ADUser -Filter {ServicePrincipalName -like \"*\"} -Properties *. Именно за такими учётными записями охотится Kerberoasting в день 7."
+      },
+      "PublicHint": {
+        "es": "Algunas cuentas no son de personas sino de servicios. Esas son las que persigue el Día 7.",
+        "en": "Some accounts belong to services, not people. Those are the ones Day 7 goes after.",
+        "ru": "Некоторые учётные записи принадлежат не людям, а службам. Именно за ними охотится день 7."
+      },
+      "Hints": {
+        "1": {
+          "es": "Algunas cuentas no son de personas sino de servicios. Esas son las que persigue el Día 7.",
+          "en": "Some accounts belong to services, not people. Those are the ones Day 7 goes after.",
+          "ru": "Некоторые учётные записи принадлежат не людям, а службам. Именно за ними охотится день 7."
+        },
+        "2": {
+          "es": "Lo que distingue a una cuenta de servicio es tener un nombre principal de servicio registrado. Se puede filtrar por eso.",
+          "en": "What sets a service account apart is a registered service principal name. You can filter on that.",
+          "ru": "Служебную учётную запись отличает зарегистрированное имя участника-службы. По этому признаку можно фильтровать."
+        },
+        "3": {
+          "es": "Get-ADUser -Filter { ServicePrincipalName -like '*' } -Properties ServicePrincipalName, Description   Sale más de una: la que buscas atiende la intranet.",
+          "en": "Get-ADUser -Filter { ServicePrincipalName -like '*' } -Properties ServicePrincipalName, Description   More than one shows up: the one you want serves the intranet.",
+          "ru": "Get-ADUser -Filter { ServicePrincipalName -like '*' } -Properties ServicePrincipalName, Description   Их окажется несколько: вам нужна та, что обслуживает интранет."
+        }
+      }
+    },
+    {
+      "Id": "D6-WU",
+      "Day": 6,
+      "Points": 25,
+      "Optional": false,
+      "Kind": "deliverable",
+      "Slug": "",
+      "Check": {
+        "es": "dia6-writeup",
+        "en": "day6-writeup",
+        "ru": "day6-writeup"
+      },
+      "Requires": "",
+      "Title": {
+        "es": "Writeup: tu primer reporte de AD",
+        "en": "Writeup: your first AD report",
+        "ru": "Отчёт: ваш первый аудит AD"
+      },
+      "Where": {
+        "es": "{DELIVER_DIR}\\dia6-writeup.*",
+        "en": "{DELIVER_DIR}\\day6-writeup.*",
+        "ru": "{DELIVER_DIR}\\day6-writeup.*"
+      },
+      "Hint": {
+        "es": "Qué enumeraste, las banderas con su ubicación exacta, lo llamativo y el análisis de riesgo.",
+        "en": "What you enumerated, the flags with their exact location, what stood out and the risk analysis.",
+        "ru": "Что вы собрали при разведке, флаги с их точным расположением, что бросилось в глаза и анализ рисков."
+      },
+      "PublicHint": {
+        "es": "Qué enumeraste, lo que te resultó llamativo y tu análisis de riesgo.",
+        "en": "What you enumerated, what stood out to you and your risk analysis.",
+        "ru": "Что вы собрали при разведке, что бросилось вам в глаза и ваш анализ рисков."
+      },
+      "Hints": {
+        "1": {
+          "es": "Qué enumeraste, lo que te resultó llamativo y tu análisis de riesgo.",
+          "en": "What you enumerated, what stood out to you and your risk analysis.",
+          "ru": "Что вы собрали при разведке, что бросилось вам в глаза и ваш анализ рисков."
+        },
+        "2": {
+          "es": "Lo que suma no es la lista de comandos: es explicar por qué un dato suelto del directorio es un riesgo real.",
+          "en": "What counts is not the list of commands: it is explaining why a stray directory detail is a real risk.",
+          "ru": "Баллы приносит не список команд, а объяснение того, почему случайная деталь в каталоге представляет реальный риск."
+        },
+        "3": {
+          "es": "Por cada hallazgo escribe tres líneas: qué encontraste, por qué está mal y cómo lo arreglarías. Una contraseña en el campo Description no es un descuido: di qué le permite a un atacante y con qué cuenta.",
+          "en": "For every finding write three lines: what you found, why it is wrong and how you would fix it. A password in the Description field is not a slip: say what it lets an attacker do and with which account.",
+          "ru": "На каждую находку напишите три строки: что вы нашли, почему это плохо и как бы вы это исправили. Пароль в поле Description не просто оплошность: опишите, что он позволяет сделать атакующему и с какой учётной записью."
+        }
+      }
+    },
+    {
+      "Id": "D7-G1",
+      "Day": 7,
+      "Points": 30,
+      "Optional": false,
+      "Kind": "check",
+      "Slug": "",
+      "Check": "Test-D7LogonHours",
+      "Requires": "DelegatedSandboxOUs",
+      "Title": {
+        "es": "GPO 1: horario de inicio de sesión",
+        "en": "GPO 1: logon hours",
+        "ru": "GPO 1: часы входа"
+      },
+      "Where": {
+        "es": "Tu OU dentro de OU={OU_SANDBOX}",
+        "en": "Your OU inside OU={OU_SANDBOX}",
+        "ru": "Ваше подразделение внутри OU={OU_SANDBOX}"
+      },
+      "Hint": {
+        "es": "Crea la GPO en gpmc.msc y vincúlala a TU OU, o fija logonHours en una cuenta de tu OU. Comprueba con gpresult /r.",
+        "en": "Create the GPO in gpmc.msc and link it to YOUR OU, or set logonHours on an account in your OU. Verify with gpresult /r.",
+        "ru": "Создайте GPO в gpmc.msc и свяжите её с ВАШИМ подразделением или задайте logonHours учётной записи в вашем подразделении. Проверьте с помощью gpresult /r."
+      },
+      "PublicHint": {
+        "es": "Restringe cuando se puede entrar. En TU OU, y compruébalo.",
+        "en": "Restrict when people can sign in. In YOUR OU, and prove it.",
+        "ru": "Ограничьте, когда можно входить в систему. В ВАШЕМ подразделении, и докажите, что это работает."
+      },
+      "Hints": {
+        "1": {
+          "es": "Restringe cuando se puede entrar. En TU OU, y compruébalo.",
+          "en": "Restrict when people can sign in. In YOUR OU, and prove it.",
+          "ru": "Ограничьте, когда можно входить в систему. В ВАШЕМ подразделении, и докажите, что это работает."
+        },
+        "2": {
+          "es": "Hay dos maneras validas: una directiva de grupo vinculada a tu OU o el atributo de horario en una cuenta que crees dentro de ella.",
+          "en": "There are two valid ways: a group policy linked to your OU, or the hours attribute on an account you create inside it.",
+          "ru": "Есть два допустимых способа: групповая политика, связанная с вашим подразделением, или атрибут часов входа у учётной записи, которую вы создадите внутри него."
+        },
+        "3": {
+          "es": "La vía corta: crea un usuario en tu OU y ponle horario con net user <usuario> /times:L-V,09:00-18:00 /domain. La vía larga es una GPO con el ajuste de horario vinculada a tu OU. El corrector acepta cualquiera de las dos.",
+          "en": "The short way: create a user in your OU and give it hours with net user <user> /times:M-F,09:00-18:00 /domain. The long way is a GPO with the hours setting linked to your OU. The grader accepts either.",
+          "ru": "Короткий путь: создайте пользователя в своём подразделении и задайте ему часы командой net user <пользователь> /times:M-F,09:00-18:00 /domain; если русская Windows не примет M-F, укажите дни по-русски: Пн-Пт. Длинный путь: GPO с настройкой часов входа, связанная с вашим подразделением. Проверка принимает любой из двух."
+        }
+      }
+    },
+    {
+      "Id": "D7-G2",
+      "Day": 7,
+      "Points": 30,
+      "Optional": false,
+      "Kind": "check",
+      "Slug": "",
+      "Check": "Test-D7Audit",
+      "Requires": "DelegatedSandboxOUs",
+      "Title": {
+        "es": "GPO 2: vigilar la terminal",
+        "en": "GPO 2: watch the terminal",
+        "ru": "GPO 2: следить за терминалом"
+      },
+      "Where": {
+        "es": "Tu OU dentro de OU={OU_SANDBOX}",
+        "en": "Your OU inside OU={OU_SANDBOX}",
+        "ru": "Ваше подразделение внутри OU={OU_SANDBOX}"
+      },
+      "Hint": {
+        "es": "Auditoría de creación de procesos. El evento 4688 es el que delata a cmd.exe y powershell.exe.",
+        "en": "Process creation auditing. Event 4688 is the one that gives away cmd.exe and powershell.exe.",
+        "ru": "Аудит создания процессов. Событие 4688 выдаёт запуск cmd.exe и powershell.exe."
+      },
+      "PublicHint": {
+        "es": "Que quede constancia de cada terminal que se abre.",
+        "en": "Leave a record of every terminal that opens.",
+        "ru": "Пусть останется след каждого открытого терминала."
+      },
+      "Hints": {
+        "1": {
+          "es": "Que quede constancia de cada terminal que se abre.",
+          "en": "Leave a record of every terminal that opens.",
+          "ru": "Пусть останется след каждого открытого терминала."
+        },
+        "2": {
+          "es": "Es auditoría de creación de procesos. El rastro que busca el corrector queda en SYSVOL cuando guardas la directiva.",
+          "en": "It is process creation auditing. The trace the grader looks for lands in SYSVOL when you save the policy.",
+          "ru": "Это аудит создания процессов. След, который ищет проверка, попадает в SYSVOL, когда вы сохраняете политику."
+        },
+        "3": {
+          "es": "En una GPO tuya activa la auditoría de creación de procesos (evento 4688). También vale activar el registro de bloques de script de PowerShell. Guarda la GPO: si no se guarda, no hay nada en SYSVOL que revisar.",
+          "en": "In a GPO of yours enable process creation auditing (event 4688). Enabling PowerShell script block logging also counts. Save the GPO: if it is not saved, there is nothing in SYSVOL to check.",
+          "ru": "В своей GPO включите аудит создания процессов (событие 4688). Включение журналирования блоков скриптов PowerShell тоже засчитывается. Сохраните GPO: если её не сохранить, в SYSVOL нечего проверять."
+        }
+      }
+    },
+    {
+      "Id": "D7-G3",
+      "Day": 7,
+      "Points": 30,
+      "Optional": false,
+      "Kind": "check",
+      "Slug": "",
+      "Check": "Test-D7Wallpaper",
+      "Requires": "DelegatedSandboxOUs",
+      "Title": {
+        "es": "GPO 3: fondo de pantalla bloqueado",
+        "en": "GPO 3: locked wallpaper",
+        "ru": "GPO 3: заблокированные обои"
+      },
+      "Where": {
+        "es": "Tu OU dentro de OU={OU_SANDBOX}, filtrada por grupo",
+        "en": "Your OU inside OU={OU_SANDBOX}, filtered by group",
+        "ru": "Ваше подразделение внутри OU={OU_SANDBOX}, с фильтром по группе"
+      },
+      "Hint": {
+        "es": "Configuración de usuario. El filtrado de seguridad de la GPO es lo que la limita a un grupo.",
+        "en": "User configuration. The security filtering of the GPO is what limits it to a group.",
+        "ru": "Конфигурация пользователя. Именно фильтры безопасности GPO ограничивают её действие одной группой."
+      },
+      "PublicHint": {
+        "es": "Un ajuste de escritorio que solo afecte a un grupo. Lo segundo es la parte difícil.",
+        "en": "A desktop setting that only affects one group. The second half is the hard part.",
+        "ru": "Настройка рабочего стола, которая действует только на одну группу. Вторая часть и есть самая трудная."
+      },
+      "Hints": {
+        "1": {
+          "es": "Un ajuste de escritorio que solo afecte a un grupo. Lo segundo es la parte difícil.",
+          "en": "A desktop setting that only affects one group. The second half is the hard part.",
+          "ru": "Настройка рабочего стола, которая действует только на одну группу. Вторая часть и есть самая трудная."
+        },
+        "2": {
+          "es": "Poner el fondo es la mitad fácil. La otra mitad es el filtrado de seguridad: que la directiva NO se aplique a todo el mundo.",
+          "en": "Setting the wallpaper is the easy half. The other half is security filtering: the policy must NOT apply to everyone.",
+          "ru": "Задать обои просто, это лёгкая половина. Вторая половина: фильтры безопасности, чтобы политика НЕ применялась ко всем."
+        },
+        "3": {
+          "es": "Pon el fondo bloqueado en una GPO tuya y después, en el filtrado de seguridad, quita Usuarios autenticados y agrega un grupo tuyo con el permiso Aplicar directiva de grupo. Si dejas Usuarios autenticados, el corrector no lo acepta.",
+          "en": "Put the locked wallpaper in a GPO of yours and then, in security filtering, remove Authenticated Users and add a group of yours with the Apply group policy permission. If you leave Authenticated Users in place, the grader will not accept it.",
+          "ru": "Задайте заблокированные обои в своей GPO, а затем в фильтрах безопасности удалите Прошедшие проверку (Authenticated Users) и добавьте свою группу с разрешением Применение групповой политики. Если оставить Прошедшие проверку, задание не будет засчитано."
+        }
+      }
+    },
+    {
+      "Id": "D7-CREA",
+      "Day": 7,
+      "Points": 20,
+      "Optional": false,
+      "Kind": "check",
+      "Slug": "",
+      "Check": "Test-D7NewUser",
+      "Requires": "DelegatedSandboxOUs",
+      "Title": {
+        "es": "Alta de usuario y grupo",
+        "en": "Create a user and a group",
+        "ru": "Создание пользователя и группы"
+      },
+      "Where": {
+        "es": "Tu OU dentro de OU={OU_SANDBOX}",
+        "en": "Your OU inside OU={OU_SANDBOX}",
+        "ru": "Ваше подразделение внутри OU={OU_SANDBOX}"
+      },
+      "Hint": {
+        "es": "New-ADUser dentro de tu OU y Add-ADGroupMember. Verifícalo con Get-ADGroupMember.",
+        "en": "New-ADUser inside your OU and Add-ADGroupMember. Verify with Get-ADGroupMember.",
+        "ru": "New-ADUser внутри вашего подразделения и Add-ADGroupMember. Проверьте с помощью Get-ADGroupMember."
+      },
+      "PublicHint": {
+        "es": "Crea una cuenta y un grupo dentro de tu parcela y demuestra que existen.",
+        "en": "Create an account and a group inside your plot and prove they exist.",
+        "ru": "Создайте учётную запись и группу на своём участке и докажите, что они существуют."
+      },
+      "Hints": {
+        "1": {
+          "es": "Crea una cuenta y un grupo dentro de tu parcela y demuestra que existen.",
+          "en": "Create an account and a group inside your plot and prove they exist.",
+          "ru": "Создайте учётную запись и группу на своём участке и докажите, что они существуют."
+        },
+        "2": {
+          "es": "Un usuario nuevo, un grupo nuevo y el usuario dentro del grupo. Los tres pasos, los tres dentro de tu OU.",
+          "en": "A new user, a new group and the user inside the group. All three steps, all three inside your OU.",
+          "ru": "Новый пользователь, новая группа и пользователь в этой группе. Все три шага, и все три внутри вашего подразделения."
+        },
+        "3": {
+          "es": "New-ADUser -Path \"OU=<tu slot>,OU={OU_SANDBOX},...\" y después Add-ADGroupMember. El grupo tiene que ser distinto del grupo primario, que no cuenta.",
+          "en": "New-ADUser -Path \"OU=<your slot>,OU={OU_SANDBOX},...\" and then Add-ADGroupMember. The group must differ from the primary group, which does not count.",
+          "ru": "New-ADUser -Path \"OU=<ваш идентификатор>,OU={OU_SANDBOX},...\" и затем Add-ADGroupMember. Группа должна отличаться от основной группы: основная не считается."
+        }
+      }
+    },
+    {
+      "Id": "D7-WU",
+      "Day": 7,
+      "Points": 40,
+      "Optional": false,
+      "Kind": "deliverable",
+      "Slug": "",
+      "Check": {
+        "es": "dia7-writeup",
+        "en": "day7-writeup",
+        "ru": "day7-writeup"
+      },
+      "Requires": "",
+      "Title": {
+        "es": "Writeup de máquina Windows",
+        "en": "Windows machine writeup",
+        "ru": "Отчёт по машине Windows"
+      },
+      "Where": {
+        "es": "{DELIVER_DIR}\\dia7-writeup.*",
+        "en": "{DELIVER_DIR}\\day7-writeup.*",
+        "ru": "{DELIVER_DIR}\\day7-writeup.*"
+      },
+      "Hint": {
+        "es": "Reconocimiento, acceso inicial, escalada y botín. Y la sección de defensa: eso es lo que te distingue.",
+        "en": "Reconnaissance, initial access, escalation and loot. And the defense section: that is what sets you apart.",
+        "ru": "Разведка, первоначальный доступ, повышение привилегий и добыча. И раздел о защите: именно он выделяет вашу работу."
+      },
+      "PublicHint": {
+        "es": "Reconocimiento, acceso, escalada y botín. Y la sección de defensa: eso es lo que te distingue.",
+        "en": "Reconnaissance, access, escalation and loot. And the defense section: that is what sets you apart.",
+        "ru": "Разведка, доступ, повышение привилегий и добыча. И раздел о защите: именно он выделяет вашу работу."
+      },
+      "Hints": {
+        "1": {
+          "es": "Reconocimiento, acceso, escalada y botín. Y la sección de defensa: eso es lo que te distingue.",
+          "en": "Reconnaissance, access, escalation and loot. And the defense section: that is what sets you apart.",
+          "ru": "Разведка, доступ, повышение привилегий и добыча. И раздел о защите: именно он выделяет вашу работу."
+        },
+        "2": {
+          "es": "Es el informe de la máquina completa: se lee como un trabajo profesional, no como una lista de retos resueltos.",
+          "en": "It is the report for the whole machine: it reads like professional work, not like a list of solved challenges.",
+          "ru": "Это отчёт по всей машине: он должен читаться как профессиональная работа, а не как список решённых заданий."
+        },
+        "3": {
+          "es": "Cuatro fases y defensa. En defensa, por cada cosa que hiciste, indica el ajuste concreto que la habría impedido. Esa sección separa a quien resolvió el reto de quien entendió por qué funcionaba.",
+          "en": "Four phases plus defense. In the defense part, for everything you did, name the specific setting that would have stopped it. That section separates whoever solved the challenge from whoever understood why it worked.",
+          "ru": "Четыре этапа и защита. В разделе о защите для каждого вашего действия укажите конкретную настройку, которая бы его предотвратила. Этот раздел отличает того, кто решил задание, от того, кто понял, почему решение сработало."
+        }
+      }
+    }
+  ],
+  "Canaries": [
+    {
+      "Id": "CAN-KIT",
+      "Slug": "v3r1f13d_k1t",
+      "Shared": false,
+      "Bait": true,
+      "Where": {
+        "es": "{KIT_DIR}\\{K_DAY2}\\{K_README_FIRST}",
+        "en": "{KIT_DIR}\\{K_DAY2}\\{K_README_FIRST}",
+        "ru": "{KIT_DIR}\\{K_DAY2}\\{K_README_FIRST}"
+      },
+      "What": {
+        "es": "Archivo del kit con una nota dirigida a asistentes automáticos",
+        "en": "Kit file with a note addressed to automated assistants",
+        "ru": "Файл набора с запиской для автоматических ассистентов"
+      }
+    },
+    {
+      "Id": "CAN-ADS",
+      "Slug": "ch3ck3d_ok",
+      "Shared": false,
+      "Bait": false,
+      "Where": {
+        "es": "{KIT_DIR}\\{K_DAY3}\\{K_NOTES}:{K_VALSTREAM}",
+        "en": "{KIT_DIR}\\{K_DAY3}\\{K_NOTES}:{K_VALSTREAM}",
+        "ru": "{KIT_DIR}\\{K_DAY3}\\{K_NOTES}:{K_VALSTREAM}"
+      },
+      "What": {
+        "es": "Flujo alterno NTFS: no se ve al abrir el archivo, sí al volcarlo",
+        "en": "NTFS alternate stream: invisible when opening the file, visible when dumping it",
+        "ru": "Альтернативный поток NTFS: не виден при открытии файла, виден при его выгрузке"
+      }
+    },
+    {
+      "Id": "CAN-SOL",
+      "Slug": "s0luc10n_0ff",
+      "Shared": false,
+      "Bait": true,
+      "Where": {
+        "es": "{KIT_DIR}\\{K_SOLUTIONS}\\{K_ANSWERS}",
+        "en": "{KIT_DIR}\\{K_SOLUTIONS}\\{K_ANSWERS}",
+        "ru": "{KIT_DIR}\\{K_SOLUTIONS}\\{K_ANSWERS}"
+      },
+      "What": {
+        "es": "Carpeta oculta con nombre de cebo que ningún reto pide abrir",
+        "en": "Hidden folder with a bait name that no challenge asks you to open",
+        "ru": "Скрытая папка с именем-приманкой, которую не требуется открывать ни в одном задании"
+      }
+    },
+    {
+      "Id": "CAN-WEB",
+      "Slug": "intr4n3t_0k",
+      "Shared": true,
+      "Bait": true,
+      "Where": {
+        "es": "Comentario HTML en la portada de la intranet",
+        "en": "HTML comment on the intranet home page",
+        "ru": "HTML-комментарий на главной странице интранета"
+      },
+      "What": {
+        "es": "Invisible al ver la página, visible al descargar el HTML",
+        "en": "Invisible when viewing the page, visible when downloading the HTML",
+        "ru": "Не виден при просмотре страницы, виден при скачивании HTML"
+      }
+    },
+    {
+      "Id": "CAN-REG",
+      "Slug": "r3g_v3r1f",
+      "Shared": false,
+      "Bait": false,
+      "Where": {
+        "es": "HKCU\\{REG_ROOT}\\{K_REGVAL}",
+        "en": "HKCU\\{REG_ROOT}\\{K_REGVAL}",
+        "ru": "HKCU\\{REG_ROOT}\\{K_REGVAL}"
+      },
+      "What": {
+        "es": "Clave del registro que ningún reto pide consultar",
+        "en": "Registry key that no challenge asks you to read",
+        "ru": "Раздел реестра, который не требуется читать ни в одном задании"
+      }
+    }
+  ]
+}

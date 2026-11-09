@@ -1,0 +1,241 @@
+---
+import '../styles/global.css';
+import { copy, REPO, INSTAGRAM, GITHUB, type Lang } from '../copy';
+import { ui } from '../ui';
+import Sky from '../components/Sky.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = copy[lang];
+const u = ui[lang];
+const raw = import.meta.env.BASE_URL;
+const base = raw.endsWith('/') ? raw : raw + '/';
+const langs = [
+  { code: 'es', label: 'ES', href: base, locale: 'es_419' },
+  { code: 'en', label: 'EN', href: base + 'en/', locale: 'en_US' },
+  { code: 'ru', label: 'RU', href: base + 'ru/', locale: 'ru_RU' },
+] as const;
+const abs = (href: string) => (Astro.site ? new URL(href, Astro.site).href : href);
+const current = langs.find((l) => l.code === lang) ?? langs[0];
+const here = current.href;
+const canonical = abs(here);
+const og = Astro.site ? new URL(base + 'og.png', Astro.site).href : base + 'og.png';
+const face = (family: string, file: string, weight: number) =>
+  `@font-face{font-family:"${family}";src:url(${base}fonts/${file}.woff2) format("woff2");font-weight:${weight};font-style:normal;font-display:swap}`;
+const fonts = [
+  `@font-face{font-family:"Cormorant Garamond";src:url(${base}fonts/CormorantGaramond-VF.woff2) format("woff2");font-weight:300 700;font-style:normal;font-display:swap}`,
+  `@font-face{font-family:"Cormorant Garamond";src:url(${base}fonts/CormorantGaramond-Italic-VF.woff2) format("woff2");font-weight:300 700;font-style:italic;font-display:swap}`,
+  face('IBM Plex Sans', 'IBMPlexSans-Regular', 400),
+  face('IBM Plex Sans', 'IBMPlexSans-Medium', 500),
+  face('IBM Plex Mono', 'IBMPlexMono-Regular', 400),
+  face('IBM Plex Mono', 'IBMPlexMono-Medium', 500),
+  ...[
+    ['Cormorant Garamond', 'CormorantGaramond-Cyrillic-VF', '300 700', 'normal'],
+    ['Cormorant Garamond', 'CormorantGaramond-Cyrillic-Italic-VF', '300 700', 'italic'],
+    ['IBM Plex Sans', 'IBMPlexSans-Cyrillic-Regular', '400', 'normal'],
+    ['IBM Plex Sans', 'IBMPlexSans-Cyrillic-Medium', '500', 'normal'],
+    ['IBM Plex Mono', 'IBMPlexMono-Cyrillic-Regular', '400', 'normal'],
+    ['IBM Plex Mono', 'IBMPlexMono-Cyrillic-Medium', '500', 'normal'],
+  ].map(([family, file, weight, style]) => `@font-face{font-family:"${family}";src:url(${base}fonts/${file}.woff2) format("woff2");font-weight:${weight};font-style:${style};font-display:swap;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}`),
+].join('');
+---
+<!doctype html>
+<html lang={t.htmlLang} class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    <meta name="author" content="Aztharot" />
+    <meta name="theme-color" content="#060505" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="canonical" href={canonical} />
+    {langs.map((l) => <link rel="alternate" hreflang={l.code} href={abs(l.href)} />)}
+    <link rel="alternate" hreflang="x-default" href={abs(langs[0].href)} />
+    <link rel="icon" type="image/png" href={`${base}favicon.png`} />
+    <link rel="preload" href={`${base}fonts/CormorantGaramond-VF.woff2`} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={`${base}fonts/IBMPlexSans-Regular.woff2`} as="font" type="font/woff2" crossorigin />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta property="og:locale" content={current.locale} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style set:html={fonts}></style>
+    <script is:inline>document.documentElement.classList.remove('no-js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('js-boot')}</script>
+  </head>
+  <body>
+    <Sky labels={['DC01', 'KERBEROS', 'LDAP', 'DNS', 'SMB', 'GPO', 'SYSVOL', 'SPN', 'NTDS', 'OU', 'WINRM', 'RDP', 'LSASS', 'ADCS']} />
+    <a class="skip" href="#main">{t.skip}</a>
+    <header class="nav" data-nav>
+      <div class="nav-inner">
+        <a class="brand" href={here}>
+          <img src={`${base}img/hfc-logo.png`} alt="" width="30" height="30" />
+          <span>Hackers Fight Club</span>
+        </a>
+        <nav class="nav-links" id="nav-links" aria-label="Hackers Fight Club">
+          <a href="#build">{t.nav.install}</a>
+          <a href="#course">{u.eyebrow.course}</a>
+          <a href="#network">{t.nav.network}</a>
+          <a href="#weaknesses">{t.nav.weaknesses}</a>
+          <a href={REPO} rel="noopener">{t.nav.code}</a>
+        </nav>
+        <div class="lang" role="group" aria-label={t.nav.lang}>
+          {langs.map((l) => <a href={l.href} hreflang={l.code} lang={l.code} aria-current={lang === l.code ? 'page' : undefined}>{l.label}</a>)}
+        </div>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links" data-menu data-open={t.nav.menu} data-close={t.nav.close}>{t.nav.menu}</button>
+      </div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <img src={`${base}img/hfc-logo.png`} alt="Hackers Fight Club" width="64" height="64" loading="lazy" />
+          <div>
+            <div class="footer-name">Hackers Fight Club</div>
+            <div class="footer-by">{t.footer.built}</div>
+          </div>
+          <div class="footer-links">
+            <a class="btn btn-primary" href={INSTAGRAM} rel="noopener">{t.footer.follow}</a>
+            <a class="btn btn-ghost" href={GITHUB} rel="noopener">GitHub</a>
+          </div>
+        </div>
+        <small>{t.footer.license}</small>
+      </div>
+    </footer>
+    <script>
+      const nav = document.querySelector<HTMLElement>('[data-nav]');
+      const menu = document.querySelector<HTMLButtonElement>('[data-menu]');
+      const onScroll = () => nav?.classList.toggle('is-solid', window.scrollY > 24);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      const closeMenu = () => {
+        if (!nav || !menu) return;
+        nav.classList.remove('is-open');
+        menu.setAttribute('aria-expanded', 'false');
+        menu.textContent = menu.dataset.open ?? '';
+      };
+      menu?.addEventListener('click', () => {
+        if (!nav) return;
+        const open = !nav.classList.contains('is-open');
+        nav.classList.toggle('is-open', open);
+        menu.setAttribute('aria-expanded', String(open));
+        menu.textContent = (open ? menu.dataset.close : menu.dataset.open) ?? '';
+      });
+      document.querySelectorAll('.nav-links a').forEach((a) => a.addEventListener('click', closeMenu));
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+      const reveal = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          for (const en of entries) {
+            if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+          }
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+        reveal.forEach((el) => io.observe(el));
+      } else {
+        reveal.forEach((el) => el.classList.add('is-in'));
+      }
+
+      document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const pre = btn.parentElement?.querySelector('pre');
+          if (!pre) return;
+          const clone = pre.cloneNode(true) as HTMLElement;
+          clone.querySelectorAll('.ps').forEach((n) => n.remove());
+          const text = (clone.textContent ?? '').replace(/\n+$/, '');
+          try { await navigator.clipboard.writeText(text); } catch { }
+          btn.classList.add('is-done');
+          btn.textContent = btn.dataset.done ?? '';
+          window.setTimeout(() => { btn.classList.remove('is-done'); btn.textContent = btn.dataset.idle ?? ''; }, 1600);
+        });
+      });
+
+      const steps = Array.from(document.querySelectorAll<HTMLElement>('[data-step]'));
+      const links = new Map<string, HTMLAnchorElement>();
+      document.querySelectorAll<HTMLAnchorElement>('[data-step-link]').forEach((a) => links.set(a.dataset.stepLink ?? '', a));
+      if (steps.length && 'IntersectionObserver' in window) {
+        const spy = new IntersectionObserver((entries) => {
+          for (const en of entries) {
+            if (!en.isIntersecting) continue;
+            const id = (en.target as HTMLElement).dataset.step ?? '';
+            steps.forEach((s) => s.classList.toggle('is-current', s === en.target));
+            links.forEach((a, key) => { if (key === id) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current'); });
+          }
+        }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+        steps.forEach((s) => spy.observe(s));
+      }
+
+      const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const progress = () => {
+        if (!nav) return;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        nav.style.setProperty('--p', String(max > 0 ? Math.min(1, window.scrollY / max) : 0));
+      };
+      progress();
+      window.addEventListener('scroll', progress, { passive: true });
+      window.addEventListener('resize', progress);
+
+      const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&<>=';
+      const lower = 'abcdefghijklmnopqrstuvwxyz0123456789#%&<>=';
+      const cyrUpper = 'АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЭЮЯ0123456789#%&';
+      const cyrLower = 'абвгдежзиклмнопрстуфхцчшэюя0123456789#%&';
+      const noise = (c: string) => {
+        if (c === ' ' || c === '.') return c;
+        const cyr = /[\u0400-\u04FF]/.test(c);
+        const low = c !== c.toUpperCase();
+        const set = cyr ? (low ? cyrLower : cyrUpper) : (low ? lower : upper);
+        return set[(Math.random() * set.length) | 0];
+      };
+      const scramble = (el: HTMLElement, delay = 0) => {
+        const final = el.textContent ?? '';
+        if (!final.trim()) return;
+        const chars = Array.from(final);
+        const at = chars.map((_, i) => (i / chars.length) * 0.65 + Math.random() * 0.35);
+        const dur = 520 + chars.length * 16;
+        el.textContent = chars.map(noise).join('');
+        let t0 = 0, lastFrame = 0;
+        const tick = (t: number) => {
+          if (!t0) t0 = t;
+          const k = (t - t0) / dur;
+          if (k >= 1) { el.textContent = final; return; }
+          if (t - lastFrame > 45) {
+            lastFrame = t;
+            el.textContent = chars.map((c, i) => (k >= at[i] ? c : noise(c))).join('');
+          }
+          requestAnimationFrame(tick);
+        };
+        window.setTimeout(() => requestAnimationFrame(tick), delay);
+      };
+      if (!calm && 'IntersectionObserver' in window) {
+        document.querySelectorAll<HTMLElement>('.hero .status span').forEach((el, i) => scramble(el, 160 + i * 90));
+        document.querySelectorAll<HTMLElement>('.hero .hud dd').forEach((el, i) => scramble(el, 780 + i * 90));
+        const decoder = new IntersectionObserver((entries) => {
+          for (const en of entries) {
+            if (!en.isIntersecting) continue;
+            scramble(en.target as HTMLElement);
+            decoder.unobserve(en.target);
+          }
+        }, { threshold: 0.9 });
+        document.querySelectorAll<HTMLElement>('main .eyebrow').forEach((el) => decoder.observe(el));
+      }
+
+      if (!calm && matchMedia('(hover: hover)').matches) {
+        let lit: HTMLElement | null = null;
+        document.addEventListener('pointermove', (e) => {
+          const el = (e.target as Element | null)?.closest?.<HTMLElement>('.card, .path, .dossier, .cutoff, .course-panel, .term, .weak-wrap, .specs, .step > div') ?? null;
+          if (lit && lit !== el) { lit.style.removeProperty('--mx'); lit.style.removeProperty('--my'); }
+          lit = el;
+          if (!el) return;
+          const r = el.getBoundingClientRect();
+          el.style.setProperty('--mx', `${Math.round(e.clientX - r.left)}px`);
+          el.style.setProperty('--my', `${Math.round(e.clientY - r.top)}px`);
+        }, { passive: true });
+      }
+    </script>
+  </body>
+</html>

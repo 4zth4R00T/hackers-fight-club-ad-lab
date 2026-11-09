@@ -1,0 +1,8 @@
+Copia Join-Lab.ps1 y lab.json a una carpeta de tu equipo y ejecuta,
+en PowerShell como administrador:
+
+    .\Join-Lab.ps1                              comprueba sin cambiar nada
+    .\Join-Lab.ps1 -Join -User nombre.apellido  prepara y une el equipo
+
+lab.json lleva el dominio, la dirección del DC y el modo de red del
+laboratorio. No contiene contraseñas.

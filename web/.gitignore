@@ -1,0 +1,9 @@
+node_modules/
+dist/
+dist-astro/
+certs/
+*.key
+*.pem
+*.pfx
+public/app.css
+.astro/

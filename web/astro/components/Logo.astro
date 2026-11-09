@@ -1,0 +1,9 @@
+---
+import { logoPara, MARCA_NOMBRE } from '../../src/marca.js';
+interface Props {
+  tam?: number;
+  class?: string;
+}
+const { tam = 40, class: clase = '' } = Astro.props;
+---
+<img src={logoPara(tam)} width={tam} height={tam} alt={MARCA_NOMBRE} class:list={['logo-club shrink-0 select-none', clase]} decoding="async" />

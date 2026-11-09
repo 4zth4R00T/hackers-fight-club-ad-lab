@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import { config } from '../../src/config.js';
+import { textos } from '../../src/i18n.js';
+
+const usuario = Astro.locals.usuario;
+if (!usuario) return Astro.redirect('/entrar');
+const idioma = Astro.locals.idioma ?? config.idioma;
+const t = textos(idioma);
+const csrf = Astro.locals.csrf ?? '';
+const r = Astro.url.searchParams.get('r');
+const txt = r ? (t.comentarios.resultados[r] ?? null) : null;
+const ok = r === 'ok';
+---
+<Base titulo={t.nav.comentarios} activo="comentarios">
+  <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
+    <div>
+      <p class="ceja">{config.laboratorio} · {t.nav.comentarios}<span class="cursor"></span></p>
+      <h1 class="titulo-serif text-4xl mt-4 mb-3">{t.comentarios.titulo}</h1>
+      <p class="text-tenue text-dato mb-8 max-w-2xl leading-relaxed">{t.comentarios.sub}</p>
+      {txt && <div class:list={['panel', ok ? 'aviso-ok' : 'aviso-mal']}>{txt}</div>}
+      <form method="post" action="/comentarios" class="panel p-6 sm:p-7 space-y-6">
+        <input type="hidden" name="_csrf" value={csrf} />
+        <fieldset>
+          <legend class="titulo-panel mb-3 w-full">{t.comentarios.comoVas}</legend>
+          <div class="flex flex-wrap gap-2">
+            {t.comentarios.animos.map((a, i) => (
+              <label class="cursor-pointer">
+                <input type="radio" name="animo" value={a.v} class="peer sr-only" id={`animo-${a.v}`} checked={i === 0} />
+                <span class:list={['inline-block px-3 py-2 rounded-sm border border-borde/30 bg-hondo/70 text-dato transition-colors',
+                  'hover:border-borde peer-focus-visible:ring-1 peer-focus-visible:ring-neon peer-checked:bg-realce peer-checked:border-neon/60', a.clase]}>{a.txt}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <div>
+          <label for="tema" class="block titulo-panel mb-2">{t.comentarios.sobreQue}</label>
+          <select id="tema" name="tema" class="campo">
+            {t.comentarios.temas.map((x) => <option value={x}>{x}</option>)}
+          </select>
+        </div>
+        <div>
+          <label for="texto" class="block titulo-panel mb-2">{t.comentarios.cuentame} <span class="text-mudo normal-case tracking-normal">({t.comentarios.cuentameNota})</span></label>
+          <textarea id="texto" name="texto" rows="7" class="campo resize-y" required maxlength="2000" placeholder={t.comentarios.ejemplo}></textarea>
+        </div>
+        <button class="boton w-full sm:w-auto">{t.comentarios.boton}</button>
+      </form>
+    </div>
+    <aside class="space-y-6">
+      <div class="panel p-6 text-dato">
+        <h2 class="titulo-panel mb-4 text-neon"><span class="nfo">[ 0x01 ]</span>{t.comentarios.seGuarda}</h2>
+        <ul class="space-y-2 text-tenue leading-relaxed">
+          {t.comentarios.seGuardaItems.map((x) => <li class="vineta vineta-neon">{x}</li>)}
+        </ul>
+        <h2 class="titulo-panel mb-4 mt-6 text-rosa"><span class="nfo">[ 0x02 ]</span>{t.comentarios.noSeGuarda}</h2>
+        <ul class="space-y-2 text-tenue leading-relaxed">
+          {t.comentarios.noSeGuardaItems.map((x) => <li class="vineta vineta-rosa">{x}</li>)}
+        </ul>
+      </div>
+      <div class="panel p-6 text-dato text-tenue leading-relaxed">
+        <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x03 ]</span>{t.comentarios.porQue}</h2>
+        <p class="mb-3">{t.comentarios.porQue1}</p>
+        <p>{t.comentarios.porQue2}</p>
+      </div>
+      <div class="panel p-6 text-dato text-tenue leading-relaxed">
+        <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x04 ]</span>{t.comentarios.duda}</h2>
+        <p>{t.comentarios.duda1} <a href="/preguntas" class="enlace">{t.nav.preguntas}</a>.</p>
+      </div>
+    </aside>
+  </div>
+</Base>

@@ -1,0 +1,109 @@
+---
+import Logo from '../components/Logo.astro';
+import { config, IDIOMAS } from '../../src/config.js';
+import { textos } from '../../src/i18n.js';
+import { MARCA_NOMBRE, INSTAGRAM, INSTAGRAM_TXT, GITHUB, GITHUB_TXT } from '../../src/marca.js';
+
+type Seccion = 'tabla' | 'retos' | 'ruta' | 'comentarios' | 'preguntas'
+  | 'entregar' | 'monitor' | 'asistencia' | 'alertas' | '';
+
+interface Props {
+  titulo: string;
+  activo?: Seccion;
+  refrescoSeg?: number | null;
+}
+
+const { titulo, activo = '', refrescoSeg = null } = Astro.props;
+const usuario = Astro.locals.usuario ?? null;
+const idioma = Astro.locals.idioma ?? config.idioma;
+const t = textos(idioma);
+const esInstructor = Boolean(usuario?.esInstructor);
+
+const enlaces = ([
+  { href: '/', txt: t.nav.tabla, id: 'tabla', ver: 'todos' },
+  { href: '/retos', txt: t.nav.retos, id: 'retos', ver: 'todos' },
+  { href: '/ruta', txt: t.nav.ruta, id: 'ruta', ver: 'todos' },
+  { href: '/preguntas', txt: t.nav.preguntas, id: 'preguntas', ver: 'sesion' },
+  { href: '/comentarios', txt: t.nav.comentarios, id: 'comentarios', ver: 'sesion' },
+  { href: '/entregar', txt: t.nav.entregar, id: 'entregar', ver: 'sesion' },
+  { href: '/monitor', txt: t.nav.monitor, id: 'monitor', ver: 'profes' },
+  { href: '/asistencia', txt: t.nav.asistencia, id: 'asistencia', ver: 'profes' },
+  { href: '/alertas', txt: t.nav.alertas, id: 'alertas', ver: 'profes' },
+] as const).filter((e) =>
+  e.ver === 'todos' || (e.ver === 'sesion' && usuario) || (e.ver === 'profes' && esInstructor));
+
+const aqui = Astro.url.pathname + (Astro.url.search ?? '');
+const destino = encodeURIComponent(/^\/(?!\/)[A-Za-z0-9/_?=&.-]*$/.test(aqui) ? aqui : '/');
+---
+<!doctype html>
+<html lang={idioma} class="h-full">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="author" content="Aztharot" />
+  {refrescoSeg && <meta http-equiv="refresh" content={String(refrescoSeg)} />}
+  <title>{titulo} · {MARCA_NOMBRE}</title>
+  <link rel="preload" href="/fonts/CormorantGaramond-VF.woff2" as="font" type="font/woff2" crossorigin />
+  {idioma === 'ru' && <link rel="preload" href="/fonts/CormorantGaramond-Cyrillic-VF.woff2" as="font" type="font/woff2" crossorigin />}
+  <link rel="stylesheet" href="/app.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/hfc-logo-32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="/img/hfc-logo-64.png" />
+  <link rel="apple-touch-icon" href="/img/hfc-logo-192.png" />
+  <script src="/app.js" defer></script>
+</head>
+<body class="min-h-full flex flex-col">
+  <canvas class="constelacion" data-constelacion aria-hidden="true"></canvas>
+
+  <header class="capa border-b border-borde/25 bg-noche/80 backdrop-blur-sm sticky top-0 z-20">
+    <div class="mx-auto max-w-panel 2xl:max-w-ancho px-4 sm:px-6 py-3 flex flex-wrap items-center gap-x-8 gap-y-3">
+      <a href="/" class="flex items-center gap-3.5 shrink-0 group">
+        <Logo tam={46} />
+        <span class="flex flex-col gap-1">
+          <span class="font-mono text-[0.5625rem] sm:text-[0.625rem] uppercase text-neon" style="letter-spacing:0.34em">{t.marca.lema}</span>
+          <span class="marca-texto text-[1rem] sm:text-[1.2rem]">{MARCA_NOMBRE}</span>
+        </span>
+      </a>
+
+      <nav class="flex items-center gap-0.5 order-3 w-full lg:order-2 lg:w-auto overflow-x-auto">
+        {enlaces.map((e) => (
+          <a href={e.href} class="nav-enlace" aria-current={activo === e.id ? 'page' : undefined}>{e.txt}</a>
+        ))}
+      </nav>
+
+      <div class="ml-auto order-2 lg:order-3 flex items-center gap-4 text-xs">
+        <span class="flex items-center gap-1.5 font-mono uppercase" style="letter-spacing:0.16em" aria-label={t.marca.idioma}>
+          {IDIOMAS.map((l, i) => (
+            <>
+              {i > 0 && <span class="text-mudo">·</span>}
+              <a href={`/idioma?l=${l}&r=${destino}`} class:list={[idioma === l ? 'text-neon' : 'text-mudo hover:text-tinta']}>{l}</a>
+            </>
+          ))}
+        </span>
+        {usuario ? (
+          <>
+            <span class="text-tenue hidden md:inline">{usuario.nombre}</span>
+            <span class:list={['etiqueta', usuario.esInstructor ? 'bg-violeta/15 text-violeta' : 'bg-jade-hondo/30 text-jade-claro']}>{usuario.sam}</span>
+            <form method="post" action="/salir" class="inline">
+              <button class="text-mudo hover:text-rosa transition-colors uppercase" style="letter-spacing:0.16em">{t.nav.salir}</button>
+            </form>
+          </>
+        ) : (
+          <a href="/entrar" class="text-neon/80 hover:text-neon transition-colors uppercase" style="letter-spacing:0.16em">{t.nav.entrar}</a>
+        )}
+      </div>
+    </div>
+  </header>
+
+  <main class="capa flex-1 mx-auto w-full max-w-panel 2xl:max-w-ancho px-4 sm:px-6 py-8 sm:py-10">
+    <slot />
+  </main>
+
+  <footer class="pie capa">
+    <span>{t.marca.pie}</span>
+    <a href={INSTAGRAM} rel="noopener noreferrer" target="_blank">Instagram {INSTAGRAM_TXT}</a>
+    <a href={GITHUB} rel="noopener noreferrer" target="_blank">{GITHUB_TXT}</a>
+  </footer>
+</body>
+</html>

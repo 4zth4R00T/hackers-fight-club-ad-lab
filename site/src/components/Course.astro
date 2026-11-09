@@ -1,0 +1,82 @@
+---
+import catalog from '../../../engine/challenges.json';
+import type { Lang } from '../copy';
+import type { Ui } from '../ui';
+import { ruTitles } from '../course-ru';
+
+interface Props { lang: Lang; u: Ui; days: { title: string; text: string }[]; dayLabel: string }
+const { lang, u, days, dayLabel } = Astro.props;
+
+type Ch = { Id: string; Day: number; Points: number; Optional: boolean; Kind: string; Title: Record<string, string> };
+const list = (catalog as { Challenges: Ch[] }).Challenges.map((c) => ({
+  id: c.Id, day: c.Day, points: c.Points, optional: c.Optional, kind: c.Kind, title: c.Title[lang] ?? (lang === 'ru' ? ruTitles[c.Id] : undefined) ?? c.Title.en,
+}));
+const perDay = days.map((d, i) => {
+  const items = list.filter((c) => c.day === i + 1);
+  return { ...d, n: i + 1, items, total: items.filter((c) => !c.optional).reduce((a, c) => a + c.points, 0) };
+});
+---
+<div class="course" data-course>
+  <div class="course-days" role="tablist" aria-label={u.course.pick}>
+    {perDay.map((d, i) => (
+      <button class="course-day" role="tab" type="button" id={`day-tab-${d.n}`} aria-controls={`day-panel-${d.n}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-day={d.n}>
+        <span class="course-n">{String(d.n).padStart(2, '0')}</span>
+        <span class="course-t">{d.title}</span>
+        <span class="course-p">{d.total} {u.course.points}</span>
+      </button>
+    ))}
+  </div>
+  {perDay.map((d, i) => (
+    <section class="course-panel" role="tabpanel" id={`day-panel-${d.n}`} aria-labelledby={`day-tab-${d.n}`} hidden={i !== 0}>
+      <header class="course-head">
+        <span class="eyebrow">{dayLabel} {d.n}</span>
+        <h3>{d.title}</h3>
+        <p>{d.text}</p>
+      </header>
+      <ul class="course-list">
+        {d.items.map((c) => (
+          <li>
+            <span class="c-id">{c.id}</span>
+            <span class="c-title">{c.title}</span>
+            <span class="c-kind">{u.course.kinds[c.kind] ?? c.kind}{c.optional ? `   ${u.course.optional}` : ''}</span>
+            <span class="c-pts">{c.points}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-course]');
+  if (root) {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const select = (tab: HTMLButtonElement, focus = false) => {
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        const panel = document.getElementById(t.getAttribute('aria-controls') || '');
+        if (panel) {
+          if (on) { panel.hidden = false; panel.classList.remove('is-shown'); void panel.offsetWidth; panel.classList.add('is-shown'); }
+          else panel.hidden = true;
+        }
+      });
+      if (focus) tab.focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(t));
+      t.addEventListener('keydown', (e) => {
+        const k = e.key;
+        if (k !== 'ArrowRight' && k !== 'ArrowLeft' && k !== 'ArrowDown' && k !== 'ArrowUp' && k !== 'Home' && k !== 'End') return;
+        e.preventDefault();
+        let n = i;
+        if (k === 'ArrowRight' || k === 'ArrowDown') n = (i + 1) % tabs.length;
+        if (k === 'ArrowLeft' || k === 'ArrowUp') n = (i - 1 + tabs.length) % tabs.length;
+        if (k === 'Home') n = 0;
+        if (k === 'End') n = tabs.length - 1;
+        select(tabs[n], true);
+      });
+    });
+  }
+</script>

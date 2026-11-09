@@ -1,0 +1,13 @@
+RECURSO PÚBLICO DE {ORG}
+========================
+
+Material del laboratorio de Windows y Active Directory.
+
+  GUIA-ALUMNO.md       cómo empezar, comandos y reglas
+  GUIA-CONEXION.md     cómo llegar al laboratorio y cómo se califica cada reto
+  {MATERIAL_DIR}       chuletas de cada día
+  {TEMPLATES_DIR}      plantillas para tus writeups
+  Scripts              Join-Lab.ps1 y lab.json para unir tu equipo
+
+Este recurso es de solo lectura. Tu carpeta de trabajo es H: y tus
+entregas van en H:\{DELIVER_DIR}.

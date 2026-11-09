@@ -1,0 +1,74 @@
+---
+import Command from './Command.astro';
+import type { Copy } from '../copy';
+import type { Ui } from '../ui';
+interface Props { t: Copy; u: Ui }
+const { t, u } = Astro.props;
+const i = t.install;
+---
+<div class="install" data-checklist data-total={i.steps.length}>
+  <aside class="steps-index">
+    <span class="eyebrow">{u.eyebrow.steps}</span>
+    <h3>{i.sequenceTitle}</h3>
+    <p>{i.sequenceIntro}</p>
+    <div class="progress" aria-live="polite">
+      <div class="progress-bar"><span data-progress-bar></span></div>
+      <span class="progress-text"><b data-progress-count>0</b> / {i.steps.length} {u.steps.progress}</span>
+      <button class="link-btn" type="button" data-progress-reset>{u.steps.reset}</button>
+    </div>
+    <ol aria-label={i.indexLabel}>
+      {i.steps.map((s) => <li><a href={`#step-${s.id}`} data-step-link={s.id}>{s.id}</a></li>)}
+    </ol>
+  </aside>
+  <ol class="steps">
+    {i.steps.map((s) => (
+      <li class="step" id={`step-${s.id}`} data-step={s.id} data-reveal>
+        <div>
+          <div class="step-top">
+            <h4>{s.title}{s.reboot && <span class="reboot">{i.reboot}</span>}</h4>
+            <button class="check" type="button" aria-pressed="false" data-check={s.id} aria-label={`${u.steps.mark}: ${s.title}`}>
+              <span class="check-box" aria-hidden="true"></span><span class="check-label">{u.steps.done}</span>
+            </button>
+          </div>
+          <Command lines={[s.cmd]} idle={t.copy.idle} done={t.copy.done} />
+          <p>{s.text}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-checklist]');
+  if (root) {
+    const KEY = 'lab-install-steps';
+    const total = Number(root.dataset.total || 0);
+    const bar = root.querySelector<HTMLElement>('[data-progress-bar]');
+    const count = root.querySelector<HTMLElement>('[data-progress-count]');
+    const read = (): string[] => { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return []; } };
+    const write = (v: string[]) => { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch { } };
+    let done = new Set(read());
+    const paint = () => {
+      root.querySelectorAll<HTMLButtonElement>('[data-check]').forEach((b) => {
+        const on = done.has(b.dataset.check || '');
+        b.setAttribute('aria-pressed', String(on));
+        b.closest('.step')?.classList.toggle('is-done', on);
+      });
+      root.querySelectorAll<HTMLAnchorElement>('[data-step-link]').forEach((a) => a.classList.toggle('is-done', done.has(a.dataset.stepLink || '')));
+      if (count) count.textContent = String(done.size);
+      if (bar) bar.style.transform = `scaleX(${total ? done.size / total : 0})`;
+    };
+    root.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-check]');
+      if (b) {
+        const id = b.dataset.check || '';
+        done.has(id) ? done.delete(id) : done.add(id);
+        write([...done]);
+        paint();
+        return;
+      }
+      if ((e.target as HTMLElement).closest('[data-progress-reset]')) { done = new Set(); write([]); paint(); }
+    });
+    paint();
+  }
+</script>

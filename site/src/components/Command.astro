@@ -1,0 +1,8 @@
+---
+interface Props { lines: string[]; idle: string; done: string; prompt?: string }
+const { lines, idle, done, prompt = 'PS>' } = Astro.props;
+---
+<div class="cmd">
+  <pre>{lines.map((l, i) => (<>{prompt && <span class="ps">{prompt} </span>}{l}{i < lines.length - 1 ? '\n' : ''}</>))}</pre>
+  <button class="copy" type="button" data-copy data-idle={idle} data-done={done}>{idle}</button>
+</div>

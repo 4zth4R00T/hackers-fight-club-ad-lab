@@ -1,0 +1,3 @@
+firstname,lastname,username,email,password,role
+Instructor,Sample,adm.instructor,,,instructor
+Domain,Sample,adm.domain,,,admin

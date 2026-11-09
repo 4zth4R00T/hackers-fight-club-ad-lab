@@ -1,0 +1,235 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from './Hero.astro';
+import Icon from './Icon.astro';
+import Command from './Command.astro';
+import Configurator from './Configurator.astro';
+import Steps from './Steps.astro';
+import Course from './Course.astro';
+import { copy, type Lang } from '../copy';
+import { ui } from '../ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = copy[lang];
+const u = ui[lang];
+const raw = import.meta.env.BASE_URL;
+const base = raw.endsWith('/') ? raw : raw + '/';
+const i = t.install;
+const tileIcons = ['board', 'flag', 'table', 'screen', 'disc', 'globe'] as const;
+const modeIcons = ['vm', 'lan', 'tunnel', 'vpn'] as const;
+---
+<Base lang={lang}>
+  <Hero u={u} base={base} lede={t.hero.lede} />
+
+  <section class="band why" id="why" aria-labelledby="why-title">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <span class="eyebrow">{u.why.eyebrow}</span>
+        <h2 id="why-title">{u.why.title}</h2>
+      </header>
+      <div class="why-grid">
+        <div class="why-body" data-reveal>
+          {u.why.body.map((p) => <p>{p}</p>)}
+        </div>
+        <aside class="dossier px" data-reveal style="--i:1">
+          <div class="dossier-head">
+            <img src={`${base}img/hfc-logo.png`} alt="" width="56" height="56" loading="lazy" />
+            <div>
+              <strong>Hackers Fight Club</strong>
+              <span>{u.eyebrow.hero}</span>
+            </div>
+          </div>
+          <dl>
+            {u.why.facts.map((f) => <div><dt>{f.k}</dt><dd>{f.v}</dd></div>)}
+            <div class="dossier-sign"><dt>{u.why.author}</dt><dd>{u.why.sign}</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="lab" aria-labelledby="lab-title">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <span class="eyebrow">{u.eyebrow.lab}</span>
+        <h2 id="lab-title">{t.lab.title}</h2>
+      </header>
+      <div class="intro" data-reveal>
+        {u.intro.map((p) => <p>{p}</p>)}
+      </div>
+      <div class="tiles">
+        {t.lab.items.map((it, n) => (
+          <article class="card px" data-reveal style={`--i:${n % 3}`}>
+            <span class="badge px"><Icon name={tileIcons[n]} /></span>
+            <h3>{it.term}</h3>
+            <p>{it.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="build" aria-labelledby="build-title">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <span class="eyebrow">{u.eyebrow.build}</span>
+        <h2 id="build-title">{u.build.title}</h2>
+        <p>{u.build.text}</p>
+      </header>
+      <div data-reveal>
+        <Configurator u={u} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="requirements" aria-labelledby="req-title">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <span class="eyebrow">{u.eyebrow.reqs}</span>
+        <h2 id="req-title">{t.reqs.title}</h2>
+        <p>{t.reqs.intro}</p>
+      </header>
+      <div data-reveal>
+        <dl class="specs px">
+          <div class="spec spec-head" aria-hidden="true"><span></span><span>{t.reqs.minLabel}</span><span>{t.reqs.recLabel}</span></div>
+          {t.reqs.rows.map((r) => (
+            <div class="spec">
+              <dt>{r.term}</dt>
+              <dd><b>{t.reqs.minLabel} </b>{r.min}</dd>
+              <dd><b>{t.reqs.recLabel} </b>{r.rec}</dd>
+            </div>
+          ))}
+        </dl>
+        <p class="aside-note">{t.reqs.note}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="install" aria-labelledby="install-title">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <span class="eyebrow">{u.eyebrow.steps}</span>
+        <h2 id="install-title">{i.title}</h2>
+        <p>{u.steps.intro}</p>
+      </header>
+      <Steps t={t} u={u} />
+      <div class="after">
+        <article class="path card px" data-reveal style="--i:0">
+          <h3>{i.clientsTitle}</h3>
+          <p>{i.clientsText}</p>
+          <Command lines={i.clientsCmds} idle={t.copy.idle} done={t.copy.done} />
+        </article>
+        <article class="path card px" data-reveal style="--i:1">
+          <h3>{i.csvTitle}</h3>
+          <p>{i.csvText}</p>
+          <Command lines={[i.csvStudents]} prompt="" idle={t.copy.idle} done={t.copy.done} />
+          <Command lines={[i.csvAdmins]} prompt="" idle={t.copy.idle} done={t.copy.done} />
+          <p class="note">{i.csvNote}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="course" aria-labelledby="course-title">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <span class="eyebrow">{u.eyebrow.course}</span>
+        <h2 id="course-title">{t.activities.title}</h2>
+        <p>{t.activities.intro}</p>
+      </header>
+      <div data-reveal>
+        <Course lang={lang} u={u} days={t.activities.days} dayLabel={t.activities.dayLabel} />
+      </div>
+      <p class="scoring" data-reveal>{t.activities.scoring}</p>
+    </div>
+  </section>
+
+  <section class="section" id="network" aria-labelledby="net-title">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <span class="eyebrow">{u.eyebrow.network}</span>
+        <h2 id="net-title">{t.network.title}</h2>
+        <p>{t.network.intro}</p>
+      </header>
+      <div class="modes">
+        {t.network.modes.map((m, n) => (
+          <article class="card px" data-reveal style={`--i:${n}`}>
+            <span class="badge px"><Icon name={modeIcons[n]} /></span>
+            <h3>{m.term}</h3>
+            <p>{m.text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="net-cmd" data-reveal>
+        <Command lines={[t.network.cmd]} idle={t.copy.idle} done={t.copy.done} />
+        <p class="aside-note">{t.network.note}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="wallpaper" aria-labelledby="wp-title">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <span class="eyebrow">{u.eyebrow.wallpaper}</span>
+        <h2 id="wp-title">{t.wallpaper.title}</h2>
+        <p>{t.wallpaper.text}</p>
+      </header>
+      <div class="shots">
+        <figure class="shot" data-reveal style="--i:0">
+          <img src={`${base}img/wallpaper-preview.jpg`} alt={t.wallpaper.captionUser} width="1600" height="900" loading="lazy" decoding="async" />
+          <figcaption>{t.wallpaper.captionUser}</figcaption>
+        </figure>
+        <figure class="shot" data-reveal style="--i:1">
+          <img src={`${base}img/wallpaper-base.jpg`} alt={t.wallpaper.captionBase} width="1600" height="900" loading="lazy" decoding="async" />
+          <figcaption>{t.wallpaper.captionBase}</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="weaknesses" aria-labelledby="weak-title">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <span class="eyebrow">{u.eyebrow.weak}</span>
+        <h2 id="weak-title">{t.weaknesses.title}</h2>
+        <p>{t.weaknesses.intro}</p>
+      </header>
+      <div class="weak-wrap px" data-reveal><table class="weak">
+        <thead><tr>{t.weaknesses.head.map((h) => <th scope="col">{h}</th>)}<th scope="col"><span class="visually-hidden">{u.weak.on}</span></th></tr></thead>
+        <tbody>
+          {t.weaknesses.rows.map((r) => (
+            <tr><td><code>{r[0]}</code></td><td>{r[1]}</td><td>{r[2]}</td><td><span class="tag-on">{u.weak.on}</span></td></tr>
+          ))}
+        </tbody>
+      </table></div>
+      <div class="protected" data-reveal>
+        <h3>{t.weaknesses.protectedTitle}</h3>
+        <p>{t.weaknesses.protectedText}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="statement" aria-label={u.statement.words.join(' ')}>
+    <div class="wrap" data-reveal>
+      <p class="statement-q">{u.statement.line1}<span>{u.statement.line2}</span></p>
+      <div class="statement-words">{u.statement.words.map((w) => <span>{w}</span>)}</div>
+    </div>
+  </section>
+
+  <section class="section" id="cutoff" aria-labelledby="cut-title">
+    <div class="wrap">
+      <div class="cutoff px" data-reveal>
+        <div>
+          <span class="eyebrow">{u.eyebrow.cutoff}</span>
+          <h2 id="cut-title">{t.cutoff.title}</h2>
+          <div class="cutoff-date">{t.cutoff.date}</div>
+        </div>
+        <div>
+          <p>{t.cutoff.text}</p>
+          <p>{t.cutoff.use}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

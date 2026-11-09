@@ -1,0 +1,691 @@
+{
+  "Intro": {
+    "es": "{D} días, {N} ejercicios, {TOTAL} puntos. Por dónde se empieza cada día, qué comandos necesitas y dónde se atora todo el mundo. Aquí no hay ninguna bandera: el último paso siempre lo das tú.",
+    "en": "{D} days, {N} exercises, {TOTAL} points. Where each day starts, which commands you need, and where everyone gets stuck. There are no flags here: the last step is always yours.",
+    "ru": "Дней: {D}, упражнений: {N}, баллов: {TOTAL}. С чего начинается каждый день, какие команды понадобятся и где застревают все. Здесь нет ни одного флага: последний шаг всегда за вами."
+  },
+  "Before": {
+    "Text": {
+      "es": "Un CTF no se resuelve adivinando. Se resuelve leyendo el enunciado, eligiendo una herramienta y comprobando el resultado. Si llevas veinte minutos probando cosas al azar, no te falta suerte: te falta una pista, y pedirla no cuesta nada.",
+      "en": "A CTF is not solved by guessing. It is solved by reading the prompt, choosing a tool, and checking the result. If you have spent twenty minutes trying random things, you are not short on luck: you need a hint, and asking for one costs nothing.",
+      "ru": "CTF не решают угадыванием. Его решают так: читают условие, выбирают инструмент и проверяют результат. Если вы двадцать минут пробуете что попало, дело не в невезении: вам нужна подсказка, а попросить её ничего не стоит."
+    },
+    "Cards": [
+      {
+        "Command": "{CMD_CHALLENGES} 2",
+        "Text": {
+          "es": "Qué hay que hacer hoy y si el día ya abrió.",
+          "en": "What to do today and whether the day is open.",
+          "ru": "Что нужно сделать сегодня и открыт ли уже день."
+        }
+      },
+      {
+        "Command": "{CMD_HINT} D2-03",
+        "Text": {
+          "es": "Una pista para ese reto. Pídela de nuevo y sube de nivel.",
+          "en": "A hint for that challenge. Ask again to go up a level.",
+          "ru": "Подсказка к этому заданию. Запросите ещё раз, чтобы перейти на следующий уровень."
+        }
+      },
+      {
+        "Command": "{CMD_SUBMIT} '{FLAG}{...}'",
+        "Text": {
+          "es": "Entregar desde la consola. También puedes hacerlo en esta web.",
+          "en": "Submit from the console. You can also do it on this site.",
+          "ru": "Сдача из консоли. Сдать можно и на этом сайте."
+        }
+      },
+      {
+        "Command": "{CMD_PROGRESS}",
+        "Text": {
+          "es": "Tus puntos y lo que te falta. El corrector pasa cada minuto.",
+          "en": "Your points and what is left. The grader runs every minute.",
+          "ru": "Ваши баллы и то, что осталось. Проверка запускается каждую минуту."
+        }
+      }
+    ],
+    "Rules": [
+      {
+        "Term": {
+          "es": "Horario",
+          "en": "Schedule",
+          "ru": "Расписание"
+        },
+        "Tone": "jade",
+        "Text": {
+          "es": "Cada día abre a su hora. Una bandera de un día cerrado no suma aunque sea correcta: no la pierdes, la vuelves a entregar cuando abra.",
+          "en": "Each day opens at its scheduled time. A flag for a closed day does not score even if it is correct: you do not lose it, you resubmit it once the day opens.",
+          "ru": "Каждый день открывается в своё время. Флаг закрытого дня не засчитывается, даже если он верный: вы его не теряете, а сдаёте снова, когда день откроется."
+        }
+      },
+      {
+        "Term": {
+          "es": "Pistas",
+          "en": "Hints",
+          "ru": "Подсказки"
+        },
+        "Tone": "jade",
+        "Text": {
+          "es": "Tres niveles por reto, sin costo: rumbo, herramienta y sintaxis. La tercera te da la forma del comando con el hueco sin rellenar. Nunca la respuesta.",
+          "en": "Three levels per challenge, free of charge: direction, tool, and syntax. The third gives you the shape of the command with the blank left open. Never the answer.",
+          "ru": "Три уровня на задание, бесплатно: направление, инструмент и синтаксис. Третья даёт форму команды с незаполненным пропуском. Готового ответа не даёт ни одна."
+        }
+      },
+      {
+        "Term": {
+          "es": "Verifica",
+          "en": "Verify",
+          "ru": "Проверяйте"
+        },
+        "Tone": "ambar",
+        "Text": {
+          "es": "No toda cadena con forma de bandera es una bandera. Antes de entregar, pregúntate a qué reto corresponde. Si no sabes responder, no es tuya.",
+          "en": "Not every string shaped like a flag is a flag. Before submitting, ask yourself which challenge it belongs to. If you cannot answer, it is not yours.",
+          "ru": "Не всякая строка в формате флага является флагом. Перед сдачей спросите себя, к какому заданию она относится. Если не можете ответить, она не ваша."
+        }
+      },
+      {
+        "Term": {
+          "es": "Tu kit",
+          "en": "Your kit",
+          "ru": "Ваш набор"
+        },
+        "Tone": "rosa",
+        "Text": {
+          "es": "Las banderas de tu carpeta {KIT_DIR} valen solo para tu cuenta. Entregar la de otra persona resta y queda registrado.",
+          "en": "The flags in your {KIT_DIR} folder only count for your account. Submitting someone else's costs points and is logged.",
+          "ru": "Флаги из вашей папки {KIT_DIR} засчитываются только вашей учётной записи. Сдача чужого флага отнимает баллы и записывается."
+        }
+      },
+      {
+        "Term": {
+          "es": "Writeups",
+          "en": "Writeups",
+          "ru": "Отчёты"
+        },
+        "Tone": "jade",
+        "Text": {
+          "es": "Los writeups suman {WU} de los {TOTAL} puntos. Hay plantillas en \\\\{DC}\\{SHARE_PUBLIC}. Úsalas: el formato también se califica.",
+          "en": "Writeups are worth {WU} of the {TOTAL} points. Templates live in \\\\{DC}\\{SHARE_PUBLIC}. Use them: format is graded too.",
+          "ru": "Отчёты приносят {WU} из {TOTAL} баллов. Шаблоны лежат в \\\\{DC}\\{SHARE_PUBLIC}. Пользуйтесь ими: оформление тоже оценивается."
+        }
+      }
+    ],
+    "Stuck": {
+      "es": "Si te atoras, sigue este orden: relee el enunciado, revisa el /? o el Get-Help del comando, pide la pista 1, prueba y luego pide la 2. La ayuda del propio comando resuelve más retos de este laboratorio que cualquier buscador.",
+      "en": "If you get stuck, follow this order: reread the prompt, check the command's /? or Get-Help, ask for hint 1, try again, then ask for hint 2. A command's own help solves more challenges in this lab than any search engine.",
+      "ru": "Если застряли, действуйте по порядку: перечитайте условие, посмотрите /? или Get-Help нужной команды, запросите подсказку 1, попробуйте снова, затем запросите подсказку 2. Встроенная справка команды решает больше заданий этой лаборатории, чем любой поисковик."
+    }
+  },
+  "Days": [
+    {
+      "Day": 1,
+      "Lede": {
+        "es": "El único día sin terminal. Sirve para armar un mapa mental antes de tocar nada: qué es el sistema, qué ves en pantalla, dónde viven los archivos y por qué existe una línea de comandos.",
+        "en": "The only day without a terminal. It builds a mental map before you touch anything: what the system is, what you see on screen, where files live, and why a command line exists at all.",
+        "ru": "Единственный день без терминала. Он нужен, чтобы построить ментальную карту, прежде чем что-то трогать: что такое система, что вы видите на экране, где живут файлы и зачем вообще нужна командная строка."
+      },
+      "Start": {
+        "es": "Dibuja cuatro territorios: sistema, interfaz, archivos y línea de comandos. Luego une cada par con una línea y escribe sobre ella por qué uno lleva al otro. Esas conexiones son el ejercicio; la lista de palabras no lo es.",
+        "en": "Draw four territories: system, interface, files, and command line. Then connect each pair with a line and write on it why one leads to the other. Those connections are the exercise; a list of words is not.",
+        "ru": "Нарисуйте четыре области: система, интерфейс, файлы и командная строка. Затем соедините каждую пару линией и напишите на ней, почему одно ведёт к другому. Упражнение заключается в этих связях, а не в списке слов."
+      },
+      "Pitfall": {
+        "es": "Entregar cuatro listas sueltas sin conexiones. Y en Markdown, el enlace de una imagen se escribe ![texto](archivo.jpg) sin espacio entre el corchete y el paréntesis; si los separas, la imagen no aparece.",
+        "en": "Turning in four separate lists with no connections. And in Markdown, an image link is written ![text](file.jpg) with no space between the bracket and the parenthesis; add one and the image disappears.",
+        "ru": "Сдать четыре отдельных списка без связей. И в Markdown ссылка на изображение пишется ![текст](file.jpg) без пробела между квадратной и круглой скобками; если поставить пробел, изображение пропадёт."
+      },
+      "Vocab": {
+        "es": [],
+        "en": [],
+        "ru": []
+      },
+      "Tips": {
+        "D1-MAPA": {
+          "es": "Si una rama no tiene al menos dos hijos propios, todavía no es una rama.",
+          "en": "If a branch does not have at least two children of its own, it is not a branch yet.",
+          "ru": "Если у ветви нет хотя бы двух собственных дочерних узлов, это ещё не ветвь."
+        }
+      }
+    },
+    {
+      "Day": 2,
+      "Lede": {
+        "es": "Aquí aprendes a hacerle preguntas a la máquina desde una consola. Casi todo ocurre dentro de tu carpeta {KIT_DIR}, salvo un reto que vive en tu cuenta de dominio.",
+        "en": "Here you learn to question the machine from a console. Almost everything happens inside your {KIT_DIR} folder, except one challenge that lives in your domain account.",
+        "ru": "Здесь вы учитесь задавать машине вопросы из консоли. Почти всё происходит в вашей папке {KIT_DIR}, кроме одного задания, которое живёт в вашей учётной записи домена."
+      },
+      "Start": {
+        "es": "Abre cmd y entra en la carpeta del día 2 dentro de {KIT_DIR}. Ejecuta dir. Después repítelo con dir /a y compara las dos salidas: la diferencia entre ambas es, literalmente, el segundo reto.",
+        "en": "Open cmd and go to the day 2 folder inside {KIT_DIR}. Run dir. Then run it again with dir /a and compare both outputs: the difference between them is, quite literally, the second challenge.",
+        "ru": "Откройте cmd и перейдите в папку дня 2 внутри {KIT_DIR}. Выполните dir. Затем повторите с dir /a и сравните оба вывода: разница между ними в буквальном смысле и есть второе задание."
+      },
+      "Pitfall": {
+        "es": "Describir el comando en lugar de anotarlo. Cuando algo funcione, copia la línea exacta a un borrador: la vas a necesitar para el writeup y no la vas a recordar.",
+        "en": "Describing the command instead of recording it. When something works, copy the exact line into a scratch file: you will need it for the writeup and you will not remember it.",
+        "ru": "Описывать команду вместо того, чтобы её записать. Когда что-то сработает, скопируйте точную строку в черновик: она понадобится для отчёта, а по памяти вы её не восстановите."
+      },
+      "Vocab": {
+        "es": [
+          "set",
+          "echo %VAR%",
+          "dir /a",
+          "findstr /s /i",
+          "net user",
+          "schtasks /query",
+          "type",
+          "help",
+          "/?"
+        ],
+        "en": [
+          "set",
+          "echo %VAR%",
+          "dir /a",
+          "findstr /s /i",
+          "net user",
+          "schtasks /query",
+          "type",
+          "help",
+          "/?"
+        ],
+        "ru": [
+          "set",
+          "echo %VAR%",
+          "dir /a",
+          "findstr /s /i",
+          "net user",
+          "schtasks /query",
+          "type",
+          "help",
+          "/?"
+        ]
+      },
+      "Tips": {
+        "D2-01": {
+          "es": "Listar las variables una por una con echo funciona, pero es lento. Sácalas todas de golpe y filtra la salida.",
+          "en": "Listing variables one by one with echo works, but it is slow. Dump them all at once and filter the output.",
+          "ru": "Выводить переменные по одной через echo можно, но долго. Выведите все сразу и отфильтруйте вывод."
+        },
+        "D2-02": {
+          "es": "Un solo modificador de dir separa verlo de no verlo.",
+          "en": "A single dir switch is the difference between seeing it and not.",
+          "ru": "Всего один ключ dir отделяет «вижу» от «не вижу»."
+        },
+        "D2-03": {
+          "es": "Son 300 archivos y el nombre no dice nada: lo que buscas está adentro. findstr necesita el modificador de recursividad o no entra en las subcarpetas.",
+          "en": "There are 300 files and the names tell you nothing: what you want is inside one of them. findstr needs its recursion switch or it never enters the subfolders.",
+          "ru": "Файлов 300, и имена ничего не говорят: то, что вы ищете, внутри. findstr нужен ключ рекурсии, иначе он не заходит во вложенные папки."
+        },
+        "D2-04": {
+          "es": "Aunque encuentres la carpeta por casualidad, haz el ejercicio: revisa %PATH% y entiende por qué esa carpeta está ahí. Eso es lo que se evalúa.",
+          "en": "Even if you stumble on the folder, do the exercise: read %PATH% and understand why that folder is there. That is what gets graded.",
+          "ru": "Даже если вы наткнётесь на папку случайно, сделайте упражнение: прочитайте %PATH% и поймите, почему эта папка там. Оценивается именно это."
+        },
+        "D2-05": {
+          "es": "net user %username% consulta la base local, y tu cuenta es de dominio. El modificador que lo resuelve aparece en net user /?. Después lee el campo de comentario.",
+          "en": "net user %username% queries the local database, and your account belongs to the domain. The switch that fixes it is listed in net user /?. Then read the comment field.",
+          "ru": "net user %username% обращается к локальной базе, а ваша учётная запись доменная. Нужный ключ указан в net user /?. Затем прочитайте поле комментария."
+        },
+        "D2-OPT1": {
+          "es": "El comando de tareas resume por defecto. Pídele formato de lista y modo detallado, y filtra: la nota está en el campo de comentario.",
+          "en": "The task command summarizes by default. Ask for list format and verbose mode, then filter: the note sits in the comment field.",
+          "ru": "Команда для задач по умолчанию выдаёт сводку. Запросите формат списка и подробный режим, затем отфильтруйте: заметка находится в поле комментария."
+        },
+        "D2-WU": {
+          "es": "Objetivo, procedimiento, tabla de hallazgos y aprendizaje. Los comandos van transcritos, no contados.",
+          "en": "Objective, procedure, findings table, and lessons learned. Commands are transcribed, not paraphrased.",
+          "ru": "Цель, ход работы, таблица находок и выводы. Команды приводятся дословно, а не пересказываются."
+        }
+      }
+    },
+    {
+      "Day": 3,
+      "Lede": {
+        "es": "Los tres escondites clásicos de Windows: el registro, los flujos alternos de NTFS y los enlaces de directorio. Es el día en que más gente descubre que llevaba años sin saber que existían.",
+        "en": "The three classic Windows hiding places: the registry, NTFS alternate data streams, and directory links. It is the day most people discover they spent years unaware these existed.",
+        "ru": "Три классических тайника Windows: реестр, альтернативные потоки данных NTFS и ссылки на каталоги. В этот день многие узнают, что годами не подозревали об их существовании."
+      },
+      "Start": {
+        "es": "Entra en la carpeta del día 3 dentro de {KIT_DIR} y ejecuta dir /a /r antes que nada. Esa sola línea te muestra los tres escondites a la vez: los flujos alternos aparecen debajo de su archivo y los enlaces salen marcados como JUNCTION con su destino entre corchetes.",
+        "en": "Go to the day 3 folder inside {KIT_DIR} and run dir /a /r before anything else. That single line reveals all three hiding places at once: alternate streams appear under their file, and links show up as JUNCTION with their target in brackets.",
+        "ru": "Перейдите в папку дня 3 внутри {KIT_DIR} и первым делом выполните dir /a /r. Одна эта строка показывает все три тайника сразу: альтернативные потоки выводятся под своим файлом, а ссылки отмечены как JUNCTION с целью в квадратных скобках."
+      },
+      "Pitfall": {
+        "es": "En el registro, reg query no es recursivo por defecto: sin el modificador que baja a las subclaves la búsqueda no devuelve nada y parece vacía. Ese detalle ha costado horas.",
+        "en": "In the registry, reg query is not recursive by default: without the switch that walks the subkeys, the search returns nothing and looks empty. That detail has cost people hours.",
+        "ru": "В реестре reg query по умолчанию не рекурсивен: без ключа, который спускается в подразделы, поиск ничего не возвращает и кажется пустым. Эта мелочь уже стоила людям часов."
+      },
+      "Vocab": {
+        "es": [
+          "reg query",
+          "dir /a /r",
+          "more < archivo:flujo",
+          "mklink /J",
+          "whoami /user",
+          "Get-ChildItem"
+        ],
+        "en": [
+          "reg query",
+          "dir /a /r",
+          "more < file:stream",
+          "mklink /J",
+          "whoami /user",
+          "Get-ChildItem"
+        ],
+        "ru": [
+          "reg query",
+          "dir /a /r",
+          "more < файл:поток",
+          "mklink /J",
+          "whoami /user",
+          "Get-ChildItem"
+        ]
+      },
+      "Tips": {
+        "D3-01": {
+          "es": "Busca por el texto, no por el nombre de la clave. Y en modo recursivo: es el error número uno del laboratorio.",
+          "en": "Search by the text, not by the key name. And recursively: that is the number one mistake in this lab.",
+          "ru": "Ищите по тексту, а не по имени раздела. И рекурсивно: это ошибка номер один в этой лаборатории."
+        },
+        "D3-02": {
+          "es": "type no sabe leer un flujo alterno; more < sí. Vas a encontrar dos flujos: uno es el reto y el otro es de validación. Decide cuál es cuál antes de entregar.",
+          "en": "type cannot read an alternate stream; more < can. You will find two streams: one is the challenge and the other is for validation. Decide which is which before you submit.",
+          "ru": "type не умеет читать альтернативный поток, а more < умеет. Вы найдёте два потока: один относится к заданию, другой служит для проверки. Решите, какой из них какой, прежде чем сдавать."
+        },
+        "D3-03": {
+          "es": "Lee la cadena entre corchetes en dir /a /r. Ojo: los enlaces son transparentes, así que al entrar en el primero ya estás al final. No es un error tuyo.",
+          "en": "Read the chain in the brackets of dir /a /r. Heads up: links are transparent, so stepping into the first one lands you at the end. That is not your mistake.",
+          "ru": "Прочитайте цепочку в квадратных скобках вывода dir /a /r. Внимание: ссылки прозрачны, поэтому, зайдя в первую, вы сразу оказываетесь в конце. Это не ваша ошибка."
+        },
+        "D3-OPT1": {
+          "es": "Tu identidad real es un número, no un nombre. Consíguelo y busca el archivo que lo lleva.",
+          "en": "Your real identity is a number, not a name. Get it and look for the file that carries it.",
+          "ru": "Для Windows вы число, а не имя. Узнайте это число и найдите файл, который его носит."
+        },
+        "D3-WU": {
+          "es": "La sección que compara Windows con Linux es obligatoria y es la que más gente se salta. El registro se parece a /etc, los enlaces equivalen a ln -s, y los flujos alternos son el caso interesante.",
+          "en": "The section comparing Windows with Linux is mandatory and it is the one most people skip. The registry resembles /etc, links map to ln -s, and alternate streams are the interesting case.",
+          "ru": "Раздел со сравнением Windows и Linux обязателен, и именно его чаще всего пропускают. Реестр похож на /etc, ссылки соответствуют ln -s, а интереснее всего с альтернативными потоками."
+        }
+      }
+    },
+    {
+      "Day": 4,
+      "Lede": {
+        "es": "Se acabó teclear a mano. PowerShell trabaja con objetos, no con texto, y eso cambia cómo se filtra, se ordena y se exporta. Dos de estos retos no llevan bandera: el corrector revisa tu unidad de red.",
+        "en": "No more typing by hand. PowerShell works with objects, not text, and that changes how you filter, sort, and export. Two of these challenges have no flag: the grader inspects your network drive.",
+        "ru": "Хватит набирать вручную. PowerShell работает с объектами, а не с текстом, и это меняет то, как вы фильтруете, сортируете и экспортируете. В двух из этих заданий нет флага: проверка смотрит ваш сетевой диск."
+      },
+      "Start": {
+        "es": "Abre PowerShell, no cmd, y prueba Get-ChildItem HKCU:\\Software. Que el registro se recorra con el mismo verbo que una carpeta es la idea completa del día: todo es una unidad, todo devuelve objetos y todo se encadena con la canalización.",
+        "en": "Open PowerShell, not cmd, and try Get-ChildItem HKCU:\\Software. Walking the registry with the same verb you use on a folder is the whole idea of the day: everything is a drive, everything returns objects, and everything chains through the pipeline.",
+        "ru": "Откройте PowerShell, не cmd, и попробуйте Get-ChildItem HKCU:\\Software. Вся идея дня в том, что реестр обходят тем же командлетом, что и папку: всё является диском, всё возвращает объекты и всё соединяется конвейером."
+      },
+      "Pitfall": {
+        "es": "La ruta. Los retos que se comprueban solos van exactamente en la carpeta que indica el enunciado dentro de tu unidad {HOME_DRIVE}, no en una carpeta vecina. Si el contenido parece correcto y no te lo dan por bueno, revisa la ruta.",
+        "en": "The path. Self checking challenges go exactly in the folder named by the challenge inside your {HOME_DRIVE} drive, not in a neighboring folder. If the content looks right and it still is not accepted, check the path.",
+        "ru": "Путь. Самопроверяемые задания должны лежать точно в той папке, которую называет условие, внутри вашего диска {HOME_DRIVE}, а не в соседней. Если содержимое выглядит правильно, но не засчитывается, проверьте путь."
+      },
+      "Vocab": {
+        "es": [
+          "Get-ChildItem",
+          "Get-Content",
+          "Select-String",
+          "ForEach-Object",
+          "Sort-Object",
+          "Export-Csv",
+          "ConvertTo-Json",
+          "New-Item"
+        ],
+        "en": [
+          "Get-ChildItem",
+          "Get-Content",
+          "Select-String",
+          "ForEach-Object",
+          "Sort-Object",
+          "Export-Csv",
+          "ConvertTo-Json",
+          "New-Item"
+        ],
+        "ru": [
+          "Get-ChildItem",
+          "Get-Content",
+          "Select-String",
+          "ForEach-Object",
+          "Sort-Object",
+          "Export-Csv",
+          "ConvertTo-Json",
+          "New-Item"
+        ]
+      },
+      "Tips": {
+        "D4-00": {
+          "es": "Lo mismo que hiciste con reg query, ahora con Get-ChildItem y -Recurse.",
+          "en": "The same thing you did with reg query, now with Get-ChildItem and -Recurse.",
+          "ru": "То же, что вы делали с reg query, теперь через Get-ChildItem и -Recurse."
+        },
+        "D4-01": {
+          "es": "Decenas de miles de líneas. Select-String es el findstr de PowerShell y devuelve objetos con número de línea.",
+          "en": "Tens of thousands of lines. Select-String is the PowerShell findstr and returns objects with line numbers.",
+          "ru": "Десятки тысяч строк. Select-String в PowerShell заменяет findstr и возвращает объекты с номерами строк."
+        },
+        "D4-02": {
+          "es": "Sin bandera. Va en la carpeta que indica el enunciado dentro de {HOME_DRIVE}, con varias carpetas y varios archivos en cada una, creados con un ciclo y no a mano.",
+          "en": "No flag here. It goes in the folder named in the challenge inside {HOME_DRIVE}, with several folders and several files in each, created with a loop rather than by hand.",
+          "ru": "Флага нет. Всё кладётся в папку, указанную в условии, внутри {HOME_DRIVE}: несколько папок и по несколько файлов в каждой, созданных циклом, а не вручную."
+        },
+        "D4-03": {
+          "es": "El orden importa y el alfabético te traiciona: parte10 queda antes que parte2. Ordena por número.",
+          "en": "Order matters and alphabetical order betrays you: part10 sorts before part2. Sort numerically.",
+          "ru": "Порядок важен, а алфавитный вас подведёт: part10 окажется раньше part2. Сортируйте по номеру."
+        },
+        "D4-OPT1": {
+          "es": "Los mismos datos en los dos formatos, ambos en tu unidad {HOME_DRIVE}. Si en el CSV aparece System.Object[] es porque hay objetos dentro de objetos: aplánalos con Select-Object y usa -Depth en el JSON.",
+          "en": "The same data in both formats, both on your {HOME_DRIVE} drive. If System.Object[] shows up in the CSV, you have objects nested in objects: flatten them with Select-Object and use -Depth for the JSON.",
+          "ru": "Одни и те же данные в двух форматах, оба файла на вашем диске {HOME_DRIVE}. Если в CSV появилось System.Object[], значит, внутри объектов есть вложенные объекты: сделайте их плоскими через Select-Object и задайте -Depth для JSON."
+        },
+        "D4-WU": {
+          "es": "El script completo, comentado por ti, con la ejecución real pegada. La sección de qué mejorarías es la que sube la calificación.",
+          "en": "The full script, commented by you, with the real run pasted in. The section on what you would improve is the one that lifts your grade.",
+          "ru": "Полный скрипт с вашими комментариями и вставленным выводом реального запуска. Оценку повышает именно раздел о том, что бы вы улучшили."
+        }
+      }
+    },
+    {
+      "Day": 5,
+      "Lede": {
+        "es": "El primer día en que sales de tu máquina y el primero encadenado: la Parte 1 te da una llave que no sirve de nada hasta la Parte 3, y la Parte 2 te da la cerradura.",
+        "en": "The first day you leave your own machine, and the first chained one: Part 1 hands you a key that is useless until Part 3, and Part 2 gives you the lock.",
+        "ru": "Первый день, когда вы выходите за пределы своей машины, и первый день-цепочка: часть 1 даёт вам ключ, бесполезный до части 3, а часть 2 даёт замок."
+      },
+      "Start": {
+        "es": "Antes de tocar la red, abre un archivo de notas. Este día se resuelve juntando piezas, y la pieza de la Parte 1 no parece una pieza cuando la ves: parece una línea más de configuración.",
+        "en": "Before touching the network, open a notes file. This day is solved by collecting pieces, and the Part 1 piece does not look like one when you see it: it looks like just another configuration line.",
+        "ru": "Прежде чем трогать сеть, откройте файл для заметок. Этот день решается сбором деталей, и деталь из части 1 не похожа на деталь, когда вы её видите: она выглядит как ещё одна строка конфигурации."
+      },
+      "Pitfall": {
+        "es": "Tratar las tres partes como retos sueltos y no ver el hilo. Si llegas a la Parte 3 sin saber qué contraseña usar, no te falta un comando: te falta releer lo que ya encontraste.",
+        "en": "Treating the three parts as unrelated challenges and missing the thread. If you reach Part 3 without knowing which password to use, you are not missing a command: you need to reread what you already found.",
+        "ru": "Считать три части отдельными заданиями и не видеть связи между ними. Если вы дошли до части 3 и не знаете, какой пароль использовать, вам не хватает не команды: нужно перечитать то, что вы уже нашли."
+      },
+      "Vocab": {
+        "es": [
+          "ipconfig /all",
+          "Resolve-DnsName",
+          "Invoke-WebRequest",
+          "net use",
+          "Test-NetConnection",
+          "telnet",
+          "{CMD_MAIL}"
+        ],
+        "en": [
+          "ipconfig /all",
+          "Resolve-DnsName",
+          "Invoke-WebRequest",
+          "net use",
+          "Test-NetConnection",
+          "telnet",
+          "{CMD_MAIL}"
+        ],
+        "ru": [
+          "ipconfig /all",
+          "Resolve-DnsName",
+          "Invoke-WebRequest",
+          "net use",
+          "Test-NetConnection",
+          "telnet",
+          "{CMD_MAIL}"
+        ]
+      },
+      "Tips": {
+        "D5-P1": {
+          "es": "La configuración de red resumida no lo muestra todo. Entre lo que aparece de más hay algo que no es un nombre de dominio: es una llave. Guárdala.",
+          "en": "The short network configuration does not show everything. Among the extra lines there is something that is not a domain name: it is a key. Keep it.",
+          "ru": "Краткая сетевая конфигурация показывает не всё. Среди дополнительных строк есть кое-что, что не является именем домена: это ключ. Сохраните его."
+        },
+        "D5-P2": {
+          "es": "Cuarenta nombres y casi ninguno responde. Preguntar a mano es justo el error que este ejercicio busca: escribe el ciclo. De los que contestan, uno sirve una página web.",
+          "en": "Forty names and almost none of them answer. Asking by hand is exactly the mistake this exercise targets: write the loop. Of those that answer, one serves a web page.",
+          "ru": "Сорок имён, и почти ни одно не отвечает. Спрашивать вручную и есть та ошибка, на которую рассчитано упражнение: напишите цикл. Из ответивших один отдаёт веб-страницу."
+        },
+        "D5-P3": {
+          "es": "Monta el recurso con credenciales explícitas: el usuario salió de la Parte 2 y la contraseña de la Parte 1. Adentro solo se abre tu expediente.",
+          "en": "Map the share with explicit credentials: the user came from Part 2 and the password from Part 1. Inside, only your own file opens.",
+          "ru": "Подключите общую папку с явно указанными учётными данными: пользователь из части 2, пароль из части 1. Внутри откроется только ваше личное дело."
+        },
+        "D5-OPT1": {
+          "es": "Encontrarlo abierto no basta. Hay que conectarse y leer lo que el servicio responde.",
+          "en": "Finding it open is not enough. You have to connect and read what the service says.",
+          "ru": "Найти открытый порт мало. Нужно подключиться и прочитать, что ответит служба."
+        },
+        "D5-OPT2": {
+          "es": "Escribe a la cuenta de validación desde tu cuenta y espera la respuesta. Puedes usar los comandos del laboratorio o hablar SMTP a mano por telnet.",
+          "en": "Write to the validation mailbox from your own account and wait for the reply. You can use the lab commands or speak SMTP by hand over telnet.",
+          "ru": "Напишите в ящик проверки со своей учётной записи и дождитесь ответа. Можно использовать команды лаборатории или говорить по SMTP вручную через telnet."
+        },
+        "D5-WU": {
+          "es": "Este no se califica por comandos sino por la cadena. En cada salto, escribe una frase que empiece con «esto me sirvió para».",
+          "en": "This one is graded on the chain, not the commands. At each hop, write a sentence that begins with “this let me”.",
+          "ru": "Здесь оценивают не команды, а цепочку. На каждом шаге напишите фразу, которая начинается со слов «это помогло мне»."
+        }
+      }
+    },
+    {
+      "Day": 6,
+      "Lede": {
+        "es": "El directorio de la empresa: usuarios, equipos, grupos y cuentas de servicio. Un solo concepto sostiene todo el día.",
+        "en": "The company directory: users, computers, groups, and service accounts. A single concept carries the whole day.",
+        "ru": "Каталог компании: пользователи, компьютеры, группы и служебные учётные записи. Весь день держится на одном понятии."
+      },
+      "Start": {
+        "es": "Ejecuta Get-ADUser -Identity $env:USERNAME y cuenta los campos que devuelve. Son pocos. Ahora repítelo agregando -Properties * y vuelve a contar. Todo el día 6 vive en esa diferencia.",
+        "en": "Run Get-ADUser -Identity $env:USERNAME and count the fields it returns. There are only a few. Now run it again with -Properties * and count once more. All of day 6 lives in that difference.",
+        "ru": "Выполните Get-ADUser -Identity $env:USERNAME и посчитайте, сколько полей он возвращает. Их немного. Теперь повторите, добавив -Properties *, и посчитайте снова. Весь день 6 живёт в этой разнице."
+      },
+      "Pitfall": {
+        "es": "Dar por hecho que lo que devuelve el comando es todo lo que hay. Los campos interesantes, Description e info, no están entre los que salen por defecto.",
+        "en": "Assuming that what the command returns is all there is. The interesting fields, Description and info, are not among the defaults.",
+        "ru": "Считать, что команда возвращает всё, что есть. Интересные поля, Description и info, не входят в набор по умолчанию."
+      },
+      "Vocab": {
+        "es": [
+          "Get-ADUser",
+          "Get-ADComputer",
+          "Get-ADGroup",
+          "-Properties *",
+          "-Filter",
+          "ServicePrincipalName"
+        ],
+        "en": [
+          "Get-ADUser",
+          "Get-ADComputer",
+          "Get-ADGroup",
+          "-Properties *",
+          "-Filter",
+          "ServicePrincipalName"
+        ],
+        "ru": [
+          "Get-ADUser",
+          "Get-ADComputer",
+          "Get-ADGroup",
+          "-Properties *",
+          "-Filter",
+          "ServicePrincipalName"
+        ]
+      },
+      "Tips": {
+        "D6-R1": {
+          "es": "Primero lista al personal para saber a quién mirar, y después pídele a esa cuenta el campo donde se guardan las notas.",
+          "en": "List the staff first to know whom to look at, then ask that account for the field where notes are kept.",
+          "ru": "Сначала выведите список сотрудников, чтобы понять, на кого смотреть, а затем запросите у этой учётной записи поле, где хранятся заметки."
+        },
+        "D6-R2": {
+          "es": "Empieza por tu propia ficha. Pide todos los campos de golpe con el comodín y busca el que casi nadie usa.",
+          "en": "Start with your own record. Ask for every field at once with the wildcard and look for the one almost nobody uses.",
+          "ru": "Начните со своей карточки. Запросите все поля сразу с помощью подстановочного знака и найдите то, которым почти никто не пользуется."
+        },
+        "D6-R3": {
+          "es": "Los equipos tienen su propio comando y el mismo campo de notas. La pista del enunciado es literal.",
+          "en": "Computers have their own command and the same notes field. The clue in the title is literal.",
+          "ru": "У компьютеров своя команда и то же поле для заметок. Подсказка в названии задания буквальная."
+        },
+        "D6-R4": {
+          "es": "Lista todos los grupos y busca el que no tendría sentido en el organigrama de una empresa real.",
+          "en": "List every group and look for the one that would make no sense on a real company's org chart.",
+          "ru": "Выведите все группы и найдите ту, которая не имела бы смысла в оргструктуре настоящей компании."
+        },
+        "D6-OPT1": {
+          "es": "Lo que distingue a una cuenta de servicio es tener un nombre principal de servicio. Filtra por eso; aparece más de una.",
+          "en": "What sets a service account apart is having a service principal name. Filter on that; more than one shows up.",
+          "ru": "Служебную учётную запись отличает наличие имени участника-службы. Отфильтруйте по нему; таких записей окажется несколько."
+        },
+        "D6-WU": {
+          "es": "Por cada hallazgo, tres líneas: qué encontré, por qué está mal y cómo lo corregiría.",
+          "en": "For each finding, three lines: what I found, why it is wrong, and how I would fix it.",
+          "ru": "На каждую находку три строки: что я нашёл, почему это плохо и как бы я это исправил."
+        }
+      }
+    },
+    {
+      "Day": 7,
+      "Lede": {
+        "es": "Cambias de papel: hasta ahora buscabas, ahora configuras. Ninguno lleva bandera: el corrector revisa tu OU del dominio y comprueba si lo que se pidió existe de verdad.",
+        "en": "You switch roles: so far you searched, now you configure. None of these has a flag: the grader inspects your domain OU and checks whether what was asked for actually exists.",
+        "ru": "Вы меняете роль: до сих пор вы искали, теперь настраиваете. Флагов здесь нет: проверка смотрит ваше подразделение в домене и выясняет, действительно ли существует то, что требовалось."
+      },
+      "Start": {
+        "es": "Abre la consola de directivas y ubica tu OU dentro de {OU_SANDBOX}. Todo el día se trabaja ahí. Antes de configurar nada, crea un usuario de prueba en tu OU: lo vas a necesitar para comprobar que tus ajustes hacen algo.",
+        "en": "Open the policy console and find your OU under {OU_SANDBOX}. The whole day happens there. Before configuring anything, create a test user in your OU: you will need it to prove your settings actually do something.",
+        "ru": "Откройте консоль управления групповой политикой и найдите своё подразделение внутри {OU_SANDBOX}. Весь день вы работаете там. Прежде чем что-то настраивать, создайте в своём подразделении тестового пользователя: он понадобится, чтобы доказать, что ваши настройки действительно работают."
+      },
+      "Pitfall": {
+        "es": "No guardar la directiva. Un ajuste que no se escribió en disco no deja rastro y el corrector no puede verlo. Y en el fondo de pantalla, la mitad que cuenta no es el fondo: es el filtrado de seguridad.",
+        "en": "Not saving the policy. A setting that never reached disk leaves no trace, and the grader cannot see it. And for the wallpaper, the half that counts is not the wallpaper: it is security filtering.",
+        "ru": "Не сохранить политику. Настройка, которая не записалась на диск, не оставляет следов, и проверка её не увидит. А в задании с обоями главное не сами обои, а фильтры безопасности."
+      },
+      "Vocab": {
+        "es": [
+          "New-ADUser",
+          "New-ADGroup",
+          "Add-ADGroupMember",
+          "net user /times",
+          "New-GPO",
+          "New-GPLink",
+          "Set-GPPermission"
+        ],
+        "en": [
+          "New-ADUser",
+          "New-ADGroup",
+          "Add-ADGroupMember",
+          "net user /times",
+          "New-GPO",
+          "New-GPLink",
+          "Set-GPPermission"
+        ],
+        "ru": [
+          "New-ADUser",
+          "New-ADGroup",
+          "Add-ADGroupMember",
+          "net user /times",
+          "New-GPO",
+          "New-GPLink",
+          "Set-GPPermission"
+        ]
+      },
+      "Tips": {
+        "D7-G1": {
+          "es": "Se acepta de dos formas: una directiva vinculada a tu OU, o el horario puesto en una cuenta que crees dentro de ella. La segunda es una sola línea.",
+          "en": "It is accepted two ways: a policy linked to your OU, or logon hours set on an account you create inside it. The second takes a single line.",
+          "ru": "Принимается двумя способами: политика, связанная с вашим подразделением, или часы входа у учётной записи, которую вы создадите внутри него. Второй способ занимает одну строку."
+        },
+        "D7-G2": {
+          "es": "Auditoría de creación de procesos. También vale el registro de bloques de script de PowerShell. Guarda la directiva o no habrá nada que comprobar.",
+          "en": "Process creation auditing. PowerShell script block logging also counts. Save the policy or there will be nothing to verify.",
+          "ru": "Аудит создания процессов. Журналирование блоков скриптов PowerShell тоже засчитывается. Сохраните политику, иначе проверять будет нечего."
+        },
+        "D7-G3": {
+          "es": "Poner el fondo es la mitad fácil. La difícil: quita a Usuarios autenticados del filtrado y deja que aplique solo a un grupo tuyo.",
+          "en": "Setting the wallpaper is the easy half. The hard half: remove Authenticated Users from filtering and let it apply only to a group of your own.",
+          "ru": "Задать обои просто, это лёгкая половина. Трудная: уберите Прошедшие проверку (Authenticated Users) из фильтров безопасности и оставьте применение только для своей группы."
+        },
+        "D7-CREA": {
+          "es": "Usuario, grupo y el usuario dentro del grupo. El grupo primario no cuenta: tiene que ser uno que tú hayas creado.",
+          "en": "A user, a group, and the user inside the group. The primary group does not count: it has to be one you created.",
+          "ru": "Пользователь, группа и пользователь в этой группе. Основная группа не считается: группа должна быть создана вами."
+        },
+        "D7-WU": {
+          "es": "El informe completo: reconocimiento, acceso, escalada, botín y defensa. Es el entregable más valioso del laboratorio.",
+          "en": "The full report: reconnaissance, access, escalation, loot, and defense. It is the most valuable deliverable in the lab.",
+          "ru": "Полный отчёт: разведка, доступ, повышение привилегий, добыча и защита. Это самая ценная сдаваемая работа в лаборатории."
+        }
+      }
+    }
+  ],
+  "Writeups": {
+    "Title": {
+      "es": "Los writeups valen {WU} puntos",
+      "en": "Writeups are worth {WU} points",
+      "ru": "Отчёты приносят {WU} баллов"
+    },
+    "Text": {
+      "es": "Se califican con un solo criterio: que otra persona pueda repetir tus pasos leyendo tu texto. No por lo bien que te salió el reto.",
+      "en": "They are graded on a single criterion: someone else must be able to repeat your steps by reading your text. Not on how well the challenge went for you.",
+      "ru": "Их оценивают по одному критерию: другой человек должен суметь повторить ваши шаги, читая ваш текст. А не по тому, насколько удачно у вас прошло задание."
+    },
+    "Steps": [
+      {
+        "Label": {
+          "es": "Uno",
+          "en": "One",
+          "ru": "Один"
+        },
+        "Text": {
+          "es": "Copia la plantilla. Cada sección tiene puntos: si te saltas una, pierdes esos puntos.",
+          "en": "Copy the template. Each section carries points: skip one and you lose them.",
+          "ru": "Скопируйте шаблон. За каждый раздел начисляются баллы: пропустите раздел, и вы их потеряете."
+        }
+      },
+      {
+        "Label": {
+          "es": "Dos",
+          "en": "Two",
+          "ru": "Два"
+        },
+        "Text": {
+          "es": "Transcribe los comandos, no los cuentes. «Filtré con findstr» no cuenta; la línea completa sí.",
+          "en": "Transcribe the commands, do not paraphrase them. “I filtered with findstr” does not count; the full line does.",
+          "ru": "Приводите команды дословно, а не пересказывайте. «Отфильтровал через findstr» не засчитывается, а полная строка засчитывается."
+        }
+      },
+      {
+        "Label": {
+          "es": "Tres",
+          "en": "Three",
+          "ru": "Три"
+        },
+        "Text": {
+          "es": "Incluye lo que no funcionó y por qué. Vale tanto como el acierto: demuestra que entendiste.",
+          "en": "Include what did not work and why. It is worth as much as the win: it proves you understood.",
+          "ru": "Опишите, что не сработало и почему. Это ценится так же, как удача: так вы доказываете, что разобрались."
+        }
+      },
+      {
+        "Label": {
+          "es": "Cuatro",
+          "en": "Four",
+          "ru": "Четыре"
+        },
+        "Text": {
+          "es": "Relee como si fueras otra persona. Si una frase no permite reproducir el paso, reescríbela.",
+          "en": "Reread it as if you were someone else. If a sentence does not let you reproduce the step, rewrite it.",
+          "ru": "Перечитайте текст так, будто вы другой человек. Если фраза не позволяет повторить шаг, перепишите её."
+        }
+      }
+    ],
+    "Tip": {
+      "es": "Un atajo que funciona: deja un comentario cada vez que entregues. Al final del día tienes el writeup medio escrito y con las horas correctas, en lugar de reconstruirlo de memoria tres días después, que es justo cuando aparecen pasos que en realidad nunca diste.",
+      "en": "A shortcut that works: leave a comment every time you submit. By the end of the day your writeup is half written with the right timestamps, instead of rebuilt from memory three days later, which is exactly when steps you never took start to appear.",
+      "ru": "Работающий приём: оставляйте комментарий при каждой сдаче. К концу дня отчёт будет наполовину написан и с верным временем, а не восстановлен по памяти через три дня, когда как раз и появляются шаги, которых вы на самом деле не делали."
+    }
+  }
+}

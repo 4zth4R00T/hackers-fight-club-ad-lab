@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import { config } from '../../src/config.js';
+import { textos } from '../../src/i18n.js';
+import { leerCatalogo, leerDias } from '../../src/datos.js';
+
+const usuario = Astro.locals.usuario;
+if (!usuario) return Astro.redirect('/entrar');
+const idioma = Astro.locals.idioma ?? config.idioma;
+const t = textos(idioma);
+const csrf = Astro.locals.csrf ?? '';
+
+const r = Astro.url.searchParams.get('r');
+const txt = r ? (t.preguntas.resultados[r] ?? null) : null;
+const ok = r === 'ok' || r === 'okanon';
+
+const [retos, dias] = await Promise.all([leerCatalogo(idioma), leerDias(idioma)]);
+const ahora = new Date();
+const apertura = new Map(dias.map((d) => [d.dia, d.apertura]));
+const numeros = [...new Set(retos.map((x) => x.dia))].sort((a, b) => a - b);
+const abiertos = numeros
+  .filter((d) => { const a = apertura.get(d); return !a || ahora >= a; })
+  .map((d) => ({ dia: d, ids: retos.filter((x) => x.dia === d).map((x) => x.id) }));
+const cmdPista = config.marcadores['{CMD_HINT}'] ?? 'Get-Hint';
+---
+<Base titulo={t.nav.preguntas} activo="preguntas">
+  <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
+    <div>
+      <p class="ceja">{config.laboratorio} · {t.nav.preguntas}<span class="cursor"></span></p>
+      <h1 class="titulo-serif text-4xl mt-4 mb-3">{t.preguntas.titulo}</h1>
+      <p class="text-tenue text-dato mb-8 max-w-2xl leading-relaxed">{t.preguntas.sub}</p>
+      {txt && <div class:list={['panel', ok ? 'aviso-ok' : 'aviso-mal']}>{txt}</div>}
+      <form method="post" action="/preguntas" class="panel p-6 sm:p-7 space-y-6">
+        <input type="hidden" name="_csrf" value={csrf} />
+        <div>
+          <label for="reto" class="block titulo-panel mb-2">{t.preguntas.deQue} <span class="text-mudo normal-case tracking-normal">({t.preguntas.opcional})</span></label>
+          <select id="reto" name="reto" class="campo">
+            <option value="">{t.preguntas.ninguno}</option>
+            {abiertos.map((g) => (
+              <optgroup label={t.retos.dia(g.dia)}>
+                {g.ids.map((id) => <option value={id}>{id}</option>)}
+              </optgroup>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label for="texto" class="block titulo-panel mb-2">{t.preguntas.tuPregunta}</label>
+          <textarea id="texto" name="texto" rows="7" class="campo resize-y" required maxlength="2000" placeholder={t.preguntas.ejemplo}></textarea>
+        </div>
+        <label for="anonima" class="flex items-start gap-3 cursor-pointer text-dato">
+          <input type="checkbox" id="anonima" name="anonima" value="si" class="mt-1 accent-neon w-4 h-4 shrink-0" />
+          <span class="text-tenue leading-relaxed">{t.preguntas.anonima} <span class="text-mudo">{t.preguntas.anonimaNota}</span></span>
+        </label>
+        <button class="boton w-full sm:w-auto">{t.preguntas.boton}</button>
+      </form>
+    </div>
+    <aside class="space-y-6">
+      <div class="panel p-6 text-dato text-tenue leading-relaxed">
+        <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x01 ]</span>{t.preguntas.antes}</h2>
+        <p class="mb-3">{t.preguntas.antes1(cmdPista)}</p>
+        <p>{t.preguntas.antes2}</p>
+      </div>
+      <div class="panel p-6 text-dato text-tenue leading-relaxed">
+        <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x02 ]</span>{t.preguntas.mejor}</h2>
+        <ol class="space-y-2">
+          <li class="flex gap-3"><span class="text-neon shrink-0">01</span>{t.preguntas.mejor1}</li>
+          <li class="flex gap-3"><span class="text-neon shrink-0">02</span>{t.preguntas.mejor2}</li>
+          <li class="flex gap-3"><span class="text-neon shrink-0">03</span>{t.preguntas.mejor3}</li>
+        </ol>
+        <p class="mt-4 text-mudo">{t.preguntas.mejorNota}</p>
+      </div>
+      <div class="panel p-6 text-dato text-tenue leading-relaxed">
+        <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x03 ]</span>{t.preguntas.noBandera}</h2>
+        <p>{t.preguntas.noBanderaTxt}</p>
+      </div>
+    </aside>
+  </div>
+</Base>

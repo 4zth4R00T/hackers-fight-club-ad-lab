@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import { config } from '../../src/config.js';
+import { textos } from '../../src/i18n.js';
+import { MARCA_NOMBRE } from '../../src/marca.js';
+
+const idioma = Astro.locals.idioma ?? config.idioma;
+const t = textos(idioma);
+Astro.response.status = 404;
+---
+<Base titulo="404">
+  <div class="flex items-center justify-center py-10 sm:py-16">
+    <div class="w-full max-w-xl text-center">
+      <div class="flex justify-center mb-8"><Logo tam={140} /></div>
+      <p class="ceja mb-4">{MARCA_NOMBRE} · 404<span class="cursor"></span></p>
+      <div class="font-serif font-light text-tinta leading-none mb-6 tracking-amplio" style="font-size:clamp(4rem,16vw,7.5rem)">404</div>
+      <h1 class="font-serif text-2xl sm:text-3xl text-tinta mb-4">{t.error.e404t}</h1>
+      <p class="text-tenue text-dato leading-relaxed mb-10">{t.error.e404x}</p>
+      <div class="flex flex-wrap gap-5 justify-center items-center">
+        <a href="/" class="boton">{t.nav.tabla}</a>
+        <a href="/retos" class="enlace text-dato">{t.error.verRetos}</a>
+      </div>
+    </div>
+  </div>
+</Base>

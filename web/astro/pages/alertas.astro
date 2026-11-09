@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import { config } from '../../src/config.js';
+import { textos } from '../../src/i18n.js';
+import { leerBase } from '../../src/datos.js';
+
+const usuario = Astro.locals.usuario;
+if (!usuario?.esInstructor) return Astro.redirect('/entrar?e=solo-profes');
+const idioma = Astro.locals.idioma ?? config.idioma;
+const t = textos(idioma);
+const db = await leerBase();
+
+interface Aviso { momento: string; alumno: string; tipo: string; texto: string; gravedad: 'alta' | 'media' | 'baja'; }
+const avisos: Aviso[] = [];
+
+for (const f of Object.values(db.Alumnos)) {
+  for (const c of (f.Copias ?? []) as Array<Record<string, unknown>>) {
+    avisos.push({
+      momento: String(c['Momento'] ?? ''),
+      alumno: f.Sam,
+      tipo: t.alertas.ajena,
+      texto: t.alertas.entrego(String(c['Reto'] ?? '?'), String(c['DeQuien'] ?? t.alertas.otra)),
+      gravedad: 'alta',
+    });
+  }
+  for (const a of (f.Alertas ?? []) as Array<Record<string, unknown>>) {
+    const tipo = String(a['Tipo'] ?? t.alertas.senal);
+    avisos.push({
+      momento: String(a['Momento'] ?? ''),
+      alumno: f.Sam,
+      tipo,
+      texto: String(a['Texto'] ?? a['Detalle'] ?? ''),
+      gravedad: /canari|canary|se.uelo|decoy/i.test(tipo) ? 'alta' : 'media',
+    });
+  }
+}
+for (const e of db.Eventos ?? []) {
+  if (e.Tipo === 'COPIA' || e.Tipo === 'ALERTA') {
+    avisos.push({ momento: e.Momento, alumno: e.Alumno, tipo: e.Tipo, texto: e.Texto, gravedad: e.Tipo === 'COPIA' ? 'alta' : 'media' });
+  }
+}
+avisos.sort((a, b) => (b.momento ?? '').localeCompare(a.momento ?? ''));
+
+const altas = avisos.filter((a) => a.gravedad === 'alta').length;
+const porAlumno = new Map<string, number>();
+for (const a of avisos) porAlumno.set(a.alumno, (porAlumno.get(a.alumno) ?? 0) + 1);
+const reincidentes = [...porAlumno.entries()].filter(([, n]) => n > 1).sort((a, b) => b[1] - a[1]);
+const COLOR = { alta: 'border-l-rosa/70 text-rosa', media: 'border-l-ambar/70 text-ambar', baja: 'border-l-borde text-tenue' } as const;
+const cuando = (iso: string): string => { try { return new Date(iso).toLocaleString(t.locale); } catch { return iso; } };
+const informe = config.marcadores['{CMD_REPORT}'] ?? `${config.raiz}\\engine\\Get-IntegrityReport.ps1`;
+---
+<Base titulo={t.alertas.titulo} activo="alertas" refrescoSeg={60}>
+  <header class="mb-10">
+    <p class="ceja">{config.laboratorio} · {t.alertas.seccion}<span class="cursor"></span></p>
+    <h1 class="titulo-serif text-4xl sm:text-5xl mt-4">{t.alertas.titulo}</h1>
+    <p class="text-mudo text-xs mt-3">{t.alertas.sub(avisos.length, altas)}</p>
+  </header>
+  <div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
+    <div class="min-w-0">
+      <section class="panel p-4 sm:p-6">
+        <h2 class="titulo-panel mb-5"><span class="nfo">[ 0x01 ]</span>{t.alertas.registro}</h2>
+        {avisos.length === 0 && <p class="py-10 text-center text-neon text-dato italic">{t.alertas.limpio}</p>}
+        <ul class="space-y-2">
+          {avisos.map((a) => (
+            <li class:list={['border-l-2 pl-4 py-2', COLOR[a.gravedad]]}>
+              <div class="flex flex-wrap items-baseline gap-x-3">
+                <b class="text-dato">{a.alumno}</b>
+                <span class="etiqueta bg-panel border border-borde/30">{a.tipo}</span>
+                <span class="text-mudo text-xs ml-auto">{cuando(a.momento)}</span>
+              </div>
+              <p class="text-dato mt-1 leading-relaxed">{a.texto}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+    <aside class="min-w-0 space-y-6">
+      {reincidentes.length > 0 && (
+        <section class="panel p-6">
+          <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x02 ]</span>{t.alertas.reincidentes}</h2>
+          <ul class="text-dato">
+            {reincidentes.map(([sam, n]) => (
+              <li class="flex justify-between py-2 border-b border-borde/15 last:border-0"><span>{sam}</span><span class="text-rosa">{n}</span></li>
+            ))}
+          </ul>
+        </section>
+      )}
+      <section class="panel p-6 text-dato text-tenue leading-relaxed space-y-3">
+        <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x03 ]</span>{t.alertas.leer}</h2>
+        <p>{t.alertas.leer1}</p>
+        <p>{t.alertas.leer2}</p>
+        <p>{t.alertas.leer3}</p>
+      </section>
+      <section class="panel p-6 text-dato text-tenue leading-relaxed">
+        <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x04 ]</span>{t.alertas.informe}</h2>
+        <p class="mb-2">{t.alertas.informeTxt}</p>
+        <code class="block text-cian/90 text-xs leading-relaxed break-all">{informe}</code>
+      </section>
+    </aside>
+  </div>
+</Base>

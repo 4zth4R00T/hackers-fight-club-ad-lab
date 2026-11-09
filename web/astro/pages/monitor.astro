@@ -1,0 +1,118 @@
+---
+import Base from '../layouts/Base.astro';
+import { config } from '../../src/config.js';
+import { textos } from '../../src/i18n.js';
+import { leerMonitor } from '../../src/datos.js';
+
+const usuario = Astro.locals.usuario ?? null;
+if (!usuario?.esInstructor) return Astro.redirect('/entrar?e=solo-profes');
+const idioma = Astro.locals.idioma ?? config.idioma;
+const t = textos(idioma);
+const csrf = Astro.locals.csrf ?? '';
+const d = await leerMonitor();
+const hecho = Astro.url.searchParams.get('r') === 'reiniciado';
+
+function rel(iso: string): string {
+  try {
+    const s = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 1000));
+    if (s < 3600) return t.monitor.hace(s);
+    return new Date(iso).toTimeString().slice(0, 5);
+  } catch { return ''; }
+}
+const sesiones = d.Sesiones ?? [];
+const tickets = d.Tickets ?? [];
+const shares = d.Shares ?? [];
+const fallos = d.Fallos ?? [];
+const equipos = (d.Equipos ?? []).slice(0, 14);
+---
+<Base titulo={t.monitor.seccion} activo="monitor" refrescoSeg={15}>
+  <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+    <div>
+      <p class="ceja">{config.laboratorio} · {t.monitor.seccion}<span class="cursor"></span></p>
+      <h1 class="titulo-serif text-4xl sm:text-5xl mt-4">{t.monitor.titulo}</h1>
+      <p class="text-mudo text-xs mt-3"><span class="inline-block w-2 h-2 rounded-full bg-neon animate-pulse mr-2 align-middle"></span>{t.monitor.vivo}</p>
+    </div>
+    <form method="post" action="/monitor/reiniciar" data-confirmar={t.monitor.confirmar}>
+      <input type="hidden" name="_csrf" value={csrf} />
+      <button class="boton-riesgo">{t.monitor.reiniciar}</button>
+    </form>
+  </div>
+
+  {hecho && <div class="panel aviso-ok">{t.monitor.hecho}</div>}
+
+  <div class="grid gap-5 lg:grid-cols-2">
+    <section class="panel p-6 min-w-0">
+      <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x01 ]</span>{t.monitor.dentro}</h2>
+      <div class="tabla-scroll">
+        <table class="w-full text-dato min-w-[420px]">
+          <tbody>
+            {sesiones.length === 0 && <tr><td class="py-3 text-mudo italic">{t.monitor.nadie}</td></tr>}
+            {sesiones.map((s) => (
+              <tr class="border-b border-borde/15 last:border-0">
+                <td class="py-2 pr-3 text-cian/90">{s.Usuario}</td>
+                <td class="py-2 pr-3 text-tenue">{s.Tipo}</td>
+                <td class="py-2 pr-3 text-mudo text-xs">{s.Origen}</td>
+                <td class="py-2 text-mudo text-xs whitespace-nowrap">{rel(s.Cuando)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="panel p-6 min-w-0">
+      <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x02 ]</span>{t.monitor.kerberos}</h2>
+      <ul class="max-h-80 overflow-y-auto pr-1">
+        {tickets.length === 0 && <li class="py-2 text-mudo italic text-dato">{t.monitor.sinKerberos}</li>}
+        {tickets.map((k) => (
+          <li class="py-2 border-b border-borde/15 last:border-0 text-dato leading-relaxed">
+            <span class:list={['etiqueta mr-2', k.Clase === 'TGT' ? 'bg-neon/10 text-neon' : 'bg-cian/10 text-cian']}>{k.Clase}</span>
+            <b>{k.Usuario}</b> {k.Que}
+            <span class="text-mudo text-xs ml-1">{rel(k.Cuando)}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
+
+  <div class="grid gap-5 lg:grid-cols-3 mt-5">
+    <section class="panel p-6 min-w-0">
+      <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x03 ]</span>{t.monitor.recursos}</h2>
+      <ul class="max-h-72 overflow-y-auto pr-1">
+        {shares.length === 0 && <li class="py-2 text-mudo italic text-dato">{t.monitor.sinRecursos}</li>}
+        {shares.map((s) => (
+          <li class="py-2 border-b border-borde/15 last:border-0 text-dato">
+            <b>{s.Usuario}</b> {t.monitor.abrio} <code class="text-violeta">{s.Recurso}</code>
+            {s.Fichero && <span class="text-mudo text-xs"> {s.Fichero}</span>}
+            <span class="text-mudo text-xs ml-1">{rel(s.Cuando)}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+    <section class="panel p-6 min-w-0">
+      <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x04 ]</span>{t.monitor.fallos}</h2>
+      <ul class="max-h-72 overflow-y-auto pr-1">
+        {fallos.length === 0 && <li class="py-2 text-neon italic text-dato">{t.monitor.sinFallos}</li>}
+        {fallos.map((f) => (
+          <li class="py-2 border-b border-borde/15 last:border-0 text-dato text-rosa">
+            <b class="text-rosa">{f.Usuario}</b> {t.monitor.desde} {f.Desde}
+            {f.Motivo && <span class="text-mudo text-xs"> {t.monitor.via} {f.Motivo}</span>}
+            <span class="text-mudo text-xs ml-1">{rel(f.Cuando)}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+    <section class="panel p-6 min-w-0">
+      <h2 class="titulo-panel mb-4"><span class="nfo">[ 0x05 ]</span>{t.monitor.equipos}</h2>
+      <ul class="max-h-72 overflow-y-auto pr-1">
+        {equipos.length === 0 && <li class="py-2 text-mudo italic text-dato">{t.monitor.sinEquipos}</li>}
+        {equipos.map((e) => (
+          <li class="py-1.5 border-b border-borde/15 last:border-0 text-dato"><b>{e.Nombre}</b><span class="text-mudo text-xs ml-2">{rel(e.Visto)}</span></li>
+        ))}
+      </ul>
+    </section>
+  </div>
+
+  <div class="panel border-l-2 border-l-cian/60 p-6 mt-6 text-dato text-tenue leading-relaxed">
+    <b>{t.monitor.leer}</b> {t.monitor.leerTxt}
+  </div>
+</Base>
