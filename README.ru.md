@@ -1,10 +1,12 @@
+<p align="center"><a href="README.md">Español</a> · <a href="README.en.md">English</a> · <b>Русский</b></p>
+
 <p align="center"><img src="assets/logo/hfc-logo-256.png" width="160" alt="Hackers Fight Club"></p>
 
 <h1 align="center">Hackers Fight Club · Лаборатория Active Directory</h1>
 
 <p align="center">Windows Server 2025 · семь дней практики · свой флаг у каждого учащегося · сайт с рейтингом</p>
 
-<p align="center"><a href="README.md">Versión en español</a> · <a href="README.en.md">English version</a> · <a href="https://4zth4r00t.github.io/hackers-fight-club-ad-lab/ru/">Страница проекта</a></p>
+<p align="center"><a href="https://4zth4r00t.github.io/hackers-fight-club-ad-lab/ru/">Страница проекта</a> · <a href="engine/material/README.ru.md">Материалы для учащихся</a></p>
 
 Этот репозиторий с нуля поднимает контроллер домена на Windows Server 2025, готовый к обучению Windows и Active Directory. Курс рассчитан на семь дней: командная строка, реестр, NTFS, PowerShell, сеть, разведка каталога и групповые политики. В комплекте сайт с рейтингом, внутренняя почта, интранет, обои с именем вошедшего пользователя и скрипты для добавления учащихся и преподавателей из файла CSV.
 
@@ -52,6 +54,8 @@
 | `lang` | Русские тексты и имена, которые используют скрипты сервера и компьютеров учащихся |
 | `examples` | Примеры файлов CSV с вымышленными именами, на испанском, английском и русском |
 | `site` | Страница проекта, собранная на Astro и опубликованная через GitHub Pages |
+
+Вся документация доступна на испанском, английском и русском: это руководство, страница проекта, сайт с рейтингом и материалы для учащихся, [оглавление](engine/material/README.ru.md) которых связывает каждое руководство с переводами и объясняет, как их редактировать.
 
 ## Настройка
 

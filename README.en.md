@@ -1,10 +1,12 @@
+<p align="center"><a href="README.md">Español</a> · <b>English</b> · <a href="README.ru.md">Русский</a></p>
+
 <p align="center"><img src="assets/logo/hfc-logo-256.png" width="160" alt="Hackers Fight Club"></p>
 
 <h1 align="center">Hackers Fight Club · Active Directory Lab</h1>
 
 <p align="center">Windows Server 2025 · seven days of practice · per student flags · scoreboard website</p>
 
-<p align="center"><a href="README.md">Versión en español</a> · <a href="README.ru.md">Версия на русском</a> · <a href="https://4zth4r00t.github.io/hackers-fight-club-ad-lab/en/">Project page</a></p>
+<p align="center"><a href="https://4zth4r00t.github.io/hackers-fight-club-ad-lab/en/">Project page</a> · <a href="engine/material/README.en.md">Student material</a></p>
 
 This repository builds, from scratch, a Windows Server 2025 domain controller ready to teach Windows and Active Directory. The course spans seven days: the command prompt, the registry, NTFS, PowerShell, networking, directory enumeration and Group Policy. It ships with a scoreboard website, internal mail, an intranet, a wallpaper that shows the name of whoever signs in, and scripts to enroll students and instructors from a CSV file.
 
@@ -52,6 +54,8 @@ The lab works the same on Windows Server in English, in Spanish from Spain, with
 | `lang` | The Russian texts and names used by the server and student scripts |
 | `examples` | Sample CSV files with fictional names, in Spanish, English and Russian |
 | `site` | The project page, built with Astro and published with GitHub Pages |
+
+All documentation is available in Spanish, English and Russian: this manual, the project page, the scoreboard website and the student material, whose [index](engine/material/README.en.md) maps every guide to its translations and explains how to edit them.
 
 ## Configuration
 

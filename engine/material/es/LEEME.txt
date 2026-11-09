@@ -8,6 +8,7 @@ Material del laboratorio de Windows y Active Directory.
   {MATERIAL_DIR}       chuletas de cada día
   {TEMPLATES_DIR}      plantillas para tus writeups
   Scripts              Join-Lab.ps1 y lab.json para unir tu equipo
+  lang                 este mismo material en español (es), inglés (en) y ruso (ru)
 
 Este recurso es de solo lectura. Tu carpeta de trabajo es H: y tus
 entregas van en H:\{DELIVER_DIR}.

@@ -1,10 +1,12 @@
+<p align="center"><b>Español</b> · <a href="README.en.md">English</a> · <a href="README.ru.md">Русский</a></p>
+
 <p align="center"><img src="assets/logo/hfc-logo-256.png" width="160" alt="Hackers Fight Club"></p>
 
 <h1 align="center">Hackers Fight Club · Laboratorio de Active Directory</h1>
 
 <p align="center">Windows Server 2025 · siete días de práctica · banderas por alumno · web de puntuación</p>
 
-<p align="center"><a href="README.en.md">English version</a> · <a href="README.ru.md">Версия на русском</a> · <a href="https://4zth4r00t.github.io/hackers-fight-club-ad-lab/">Página del proyecto</a></p>
+<p align="center"><a href="https://4zth4r00t.github.io/hackers-fight-club-ad-lab/">Página del proyecto</a> · <a href="engine/material/README.md">Material del alumnado</a></p>
 
 Este repositorio levanta desde cero un controlador de dominio con Windows Server 2025 preparado para enseñar Windows y Active Directory. El curso cubre siete días: consola, registro, NTFS, PowerShell, red, enumeración del directorio y directivas de grupo. Incluye una web de puntuación, correo interno, una intranet, un fondo de pantalla con el nombre de quien inicia sesión y scripts para dar de alta alumnado e instructores desde un CSV.
 
@@ -52,6 +54,8 @@ El laboratorio funciona igual sobre Windows Server en inglés, en español de Es
 | `lang` | Los textos y los nombres en ruso que usan los scripts del servidor y del alumnado |
 | `examples` | CSV de ejemplo con nombres ficticios, en español, inglés y ruso |
 | `site` | La página del proyecto en Astro, publicada con GitHub Pages |
+
+Toda la documentación está en español, inglés y ruso: este manual, la página del proyecto, la web de puntuación y el material del alumnado, cuyo [índice](engine/material/README.md) relaciona cada guía con sus traducciones y explica cómo editarlas.
 
 ## Configuración
 

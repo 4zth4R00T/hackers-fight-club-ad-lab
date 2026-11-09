@@ -940,6 +940,13 @@ function Publish-PublicContent {
         Write-TextFile -Path $dst -Text (Expand-EngineText ([IO.File]::ReadAllText($f.FullName)))
         $count++
     }
+    foreach ($ld in @(Get-ChildItem -LiteralPath (Join-Path $script:EngineRoot 'engine\material') -Directory -ErrorAction SilentlyContinue)) {
+        foreach ($f in @(Get-ChildItem -LiteralPath $ld.FullName -Recurse -File -ErrorAction SilentlyContinue)) {
+            $rel = $f.FullName.Substring($ld.FullName.Length).TrimStart('\', '/')
+            Write-TextFile -Path (Join-Path $pub ('lang\{0}\{1}' -f $ld.Name, $rel)) -Text (Expand-EngineText ([IO.File]::ReadAllText($f.FullName)))
+            $count++
+        }
+    }
     Write-JsonFile -Path (Join-Path $pub 'retos.json') -Object @(Get-PublicCatalog) -Depth 4
     Write-JsonFile -Path (Join-Path $pub 'pistas.json') -Object (Get-HintFile) -Depth 5
     $cal = New-DefaultCalendar
