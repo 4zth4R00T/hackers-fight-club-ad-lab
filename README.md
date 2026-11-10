@@ -10,7 +10,7 @@
 
 Este repositorio levanta desde cero un controlador de dominio con Windows Server 2025 preparado para enseñar Windows y Active Directory. El curso cubre siete días: consola, registro, NTFS, PowerShell, red, enumeración del directorio y directivas de grupo. Incluye una web de puntuación, correo interno, una intranet, un fondo de pantalla con el nombre de quien inicia sesión y scripts para dar de alta alumnado e instructores desde un CSV.
 
-Lo desarrolló Aztharot para el Hackers Fight Club. Si te sirve, sígueme en Instagram: [@its_aztharot.exe](https://instagram.com/its_aztharot.exe).
+Lo desarrolló Aztharot para Hackers Fight Club. Si te sirve, sígueme en Instagram: [@its_aztharot.exe](https://instagram.com/its_aztharot.exe).
 
 ## Fecha de corte
 
